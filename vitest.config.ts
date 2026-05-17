@@ -9,8 +9,8 @@ export default defineConfig({
     include: ["src/**/*.test.{ts,tsx}", "tests/**/*.test.{ts,tsx}"]
   },
   resolve: {
-    alias: {
-      "~": path.resolve(__dirname, "src")
-    }
+    alias: [
+      { find: /^~(.+)$/, replacement: path.resolve(__dirname, "src/$1") }
+    ]
   }
 })
