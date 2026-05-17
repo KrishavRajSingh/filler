@@ -195,6 +195,22 @@ matcher consults these alongside the core schema.
 
 ## 5. Field detection and mapping pipeline
 
+### Plain-language primer
+
+The pipeline is "heuristic first, LLM fallback." A **heuristic match** is a
+cheap, AI-free first pass. For each form field, the content script reads
+whatever text labels it can see (`<label>`, `aria-label`, `placeholder`,
+`name`, `id`) and computes a string-similarity score against every key in the
+user's profile plus that key's aliases. Obvious matches like
+`"Email"` ↔ `profile.identity.email` score near 1.0 and get filled with no
+network call. Only the fields the heuristic could not confidently map
+(odd labels, essay questions, custom radios) are bundled into a single
+LLM call which returns the best value for each. This keeps the common
+case free and instant, and reserves the LLM for the long tail of
+weird-shaped fields where it actually adds value.
+
+### Pipeline detail
+
 The engine. Sequence on a Fill click:
 
 ```
