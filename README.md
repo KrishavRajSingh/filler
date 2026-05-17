@@ -16,6 +16,22 @@ You can start editing the popup by modifying `popup.tsx`. It should auto-update 
 
 For further guidance, [visit our Documentation](https://docs.plasmo.com/)
 
+## AI Form Filler MVP
+
+Run both the extension and the local Next.js API:
+
+```bash
+pnpm dev
+```
+
+Load the Chrome development build from `build/chrome-mv3-dev`.
+
+Use the extension options page to create a local structured profile. Then open `http://localhost:1947/debug-form`, click the extension popup, and choose "Fill this form".
+
+The MVP fills only visible supported fields. It does not submit forms. Profile data is stored locally in extension storage and is sent to the local fill API only when the user clicks fill.
+
+The fill API uses Mastra. Set `FILLER_MODEL` to a Mastra model-router id such as `openai/gpt-5.4`, and configure the matching provider API key in your local environment.
+
 ## Making production build
 
 Run the following:
