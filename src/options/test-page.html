@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Filler test page</title>
+    <style>
+      body { font-family: ui-sans-serif, system-ui, sans-serif; max-width: 560px; margin: 2rem auto; padding: 0 1rem; color: #111; }
+      h1 { font-size: 1.25rem; margin-bottom: 0.25rem; }
+      p.lead { color: #555; margin-top: 0; }
+      label { display: block; margin: 0.75rem 0 0.25rem; font-size: 0.85rem; color: #333; }
+      input, textarea, select { display: block; width: 100%; padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px; font: inherit; }
+      fieldset { border: 1px solid #ddd; padding: 0.75rem 1rem; margin: 1rem 0; }
+      legend { font-size: 0.85rem; color: #333; }
+      button { margin-top: 1rem; padding: 0.5rem 1rem; border: 1px solid #333; background: #111; color: white; border-radius: 4px; cursor: pointer; }
+    </style>
+  </head>
+  <body>
+    <h1>Filler test page</h1>
+    <p class="lead">A synthetic form for verifying Filler works end-to-end. Plan C will fill this.</p>
+    <form>
+      <label for="fullName">Full name</label>
+      <input id="fullName" name="fullName" type="text" autocomplete="name" />
+
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" autocomplete="email" />
+
+      <label for="linkedin">LinkedIn URL</label>
+      <input id="linkedin" name="linkedin" type="url" />
+
+      <label for="company">Company name</label>
+      <input id="company" name="company" type="text" />
+
+      <label for="oneLiner">One-line description of what you're building</label>
+      <input id="oneLiner" name="oneLiner" type="text" />
+
+      <label for="country">Country</label>
+      <select id="country" name="country">
+        <option value="">Select…</option>
+        <option value="US">United States</option>
+        <option value="GB">United Kingdom</option>
+        <option value="IN">India</option>
+        <option value="DE">Germany</option>
+      </select>
+
+      <fieldset>
+        <legend>Are you technical?</legend>
+        <label><input type="radio" name="technical" value="yes" /> Yes</label>
+        <label><input type="radio" name="technical" value="no" /> No</label>
+      </fieldset>
+
+      <label for="why">Why are you applying?</label>
+      <textarea id="why" name="why" rows="5"></textarea>
+
+      <button type="submit">Submit</button>
+    </form>
+  </body>
+</html>
