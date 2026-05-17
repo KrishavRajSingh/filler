@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react"
 
 import type { UserProfile } from "~lib/fill-schemas"
-import { createId } from "~lib/profile-storage"
+import { createId, restoreStarterProfile } from "~lib/profile-storage"
 
 type ProfileEditorProps = {
   profile: UserProfile
@@ -69,6 +69,13 @@ export function ProfileEditor({ profile, onChange }: ProfileEditorProps) {
     onChange({ sections: nextSections })
   }
 
+  function restoreStarters() {
+    const nextProfile = restoreStarterProfile(profile)
+
+    setSelectedSectionId(nextProfile.sections[0]?.id ?? "")
+    onChange(nextProfile)
+  }
+
   function addField() {
     if (!selectedSection) return
 
@@ -128,6 +135,13 @@ export function ProfileEditor({ profile, onChange }: ProfileEditorProps) {
             Add
           </button>
         </div>
+        {profile.sections.length > 0 ? (
+          <button
+            onClick={restoreStarters}
+            style={{ ...secondaryButtonStyle, marginTop: 10, width: "100%" }}>
+            Restore starter sections
+          </button>
+        ) : null}
 
         <div style={{ display: "grid", gap: 8, marginTop: 14 }}>
           {profile.sections.map((section) => {
@@ -229,10 +243,21 @@ export function ProfileEditor({ profile, onChange }: ProfileEditorProps) {
           </>
         ) : (
           <div style={{ padding: 24, textAlign: "center" }}>
-            <p>No sections yet. Create one to start saving profile details.</p>
-            <button onClick={addSection} style={primaryButtonStyle}>
-              Create first section
-            </button>
+            <p>No sections yet. Restore the starter profile keys or create a custom section.</p>
+            <div
+              style={{
+                display: "flex",
+                gap: 10,
+                justifyContent: "center",
+                marginTop: 14
+              }}>
+              <button onClick={restoreStarters} style={primaryButtonStyle}>
+                Restore starter sections
+              </button>
+              <button onClick={addSection} style={secondaryButtonStyle}>
+                Create custom section
+              </button>
+            </div>
           </div>
         )}
       </main>
@@ -275,6 +300,13 @@ const smallButtonStyle = {
   fontSize: 12,
   marginLeft: "auto",
   padding: "6px 10px"
+} satisfies React.CSSProperties
+
+const secondaryButtonStyle = {
+  ...primaryButtonStyle,
+  background: "#fff",
+  border: "1px solid #decfba",
+  color: "#2c2118"
 } satisfies React.CSSProperties
 
 const dangerButtonStyle = {

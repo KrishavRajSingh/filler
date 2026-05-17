@@ -3,11 +3,53 @@ import type { UserProfile } from "./fill-schemas"
 export const PROFILE_STORAGE_KEY = "filler:user-profile"
 
 const starterSections = [
-  "Personal Info",
-  "Career",
-  "Startup",
-  "Projects",
-  "Custom"
+  {
+    title: "Personal Info",
+    fields: [
+      "Full name",
+      "Email",
+      "Phone",
+      "Location",
+      "LinkedIn",
+      "GitHub",
+      "Website"
+    ]
+  },
+  {
+    title: "Career",
+    fields: [
+      "Current role",
+      "Current company",
+      "Years of experience",
+      "Skills",
+      "Previous companies",
+      "Previous roles",
+      "Work authorization"
+    ]
+  },
+  {
+    title: "Education",
+    fields: ["School", "Degree", "Field of study", "Graduation year", "GPA"]
+  },
+  {
+    title: "Startup",
+    fields: [
+      "Company name",
+      "One-liner",
+      "Stage",
+      "Website",
+      "Traction",
+      "Funding"
+    ]
+  },
+  {
+    title: "Projects",
+    fields: ["Project names", "Descriptions", "Links", "Technologies"]
+  },
+  {
+    title: "Custom",
+    fields: ["Other facts", "Reusable answers", "Notes"]
+  }
 ]
 
 function slugify(value: string) {
@@ -27,11 +69,40 @@ export function createId(prefix: string) {
 
 export function createStarterProfile(): UserProfile {
   return {
-    sections: starterSections.map((title) => ({
-      id: slugify(title),
-      title,
-      fields: []
+    sections: starterSections.map((section) => ({
+      id: slugify(section.title),
+      title: section.title,
+      fields: section.fields.map((label) => ({
+        id: `${slugify(section.title)}-${slugify(label)}`,
+        label,
+        value: ""
+      }))
     }))
+  }
+}
+
+export function restoreStarterProfile(profile: UserProfile): UserProfile {
+  const starterProfile = createStarterProfile()
+  const starterSectionsById = new Map(
+    starterProfile.sections.map((section) => [section.id, section])
+  )
+  const profileSectionIds = new Set(profile.sections.map((section) => section.id))
+
+  return {
+    sections: [
+      ...profile.sections.map((section) => {
+        const starterSection = starterSectionsById.get(section.id)
+        if (!starterSection) return section
+
+        const fieldIds = new Set(section.fields.map((field) => field.id))
+        const missingFields = starterSection.fields.filter(
+          (field) => !fieldIds.has(field.id)
+        )
+
+        return { ...section, fields: [...section.fields, ...missingFields] }
+      }),
+      ...starterProfile.sections.filter((section) => !profileSectionIds.has(section.id))
+    ]
   }
 }
 
@@ -66,7 +137,7 @@ export function hasProfileContent(profile: UserProfile) {
 export async function getStoredProfile() {
   const value = await getStoredValue(PROFILE_STORAGE_KEY)
 
-  return isUserProfile(value) ? value : null
+  return isUserProfile(value) ? restoreStarterProfile(value) : null
 }
 
 export async function saveStoredProfile(profile: UserProfile) {
