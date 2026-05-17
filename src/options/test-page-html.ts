@@ -1,4 +1,4 @@
-<!doctype html>
+export const TEST_PAGE_HTML = `<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -35,7 +35,7 @@
 
       <label for="country">Country</label>
       <select id="country" name="country">
-        <option value="">Select…</option>
+        <option value="">Select\u2026</option>
         <option value="US">United States</option>
         <option value="GB">United Kingdom</option>
         <option value="IN">India</option>
@@ -55,3 +55,4 @@
     </form>
   </body>
 </html>
+`

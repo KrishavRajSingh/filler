@@ -6,6 +6,7 @@ import { Startup } from "./sections/Startup"
 import { SavedAnswers } from "./sections/SavedAnswers"
 import { CustomFields } from "./sections/CustomFields"
 import { Settings } from "./sections/Settings"
+import { TEST_PAGE_HTML } from "./test-page-html"
 
 const SECTIONS = [
   { id: "identity", label: "Identity", render: () => <Identity /> },
@@ -40,13 +41,16 @@ export function Layout() {
           ))}
         </nav>
         <div className="mt-6 border-t border-gray-200 pt-4">
-          <a
-            href="/options/test-page.html"
-            target="_blank"
-            rel="noreferrer"
-            className="block rounded border border-gray-300 px-3 py-2 text-center text-xs hover:bg-gray-100">
+          <button
+            type="button"
+            onClick={() => {
+              const blob = new Blob([TEST_PAGE_HTML], { type: "text/html" })
+              const url = URL.createObjectURL(blob)
+              window.open(url, "_blank")
+            }}
+            className="block w-full rounded border border-gray-300 px-3 py-2 text-center text-xs hover:bg-gray-100">
             Test on a page
-          </a>
+          </button>
         </div>
       </aside>
       <main className="flex-1 overflow-y-auto p-8">{current.render() as ReactNode}</main>

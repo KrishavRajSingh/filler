@@ -59,12 +59,6 @@
     "permissions": [
       "tabs",
       "storage"
-    ],
-    "web_accessible_resources": [
-      {
-        "resources": ["options/test-page.html"],
-        "matches": ["<all_urls>"]
-      }
     ]
   }
 }
