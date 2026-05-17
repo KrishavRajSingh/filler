@@ -46,11 +46,25 @@
     "vitest": "^4.1.6"
   },
   "manifest": {
+    "name": "Filler",
+    "description": "Fill any web form in one click using a profile you set up once.",
+    "options_ui": {
+      "page": "options.html",
+      "open_in_tab": true
+    },
     "host_permissions": [
-      "https://*/*"
+      "https://*/*",
+      "http://*/*"
     ],
     "permissions": [
-      "tabs"
+      "tabs",
+      "storage"
+    ],
+    "web_accessible_resources": [
+      {
+        "resources": ["options/test-page.html"],
+        "matches": ["<all_urls>"]
+      }
     ]
   }
 }
