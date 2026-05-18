@@ -1,49 +1,156 @@
-This is a [Plasmo extension](https://docs.plasmo.com/) project bootstrapped with [`plasmo init`](https://www.npmjs.com/package/plasmo).
+# Filler
 
-## Getting Started
+Forms filled in one click.
 
-First, run the development server:
+Filler is a Chrome extension that reads online forms, understands what each
+question is asking, and answers from a saved local profile. It is built for
+messy real-world forms, not just simple browser autofill.
+
+## What It Does
+
+- Saves a reusable profile with personal, career, education, startup, project,
+  and custom facts.
+- Extracts visible form questions from the current page.
+- Handles native inputs plus custom controls such as dropdowns, radio groups,
+  checkboxes, and ARIA listboxes.
+- Uses AI to match differently worded questions to the right profile answer.
+- Drafts reviewable answers when a form asks open-ended questions.
+- Fills fields only after the user clicks the extension button.
+- Does not submit forms.
+
+Example:
+
+```text
+Form asks:
+When did you finish college?
+
+Your profile has:
+Graduation year: 2025
+
+Filler writes:
+2025
+```
+
+## Tech Stack
+
+- [Plasmo](https://docs.plasmo.com/) for the Chrome extension.
+- Next.js for the landing page and local fill API.
+- Mastra for the AI fill planner.
+- Vercel Analytics for website analytics.
+- Vitest + Testing Library for tests.
+
+## Project Structure
+
+```text
+src/contents/form-filler.ts      Content script that extracts and fills forms
+src/lib/form-extraction.ts       Turns DOM controls into AI-readable fields
+src/lib/form-fill.ts             Applies AI fill instructions back to the page
+src/lib/form-targets.ts          Finds native and ARIA fill targets
+src/lib/profile-storage.ts       Stores the local user profile
+src/lib/tab-frames.ts            Coordinates extraction/fill across frames
+src/pages/api/fill.ts            Local Next.js API for AI fill planning
+src/pages/index.tsx              Landing page
+src/pages/debug-form.tsx         Local manual test form
+src/components/popup-app.tsx     Extension popup UI
+src/components/profile-editor.tsx Profile editor UI
+```
+
+## Local Development
+
+Install dependencies:
+
+```bash
+pnpm install
+```
+
+Run the extension and local Next.js API together:
 
 ```bash
 pnpm dev
-# or
-npm run dev
 ```
 
-Open your browser and load the appropriate development build. For example, if you are developing for the chrome browser, using manifest v3, use: `build/chrome-mv3-dev`.
+This starts:
 
-You can start editing the popup by modifying `popup.tsx`. It should auto-update as you make changes. To add an options page, simply add a `options.tsx` file to the root of the project, with a react component default exported. Likewise to add a content page, add a `content.ts` file to the root of the project, importing some module and do some logic, then reload the extension on your browser.
+- Plasmo dev server for the extension.
+- Next.js dev server at `http://localhost:1947`.
 
-For further guidance, [visit our Documentation](https://docs.plasmo.com/)
+Load the development extension from:
 
-## AI Form Filler MVP
+```text
+build/chrome-mv3-dev
+```
 
-Run both the extension and the local Next.js API:
+Then:
+
+1. Open the extension options page and create a profile.
+2. Open `http://localhost:1947/debug-form` or another form page.
+3. Click the extension popup.
+4. Choose `Fill this form`.
+
+## AI Configuration
+
+The fill API uses Mastra. Configure your local environment with:
 
 ```bash
-pnpm dev
+FILLER_MODEL=openai/gpt-5.4
 ```
 
-Load the Chrome development build from `build/chrome-mv3-dev`.
+Also configure the provider API key required by the selected Mastra model.
 
-Use the extension options page to create a local structured profile. Then open `http://localhost:1947/debug-form`, click the extension popup, and choose "Fill this form".
+## Testing
 
-The MVP fills only visible supported fields. It does not submit forms. Profile data is stored locally in extension storage and is sent to the local fill API only when the user clicks fill.
+Run the full test suite:
 
-The fill API uses Mastra. Set `FILLER_MODEL` to a Mastra model-router id such as `openai/gpt-5.4`, and configure the matching provider API key in your local environment.
+```bash
+pnpm exec vitest run
+```
 
-## Making production build
+Run TypeScript checks:
 
-Run the following:
+```bash
+pnpm typecheck
+```
+
+## Build
+
+Create production builds for both the extension and Next.js app:
 
 ```bash
 pnpm build
-# or
-npm run build
 ```
 
-This should create a production bundle for your extension, ready to be zipped and published to the stores.
+Useful individual commands:
 
-## Submit to the webstores
+```bash
+pnpm build:plasmo
+pnpm build:next
+```
 
-The easiest way to deploy your Plasmo extension is to use the built-in [bpp](https://bpp.browser.market) GitHub action. Prior to using this action however, make sure to build your extension and upload the first version to the store to establish the basic credentials. Then, simply follow [this setup instruction](https://docs.plasmo.com/framework/workflows/submit) and you should be on your way for automated submission!
+## Privacy Notes
+
+Filler reads form fields on pages where the extension is active so it can build
+a fill request. The saved profile is stored in extension storage. Profile and
+form context are sent to the fill API only when the user clicks fill.
+
+The extension should clearly disclose this behavior before any Chrome Web Store
+release.
+
+## Current Limitations
+
+- The local development build talks to `http://localhost:1947/api/fill`.
+- A production release needs a deployed fill API or another production AI
+  execution path.
+- The extension fills fields but intentionally does not submit forms.
+- File uploads and sensitive fields such as passwords, payment data, and
+  government IDs are skipped.
+
+## Chrome Web Store Readiness
+
+Before publishing, verify:
+
+- Production build works from the packaged extension output.
+- Backend/API URL is production-ready.
+- Store listing, screenshots, icons, and privacy policy are complete.
+- Permission disclosures match the extension behavior.
+- End-to-end tests pass on representative forms such as Google Forms, Ashby, and
+  Tally.
