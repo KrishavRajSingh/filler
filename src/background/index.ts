@@ -1,8 +1,9 @@
-import { Storage } from "@plasmohq/storage"
-import { createProfileStore } from "./profile-store"
-
-const storage = new Storage({ area: "local" })
-
-export const profileStore = createProfileStore(storage)
+chrome.runtime.onInstalled.addListener((details) => {
+  if (details.reason === chrome.runtime.OnInstalledReason.INSTALL) {
+    chrome.runtime.openOptionsPage()
+  }
+})
 
 console.log("[filler] background service worker booted")
+
+export {}
