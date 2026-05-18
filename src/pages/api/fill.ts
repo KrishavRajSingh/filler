@@ -16,6 +16,24 @@ export function buildPlannerPrompt(request: FillRequest) {
   return `
 Fill the visible form fields using the user's local profile.
 
+Draft reviewable answers for application-style questions when the supplied profile
+contains enough signal for a reasonable answer. Use medium confidence for inferred
+or drafted answers that the user should review before submitting. Only skip fields
+that are unsafe, require manual action, or cannot be answered from the supplied
+profile and page context.
+
+For preference-style questions, salary expectations, and "Where did you hear"
+questions, prefer a concise reviewable draft over skipping when the profile has
+directional signal. For salary expectations without an exact number, draft a
+flexible answer such as open to discussing a market-competitive USD range rather
+than inventing a specific salary. For work-style preferences, infer cautiously
+from startup/founder/role context and use medium confidence.
+
+For education fields, match the requested attribute precisely. If a field asks
+what year the user graduated from university/college, use the graduation year,
+not the school or university name. Only use the school/university name when the
+field asks for the institution, school, college, or university name.
+
 Page:
 ${JSON.stringify(request.page, null, 2)}
 

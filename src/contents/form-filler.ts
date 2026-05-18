@@ -24,22 +24,26 @@ chrome.runtime.onMessage.addListener(
       const frameId = message.frameId
       const frameUrl = window.location.href
 
-      sendResponse({
-        ok: true,
-        fields: extractFieldsFromDocument(document, { frameId, frameUrl }),
-        frameId,
-        frameUrl,
-        page: extractPageContext(document, frameUrl)
-      })
+      void (async () => {
+        sendResponse({
+          ok: true,
+          fields: await extractFieldsFromDocument(document, { frameId, frameUrl }),
+          frameId,
+          frameUrl,
+          page: extractPageContext(document, frameUrl)
+        })
+      })()
 
       return true
     }
 
     if (message.type === MESSAGE_APPLY_FILL) {
-      sendResponse({
-        ok: true,
-        ...applyFillInstructions(document, message.instructions)
-      })
+      void (async () => {
+        sendResponse({
+          ok: true,
+          ...(await applyFillInstructions(document, message.instructions))
+        })
+      })()
 
       return true
     }
