@@ -1,5 +1,7 @@
 import type { CSSProperties, ReactNode } from "react"
 
+import { WaitlistForm } from "~components/landing/waitlist-form"
+
 export default function IndexPage() {
   return (
     <main style={pageStyle}>
@@ -41,6 +43,8 @@ export default function IndexPage() {
                 See how it works
               </a>
             </div>
+
+            <WaitlistForm />
 
             <div style={chipRowStyle} aria-label="Supported form controls">
               {["Dropdowns", "Radio buttons", "Long answers"].map((label) => (
