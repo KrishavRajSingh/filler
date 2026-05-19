@@ -91,7 +91,10 @@ export default function IndexPage() {
           <span style={trustIconStyle}>✓</span>
           <p style={trustTextStyle}>
             You control the profile. Filler uses it only to answer the form you
-            ask it to fill.
+            ask it to fill.{" "}
+            <a href="/privacy" style={inlineLinkStyle}>
+              Read the privacy policy.
+            </a>
           </p>
         </section>
       </section>
@@ -569,4 +572,9 @@ const trustTextStyle = {
   color: "#5b4b3e",
   lineHeight: 1.45,
   margin: 0
+} satisfies CSSProperties
+
+const inlineLinkStyle = {
+  color: "#2c2118",
+  fontWeight: 900
 } satisfies CSSProperties
