@@ -1,17 +1,15 @@
 import { useEffect, useState } from "react"
 
+import {
+  MESSAGE_RUN_FILL,
+  type RunFillResponse
+} from "~lib/extension-messages"
 import type { UserProfile } from "~lib/fill-schemas"
-import { validateFillInstructions } from "~lib/fill-plan-validation"
 import {
   getStoredProfile,
   hasProfileContent,
   normalizeProfile
 } from "~lib/profile-storage"
-import {
-  applyInstructionsToFrames,
-  collectFillRequest,
-  getActiveTabId
-} from "~lib/tab-frames"
 
 type FillStatus = "loading-profile" | "ready" | "filling" | "error"
 
@@ -45,48 +43,11 @@ export function PopupApp() {
     setStatus("filling")
 
     try {
-      const tabId = await getActiveTabId()
-      if (!tabId) {
-        setStatus("error")
-        setMessage("No active tab found.")
-        return
-      }
-
       setMessage("Reading visible fields...")
-      const fillRequest = await collectFillRequest(normalizeProfile(profile), tabId)
+      const response = await runFillInBackground(normalizeProfile(profile))
 
-      if (fillRequest.fields.length === 0) {
-        setStatus("ready")
-        setMessage("No visible supported fields found.")
-        return
-      }
-
-      setMessage("Generating answers...")
-      const response = await fetch("http://localhost:1947/api/fill", {
-        body: JSON.stringify(fillRequest),
-        headers: { "Content-Type": "application/json" },
-        method: "POST"
-      })
-
-      if (!response.ok) {
-        throw new Error("Fill API failed")
-      }
-
-      const fillResponse = await response.json()
-      const instructions = validateFillInstructions(
-        fillResponse,
-        new Set(fillRequest.fields.map((field) => field.id))
-      )
-
-      setMessage("Filling fields...")
-      const summary = await applyInstructionsToFrames(
-        tabId,
-        instructions,
-        fillRequest.fields
-      )
-
-      setStatus("ready")
-      setMessage(`Filled ${summary.filled} fields, skipped ${summary.skipped}.`)
+      setStatus(response.ok ? "ready" : "error")
+      setMessage(response.message)
     } catch {
       setStatus("error")
       setMessage("Could not fill this form. Please try again.")
@@ -155,6 +116,25 @@ export function PopupApp() {
       ) : null}
     </main>
   )
+}
+
+function runFillInBackground(profile: UserProfile) {
+  return new Promise<RunFillResponse>((resolve, reject) => {
+    chrome.runtime.sendMessage({ profile, type: MESSAGE_RUN_FILL }, (response) => {
+      const error = chrome.runtime.lastError
+      if (error) {
+        reject(new Error(error.message))
+        return
+      }
+
+      resolve(
+        response ?? {
+          message: "Could not fill this form. Please try again.",
+          ok: false
+        }
+      )
+    })
+  })
 }
 
 const primaryButtonStyle = {

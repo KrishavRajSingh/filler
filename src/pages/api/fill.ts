@@ -50,6 +50,35 @@ export function normalizePlannerResponse(value: unknown): FillResponse {
   return parsed.success ? parsed.data : { fields: [] }
 }
 
+function logFillDebug(request: FillRequest, response?: FillResponse) {
+  if (process.env.NODE_ENV === "production") return
+
+  console.info(
+    "[filler] fill request fields",
+    request.fields.map((field) => ({
+      id: field.id,
+      inputType: field.inputType,
+      labelText: field.labelText,
+      nearbyText: field.nearbyText,
+      options: field.options?.map((option) => option.label),
+      tagName: field.tagName
+    }))
+  )
+
+  if (response) {
+    console.info(
+      "[filler] fill planner instructions",
+      response.fields.map((field) => ({
+        action: field.action,
+        confidence: field.confidence,
+        fieldId: field.fieldId,
+        reason: field.reason,
+        value: field.value
+      }))
+    )
+  }
+}
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<FillResponse | FillApiError>
@@ -67,6 +96,8 @@ export default async function handler(
   }
 
   try {
+    logFillDebug(parsedRequest.data)
+
     const agent = mastra.getAgentById("fill-planner")
     const response = await agent.generate(buildPlannerPrompt(parsedRequest.data), {
       structuredOutput: {
@@ -74,8 +105,11 @@ export default async function handler(
       }
     })
 
-    res.status(200).json(normalizePlannerResponse(response.object))
-  } catch {
+    const normalizedResponse = normalizePlannerResponse(response.object)
+    logFillDebug(parsedRequest.data, normalizedResponse)
+    res.status(200).json(normalizedResponse)
+  } catch (error) {
+    console.error("[filler] fill planner failed", error)
     res.status(500).json({ error: "Fill planner failed" })
   }
 }

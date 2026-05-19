@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest"
 
-import { buildPlannerPrompt } from "./fill"
+import { buildPlannerPrompt } from "~pages/api/fill"
 import type { FillRequest } from "~lib/fill-schemas"
 
 describe("buildPlannerPrompt", () => {

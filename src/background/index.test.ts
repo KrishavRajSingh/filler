@@ -8,8 +8,13 @@ vi.mock("./profile-store", () => {
   throw new Error("background service worker must not load the profile store")
 })
 
+vi.mock("./fill-runner", () => ({
+  runFillOnActiveTab: vi.fn()
+}))
+
 describe("background install handling", () => {
   const addListener = vi.fn()
+  const addMessageListener = vi.fn()
   const openOptionsPage = vi.fn()
 
   beforeEach(() => {
@@ -22,6 +27,9 @@ describe("background install handling", () => {
         },
         onInstalled: {
           addListener
+        },
+        onMessage: {
+          addListener: addMessageListener
         },
         openOptionsPage
       }
