@@ -1,3 +1,4 @@
+import Head from "next/head"
 import type { CSSProperties, ReactNode } from "react"
 
 import { InstallCta } from "~components/landing/install-cta"
@@ -7,13 +8,18 @@ const DEMO_VIDEO_URL = "https://files.catbox.moe/6ggdog.mp4"
 
 export default function IndexPage() {
   return (
-    <main style={pageStyle}>
-      <section style={shellStyle}>
-        <nav style={navStyle} aria-label="Main navigation">
-          <a style={brandStyle} href="/">
+    <>
+      <Head>
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+      </Head>
+      <main className="landing-page" style={pageStyle}>
+      <section className="landing-shell" style={shellStyle}>
+        <nav className="landing-nav" style={navStyle} aria-label="Main navigation">
+          <a className="landing-brand" style={brandStyle} href="/">
             Filler
           </a>
-          <div style={navLinksStyle}>
+          <InstallCta style={navButtonStyle} />
+          <div className="landing-nav-links" style={navLinksStyle}>
             <a style={navLinkStyle} href="#how-it-works">
               How it works
             </a>
@@ -24,13 +30,16 @@ export default function IndexPage() {
               Privacy
             </a>
           </div>
-          <InstallCta style={navButtonStyle} />
         </nav>
 
-        <div style={heroGridStyle}>
+        <div className="landing-hero-grid" style={heroGridStyle}>
           <div style={heroCopyStyle}>
-            <p style={eyebrowStyle}>AI form filler for Chrome</p>
-            <h1 style={headlineStyle}>Forms filled in one click.</h1>
+            <p className="landing-eyebrow" style={eyebrowStyle}>
+              AI form filler for Chrome
+            </p>
+            <h1 className="landing-headline" style={headlineStyle}>
+              Forms filled in one click.
+            </h1>
             <p style={subheadlineStyle}>
               Filler reads each question, understands what it means, and answers
               from your saved profile.
@@ -70,7 +79,7 @@ export default function IndexPage() {
             </StepCard>
           </div>
 
-          <div style={demoShowcaseGridStyle}>
+          <div className="landing-showcase-grid" style={demoShowcaseGridStyle}>
             <DemoVideo />
             <DifferentiatorCopy />
           </div>
@@ -109,6 +118,7 @@ export default function IndexPage() {
         </section>
       </section>
     </main>
+    </>
   )
 }
 
@@ -304,11 +314,13 @@ function StepCard({
 const pageStyle = {
   background:
     "radial-gradient(circle at 15% 12%, rgba(211, 150, 86, 0.18), transparent 28%), #f6eddf",
+  boxSizing: "border-box",
   color: "#251c15",
   fontFamily:
     'Avenir Next, "Gill Sans", "Trebuchet MS", ui-sans-serif, sans-serif',
+  maxWidth: "100%",
   minHeight: "100vh",
-  padding: "24px"
+  padding: "clamp(12px, 4vw, 24px)"
 } satisfies CSSProperties
 
 const shellStyle = {
@@ -316,17 +328,19 @@ const shellStyle = {
   border: "1px solid #ead9c2",
   borderRadius: 32,
   boxShadow: "0 30px 90px rgba(86, 55, 28, 0.14)",
+  boxSizing: "border-box",
   margin: "0 auto",
   maxWidth: 1180,
   overflow: "hidden",
-  padding: "28px"
+  padding: "clamp(16px, 4vw, 28px)",
+  width: "100%"
 } satisfies CSSProperties
 
 const navStyle = {
   alignItems: "center",
-  display: "flex",
-  gap: 18,
-  justifyContent: "space-between",
+  display: "grid",
+  gap: "14px 18px",
+  gridTemplateColumns: "1fr auto",
   marginBottom: 54
 } satisfies CSSProperties
 
@@ -343,7 +357,8 @@ const navLinksStyle = {
   display: "flex",
   flexWrap: "wrap",
   fontSize: 14,
-  gap: 20
+  gap: "12px 20px",
+  gridColumn: "1 / -1"
 } satisfies CSSProperties
 
 const navLinkStyle = {
@@ -366,11 +381,12 @@ const heroGridStyle = {
   alignItems: "center",
   display: "grid",
   gap: 36,
-  gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))"
+  gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 280px), 1fr))"
 } satisfies CSSProperties
 
 const heroCopyStyle = {
-  maxWidth: 620
+  maxWidth: 620,
+  minWidth: 0
 } satisfies CSSProperties
 
 const eyebrowStyle = {
@@ -383,20 +399,23 @@ const eyebrowStyle = {
   fontWeight: 950,
   letterSpacing: "0.12em",
   margin: 0,
+  maxWidth: "100%",
   padding: "8px 12px",
-  textTransform: "uppercase"
+  textTransform: "uppercase",
+  whiteSpace: "normal"
 } satisfies CSSProperties
 
 const headlineStyle = {
-  fontSize: "clamp(54px, 8vw, 86px)",
+  fontSize: "clamp(36px, 11vw, 86px)",
   letterSpacing: "-0.08em",
-  lineHeight: 0.9,
-  margin: "22px 0 18px"
+  lineHeight: 0.95,
+  margin: "22px 0 18px",
+  overflowWrap: "anywhere"
 } satisfies CSSProperties
 
 const subheadlineStyle = {
   color: "#5b4b3e",
-  fontSize: "clamp(19px, 2.4vw, 24px)",
+  fontSize: "clamp(17px, 4.5vw, 24px)",
   lineHeight: 1.38,
   margin: "0 0 26px",
   maxWidth: 590
@@ -447,6 +466,7 @@ const chipStyle = {
 
 const demoWrapStyle = {
   minHeight: 430,
+  minWidth: 0,
   position: "relative"
 } satisfies CSSProperties
 
@@ -454,7 +474,7 @@ const paperShadowStyle = {
   background: "rgba(195, 135, 69, 0.13)",
   borderRadius: 34,
   height: "88%",
-  inset: "20px -10px auto 30px",
+  inset: "20px 0 auto 20px",
   position: "absolute",
   transform: "rotate(-4deg)"
 } satisfies CSSProperties
@@ -505,7 +525,7 @@ const demoTitleStyle = {
 const demoFlowStyle = {
   display: "grid",
   gap: 10,
-  gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))"
+  gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 150px), 1fr))"
 } satisfies CSSProperties
 
 const demoLabelStyle = {
@@ -574,7 +594,7 @@ const demoShowcaseGridStyle = {
   alignItems: "center",
   display: "grid",
   gap: 36,
-  gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))"
+  gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 280px), 1fr))"
 } satisfies CSSProperties
 
 const differentiatorCopyStyle = {
@@ -634,7 +654,7 @@ const howItWorksSectionStyle = {
 const stepsStyle = {
   display: "grid",
   gap: 12,
-  gridTemplateColumns: "repeat(auto-fit, minmax(210px, 1fr))"
+  gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 210px), 1fr))"
 } satisfies CSSProperties
 
 const stepCardStyle = {
@@ -667,7 +687,7 @@ const proofSectionStyle = {
   alignItems: "start",
   display: "grid",
   gap: 18,
-  gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+  gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 260px), 1fr))",
   marginTop: 38
 } satisfies CSSProperties
 
