@@ -1,6 +1,9 @@
 import type { CSSProperties, ReactNode } from "react"
 
+import { InstallCta } from "~components/landing/install-cta"
 import { WaitlistForm } from "~components/landing/waitlist-form"
+
+const DEMO_VIDEO_URL = "https://files.catbox.moe/6ggdog.mp4"
 
 export default function IndexPage() {
   return (
@@ -21,9 +24,7 @@ export default function IndexPage() {
               Privacy
             </a>
           </div>
-          <a style={navButtonStyle} href="#install">
-            Add to Chrome
-          </a>
+          <InstallCta style={navButtonStyle} />
         </nav>
 
         <div style={heroGridStyle}>
@@ -36,9 +37,7 @@ export default function IndexPage() {
             </p>
 
             <div style={ctaRowStyle}>
-              <a id="install" style={primaryCtaStyle} href="#how-it-works">
-                Add to Chrome
-              </a>
+              <InstallCta style={primaryCtaStyle} />
               <a style={secondaryCtaStyle} href="#how-it-works">
                 See how it works
               </a>
@@ -58,16 +57,23 @@ export default function IndexPage() {
           <FormDemoCard />
         </div>
 
-        <section id="how-it-works" style={stepsStyle}>
-          <StepCard number="1" title="Save your profile">
-            Add your education, work, links, and reusable answers once.
-          </StepCard>
-          <StepCard number="2" title="Open any form">
-            Filler reads the question, nearby text, and available options.
-          </StepCard>
-          <StepCard number="3" title="Click fill">
-            It writes answers from your profile and drafts what needs review.
-          </StepCard>
+        <section id="how-it-works" style={howItWorksSectionStyle}>
+          <div style={stepsStyle}>
+            <StepCard number="1" title="Save your profile">
+              Add your education, work, links, and reusable answers once.
+            </StepCard>
+            <StepCard number="2" title="Open any form">
+              Filler reads the question, nearby text, and available options.
+            </StepCard>
+            <StepCard number="3" title="Click fill">
+              It writes answers from your profile and drafts what needs review.
+            </StepCard>
+          </div>
+
+          <div style={demoShowcaseGridStyle}>
+            <DemoVideo />
+            <DifferentiatorCopy />
+          </div>
         </section>
 
         <section id="handles" style={proofSectionStyle}>
@@ -198,6 +204,80 @@ function DemoColumn({
             {item}
           </div>
         ))}
+      </div>
+    </div>
+  )
+}
+
+function DifferentiatorCopy() {
+  return (
+    <div style={differentiatorCopyStyle}>
+      <p style={sectionLabelStyle}>Smarter than autofill</p>
+      <h2 style={differentiatorTitleStyle}>
+        It reads the question, not just the field name.
+      </h2>
+      <ul style={differentiatorListStyle}>
+        <DifferentiatorItem title="Understands context">
+          Browser autofill matches <code style={codeStyle}>name=&quot;email&quot;</code>.
+          Filler reads &quot;When did you finish college?&quot; and pulls your
+          graduation year.
+        </DifferentiatorItem>
+        <DifferentiatorItem title="AI maps wording">
+          The same profile answer works even when every form asks differently.
+          AI matches each question to the right field.
+        </DifferentiatorItem>
+        <DifferentiatorItem title="Handles real controls">
+          Dropdowns, radio groups, checkboxes, and custom widgets — not just
+          plain text inputs.
+        </DifferentiatorItem>
+        <DifferentiatorItem title="Drafts open answers">
+          For &quot;Why do you want to join us?&quot;, Filler drafts from your
+          saved answers so you can review before submitting.
+        </DifferentiatorItem>
+      </ul>
+    </div>
+  )
+}
+
+function DifferentiatorItem({
+  children,
+  title
+}: {
+  children: ReactNode
+  title: string
+}) {
+  return (
+    <li style={differentiatorItemStyle}>
+      <strong style={differentiatorItemTitleStyle}>{title}</strong>
+      <p style={differentiatorItemTextStyle}>{children}</p>
+    </li>
+  )
+}
+
+function DemoVideo() {
+  return (
+    <div style={demoWrapStyle} aria-label="Filler demo video">
+      <div style={paperShadowStyle} />
+      <div style={demoCardStyle}>
+        <div style={browserBarStyle}>
+          <span style={{ ...dotStyle, background: "#e56b4b" }} />
+          <span style={{ ...dotStyle, background: "#eeb64b" }} />
+          <span style={{ ...dotStyle, background: "#59b86f" }} />
+          <strong style={browserTitleStyle}>Filler demo</strong>
+        </div>
+
+        <div style={demoVideoFrameStyle}>
+          <video
+            autoPlay
+            controls
+            loop
+            muted
+            playsInline
+            preload="metadata"
+            src={DEMO_VIDEO_URL}
+            style={demoVideoStyle}
+          />
+        </div>
       </div>
     </div>
   )
@@ -476,11 +556,85 @@ const filledStatusStyle = {
   textAlign: "center"
 } satisfies CSSProperties
 
+const demoVideoFrameStyle = {
+  aspectRatio: "16 / 10",
+  background: "#251c15",
+  maxHeight: 360,
+  overflow: "hidden"
+} satisfies CSSProperties
+
+const demoVideoStyle = {
+  display: "block",
+  height: "100%",
+  objectFit: "cover",
+  width: "100%"
+} satisfies CSSProperties
+
+const demoShowcaseGridStyle = {
+  alignItems: "center",
+  display: "grid",
+  gap: 36,
+  gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))"
+} satisfies CSSProperties
+
+const differentiatorCopyStyle = {
+  maxWidth: 520
+} satisfies CSSProperties
+
+const differentiatorTitleStyle = {
+  fontSize: "clamp(28px, 3.5vw, 40px)",
+  letterSpacing: "-0.06em",
+  lineHeight: 1,
+  margin: "0 0 22px"
+} satisfies CSSProperties
+
+const differentiatorListStyle = {
+  display: "grid",
+  gap: 14,
+  listStyle: "none",
+  margin: 0,
+  padding: 0
+} satisfies CSSProperties
+
+const differentiatorItemStyle = {
+  background: "#fff8ec",
+  border: "1px solid #e4cfb3",
+  borderRadius: 16,
+  padding: "14px 16px"
+} satisfies CSSProperties
+
+const differentiatorItemTitleStyle = {
+  display: "block",
+  fontSize: 15,
+  letterSpacing: "-0.03em",
+  marginBottom: 4
+} satisfies CSSProperties
+
+const differentiatorItemTextStyle = {
+  color: "#6c5a4a",
+  fontSize: 14,
+  lineHeight: 1.45,
+  margin: 0
+} satisfies CSSProperties
+
+const codeStyle = {
+  background: "#f4e6d2",
+  borderRadius: 6,
+  fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
+  fontSize: 12,
+  padding: "2px 6px"
+} satisfies CSSProperties
+
+const howItWorksSectionStyle = {
+  display: "grid",
+  gap: 28,
+  marginTop: 36
+} satisfies CSSProperties
+
 const stepsStyle = {
   display: "grid",
   gap: 12,
-  gridTemplateColumns: "repeat(auto-fit, minmax(210px, 1fr))",
-  marginTop: 36
+  gridTemplateColumns: "repeat(auto-fit, minmax(210px, 1fr))"
 } satisfies CSSProperties
 
 const stepCardStyle = {

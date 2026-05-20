@@ -4,6 +4,7 @@ export function WaitlistForm() {
   return (
     <form
       action="https://formspree.io/f/mzdwzkjl"
+      id="waitlist"
       method="POST"
       style={waitlistFormStyle}>
       <input name="_subject" type="hidden" value="New Filler beta signup" />
