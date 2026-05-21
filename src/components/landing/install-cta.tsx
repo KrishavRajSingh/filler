@@ -1,19 +1,19 @@
 import type { CSSProperties } from "react"
 
+const DEFAULT_CHROME_STORE_URL =
+  "https://chromewebstore.google.com/detail/filler/dlopehidojlicdenpoadbnkgjiaoimkm"
+
 const CHROME_STORE_URL =
-  process.env.NEXT_PUBLIC_CHROME_STORE_URL?.trim() ?? ""
+  DEFAULT_CHROME_STORE_URL
 
 export function InstallCta({ style }: { style: CSSProperties }) {
-  const isLive = CHROME_STORE_URL.length > 0
-
   return (
     <a
-      href={isLive ? CHROME_STORE_URL : "#waitlist"}
-      id={isLive ? undefined : "install"}
-      rel={isLive ? "noopener noreferrer" : undefined}
+      href={CHROME_STORE_URL}
+      rel="noopener noreferrer"
       style={style}
-      target={isLive ? "_blank" : undefined}>
-      {isLive ? "Add to Chrome" : "Get early access"}
+      target="_blank">
+      Add to Chrome
     </a>
   )
 }
