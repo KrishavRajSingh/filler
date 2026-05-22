@@ -1,19 +1,21 @@
-import type { CSSProperties, ReactNode } from "react"
+import type { ReactNode } from "react"
 
 import { LandingBrand } from "~components/landing/landing-brand"
 
 export default function PrivacyPage() {
   return (
-    <main className="landing" style={pageStyle}>
-      <article className="landing-inner" style={articleStyle}>
-        <nav aria-label="Main navigation" className="landing-nav">
+    <main className="landing landing-doc">
+      <article className="landing-inner">
+        <nav
+          aria-label="Main navigation"
+          className="landing-nav landing-nav-compact">
           <LandingBrand />
         </nav>
 
-        <header style={headerStyle}>
+        <header className="landing-doc-header">
           <p className="landing-section-tag">[●] Privacy Policy</p>
-          <h1 style={titleStyle}>Privacy Policy for Filler</h1>
-          <p style={updatedStyle}>Last updated: May 19, 2026</p>
+          <h1 className="landing-doc-title">Privacy Policy for Filler</h1>
+          <p className="landing-doc-updated">Last updated: May 19, 2026</p>
         </header>
 
         <Section title="Overview">
@@ -57,9 +59,7 @@ export default function PrivacyPage() {
 
         <Section title="Contact">
           For privacy questions or support, contact the developer at{" "}
-          <a href="mailto:krishavrajsingh@gmail.com" style={inlineLinkStyle}>
-            krishavrajsingh@gmail.com
-          </a>
+          <a href="mailto:krishavrajsingh@gmail.com">krishavrajsingh@gmail.com</a>
           .
         </Section>
       </article>
@@ -75,61 +75,9 @@ function Section({
   title: string
 }) {
   return (
-    <section style={sectionStyle}>
-      <h2 style={sectionTitleStyle}>{title}</h2>
-      <p style={sectionTextStyle}>{children}</p>
+    <section className="landing-doc-section">
+      <h2>{title}</h2>
+      <p>{children}</p>
     </section>
   )
 }
-
-const pageStyle = {
-  minHeight: "100vh"
-} satisfies CSSProperties
-
-const articleStyle = {
-  paddingBottom: 48
-} satisfies CSSProperties
-
-const headerStyle = {
-  borderBottom: "1px solid #ddd9d0",
-  marginBottom: 8,
-  padding: "48px 0 32px"
-} satisfies CSSProperties
-
-const titleStyle = {
-  fontFamily: '"Source Serif 4", Georgia, "Times New Roman", serif',
-  fontSize: "clamp(2rem, 5vw, 3rem)",
-  fontWeight: 600,
-  letterSpacing: "-0.03em",
-  lineHeight: 1.05,
-  margin: "0 0 12px"
-} satisfies CSSProperties
-
-const updatedStyle = {
-  color: "#8a8a8a",
-  margin: 0
-} satisfies CSSProperties
-
-const sectionStyle = {
-  borderTop: "1px solid #ddd9d0",
-  padding: "24px 0"
-} satisfies CSSProperties
-
-const sectionTitleStyle = {
-  fontSize: 18,
-  fontWeight: 600,
-  margin: "0 0 8px"
-} satisfies CSSProperties
-
-const sectionTextStyle = {
-  color: "#5c5c5c",
-  fontSize: 15,
-  lineHeight: 1.7,
-  margin: 0,
-  maxWidth: "62ch"
-} satisfies CSSProperties
-
-const inlineLinkStyle = {
-  color: "#141414",
-  fontWeight: 500
-} satisfies CSSProperties

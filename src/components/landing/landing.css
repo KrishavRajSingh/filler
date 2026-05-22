@@ -561,6 +561,68 @@
   font-size: 13px;
 }
 
+/* ── Doc pages (privacy, etc.) ── */
+
+.landing-doc {
+  padding: clamp(20px, 3vw, 28px) 0 48px;
+}
+
+.landing-nav-compact {
+  margin-bottom: 24px;
+}
+
+.landing-doc-header {
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 0;
+  padding: 0 0 28px;
+}
+
+.landing-section-tag {
+  color: var(--faint);
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  margin: 0 0 12px;
+}
+
+.landing-doc-title {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  margin: 0 0 12px;
+}
+
+.landing-doc-updated {
+  color: var(--faint);
+  margin: 0;
+}
+
+.landing-doc-section {
+  border-top: 1px solid var(--line);
+  padding: 24px 0;
+}
+
+.landing-doc-section h2 {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 8px;
+}
+
+.landing-doc-section p {
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.7;
+  margin: 0;
+  max-width: 62ch;
+}
+
+.landing-doc-section a {
+  color: var(--ink);
+  font-weight: 500;
+}
+
 @media (max-width: 767px) {
   .landing-nav-links {
     order: 3;
