@@ -1,8 +1,8 @@
 {
   "name": "filler",
-  "displayName": "Filler",
-  "version": "0.0.1",
-  "description": "ai form filler",
+  "displayName": "Filler – fill forms from your profile",
+  "version": "0.0.3",
+  "description": "Fill web forms from a profile you save once. Reads the question, not just the field name.",
   "author": "Krishav",
   "scripts": {
     "start": "next start",
@@ -46,8 +46,8 @@
     "vitest": "^4.1.6"
   },
   "manifest": {
-    "name": "Filler",
-    "description": "Fill any web form in one click using a profile you set up once.",
+    "name": "Filler – fill forms from your profile",
+    "description": "Fill web forms from a saved profile. One click for Google Forms, job apps, Ashby, Tally, and signups.",
     "options_ui": {
       "page": "options.html",
       "open_in_tab": true

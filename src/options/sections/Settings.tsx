@@ -122,7 +122,7 @@ export function Settings() {
       </div>
 
       <div className="pt-4 text-xs text-gray-500">
-        Filler · v0.0.1 · <a href="https://github.com/" className="underline">repo</a>
+        Filler · v0.0.3 · <a href="https://github.com/" className="underline">repo</a>
       </div>
     </SectionShell>
   )
