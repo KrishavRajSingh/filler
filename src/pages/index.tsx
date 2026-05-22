@@ -101,9 +101,10 @@ export default function IndexPage() {
               <p className="landing-kicker">Chrome extension</p>
               <h1>Forms filled in one click.</h1>
               <p className="landing-deck">
-                You&apos;ve answered these questions before — just not on this
-                exact form. Filler keeps your details in the extension and writes
-                them in when you click Fill.
+                For people who fill out a lot of forms — applications, surveys,
+                onboarding, signups — and are tired of typing the same answers
+                again because every form asks slightly differently. Filler keeps
+                your details in the extension and writes them in when you click Fill.
               </p>
               <p className="landing-aside">
                 It won&apos;t submit for you. Anything it&apos;s unsure about
