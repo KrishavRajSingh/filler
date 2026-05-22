@@ -1,8 +1,8 @@
-import Head from "next/head"
-
 import { InstallCta } from "~components/landing/install-cta"
 import { LandingBrand } from "~components/landing/landing-brand"
+import { PageHead } from "~components/landing/page-head"
 import { WaitlistForm } from "~components/landing/waitlist-form"
+import { absoluteUrl, CHROME_STORE_URL } from "~lib/site"
 
 const DEMO_VIDEO_URL = "https://files.catbox.moe/6ggdog.mp4"
 
@@ -76,13 +76,34 @@ const FILL_EXAMPLE: {
   }
 ]
 
+const HOME_DESCRIPTION =
+  "Chrome extension that fills web forms from a saved profile. One click for Google Forms, job applications, surveys, and signups."
+
+const HOME_JSON_LD = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  applicationCategory: "BrowserApplication",
+  description: HOME_DESCRIPTION,
+  downloadUrl: CHROME_STORE_URL,
+  name: "Filler",
+  offers: {
+    "@type": "Offer",
+    price: "0",
+    priceCurrency: "USD"
+  },
+  operatingSystem: "Chrome",
+  url: absoluteUrl("/")
+} as const
+
 export default function IndexPage() {
   return (
     <>
-      <Head>
-        <meta content="width=device-width, initial-scale=1" name="viewport" />
-        <title>Filler — forms filled in one click</title>
-      </Head>
+      <PageHead
+        description={HOME_DESCRIPTION}
+        jsonLd={HOME_JSON_LD}
+        path="/"
+        title="Filler — forms filled in one click"
+      />
       <main className="landing">
           <header className="landing-top">
             <div className="landing-inner">

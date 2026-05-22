@@ -1,10 +1,20 @@
 import type { ReactNode } from "react"
 
 import { LandingBrand } from "~components/landing/landing-brand"
+import { PageHead } from "~components/landing/page-head"
+
+const PRIVACY_DESCRIPTION =
+  "How Filler handles your profile data, local storage, and server processing when you fill web forms."
 
 export default function PrivacyPage() {
   return (
-    <main className="landing landing-doc">
+    <>
+      <PageHead
+        description={PRIVACY_DESCRIPTION}
+        path="/privacy"
+        title="Privacy Policy"
+      />
+      <main className="landing landing-doc">
       <article className="landing-inner">
         <nav
           aria-label="Main navigation"
@@ -64,6 +74,7 @@ export default function PrivacyPage() {
         </Section>
       </article>
     </main>
+    </>
   )
 }
 
