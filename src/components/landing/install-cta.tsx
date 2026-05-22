@@ -3,12 +3,18 @@ import type { CSSProperties } from "react"
 const DEFAULT_CHROME_STORE_URL =
   "https://chromewebstore.google.com/detail/filler/dlopehidojlicdenpoadbnkgjiaoimkm"
 
-const CHROME_STORE_URL =
-  DEFAULT_CHROME_STORE_URL
+const CHROME_STORE_URL = DEFAULT_CHROME_STORE_URL
 
-export function InstallCta({ style }: { style: CSSProperties }) {
+export function InstallCta({
+  className,
+  style
+}: {
+  className?: string
+  style?: CSSProperties
+}) {
   return (
     <a
+      className={className}
       href={CHROME_STORE_URL}
       rel="noopener noreferrer"
       style={style}
