@@ -44,10 +44,16 @@
 }
 
 .landing-brand {
-  color: var(--ink);
-  font-weight: 600;
-  letter-spacing: -0.02em;
+  align-items: center;
+  display: inline-flex;
+  line-height: 0;
   text-decoration: none;
+}
+
+.landing-brand-logo {
+  display: block;
+  height: 32px;
+  width: auto;
 }
 
 .landing-nav-links {

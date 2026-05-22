@@ -1,13 +1,13 @@
 import type { CSSProperties, ReactNode } from "react"
 
+import { LandingBrand } from "~components/landing/landing-brand"
+
 export default function PrivacyPage() {
   return (
     <main className="landing" style={pageStyle}>
       <article className="landing-inner" style={articleStyle}>
         <nav aria-label="Main navigation" className="landing-nav">
-          <a className="landing-brand" href="/">
-            Filler
-          </a>
+          <LandingBrand />
         </nav>
 
         <header style={headerStyle}>

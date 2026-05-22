@@ -1,6 +1,7 @@
 import Head from "next/head"
 
 import { InstallCta } from "~components/landing/install-cta"
+import { LandingBrand } from "~components/landing/landing-brand"
 import { WaitlistForm } from "~components/landing/waitlist-form"
 
 const DEMO_VIDEO_URL = "https://files.catbox.moe/6ggdog.mp4"
@@ -86,9 +87,7 @@ export default function IndexPage() {
           <header className="landing-top">
             <div className="landing-inner">
             <nav aria-label="Main navigation" className="landing-nav">
-              <a className="landing-brand" href="/">
-                Filler
-              </a>
+              <LandingBrand />
               <div className="landing-nav-links">
                 <a href="#proof">Example</a>
                 <a href="#process">How it works</a>
