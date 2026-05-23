@@ -2,6 +2,7 @@ import { Analytics } from "@vercel/analytics/react"
 import Head from "next/head"
 import type { AppProps } from "next/app"
 
+import { UmamiScript } from "~components/analytics/umami-script"
 import "~components/landing/landing.css"
 import "~style.css"
 
@@ -15,6 +16,7 @@ export default function App({ Component, pageProps }: AppProps) {
       </Head>
       <Component {...pageProps} />
       <Analytics />
+      <UmamiScript />
     </>
   )
 }

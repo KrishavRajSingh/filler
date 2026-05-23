@@ -114,7 +114,7 @@ export default function IndexPage() {
                 <a href="#process">How it works</a>
                 <a href="#privacy">Privacy</a>
               </div>
-              <InstallCta className="landing-btn landing-btn-small" />
+              <InstallCta className="landing-btn landing-btn-small" location="nav" />
             </nav>
 
             <div className="landing-intro">
@@ -131,7 +131,7 @@ export default function IndexPage() {
                 gets flagged so you can read it first.
               </p>
               <div className="landing-intro-actions">
-                <InstallCta className="landing-btn" />
+                <InstallCta className="landing-btn" location="hero" />
                 <a className="landing-text-link" href="#proof">
                   See an example ↓
                 </a>
@@ -201,7 +201,7 @@ export default function IndexPage() {
                 <p>Add it to Chrome, or join the beta list.</p>
               </div>
               <div className="landing-close-actions">
-                <InstallCta className="landing-btn landing-btn-invert" />
+                <InstallCta className="landing-btn landing-btn-invert" location="footer" />
                 <WaitlistForm />
               </div>
             </div>

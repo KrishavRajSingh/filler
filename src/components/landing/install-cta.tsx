@@ -1,21 +1,24 @@
 import type { CSSProperties } from "react"
 
-const DEFAULT_CHROME_STORE_URL =
-  "https://chromewebstore.google.com/detail/filler/dlopehidojlicdenpoadbnkgjiaoimkm"
+import { trackEvent } from "~lib/analytics"
+import { CHROME_STORE_URL } from "~lib/site"
 
-const CHROME_STORE_URL = DEFAULT_CHROME_STORE_URL
+export type InstallCtaLocation = "nav" | "hero" | "footer"
 
 export function InstallCta({
   className,
+  location,
   style
 }: {
   className?: string
+  location: InstallCtaLocation
   style?: CSSProperties
 }) {
   return (
     <a
       className={className}
       href={CHROME_STORE_URL}
+      onClick={() => trackEvent("add_to_chrome", { location })}
       rel="noopener noreferrer"
       style={style}
       target="_blank">

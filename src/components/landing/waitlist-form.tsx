@@ -1,10 +1,13 @@
+import { trackEvent } from "~lib/analytics"
+
 export function WaitlistForm() {
   return (
     <form
       action="https://formspree.io/f/mzdwzkjl"
       className="landing-waitlist"
       id="waitlist"
-      method="POST">
+      method="POST"
+      onSubmit={() => trackEvent("waitlist_submit")}>
       <input name="_subject" type="hidden" value="New Filler beta signup" />
       <input name="source" type="hidden" value="landing-page-close" />
       <label className="landing-waitlist-label" htmlFor="waitlist-email">
