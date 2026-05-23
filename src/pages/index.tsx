@@ -45,36 +45,33 @@ const POINTS = [
   }
 ] as const
 
-type FillExampleItem = string
-
-const FILL_EXAMPLE: {
-  label: string
-  variant?: "profile" | "filled"
-  items: FillExampleItem[]
-}[] = [
+const FILL_EXAMPLE_ROWS = [
   {
-    label: "Form asks",
-    items: [
-      "When did you finish college?",
-      "Tell us about yourself",
-      "How did you hear about us?"
-    ]
+    ask: "When did you finish college?",
+    filled: "2025",
+    profile: "Graduation year: 2025",
+    source: "profile"
   },
   {
-    label: "Your profile",
-    variant: "profile",
-    items: [
-      "Graduation year: 2025",
-      "I build small tools and like teams that ship fast.",
-      "—"
-    ]
+    ask: "Tell us about yourself",
+    filled: "I build small tools and like teams that ship fast.",
+    profile: "I build small tools and like teams that ship fast.",
+    source: "reused"
   },
   {
-    label: "Filled",
-    variant: "filled",
-    items: ["2025", "I build small tools and like teams that ship fast.", "Friend told me about it"]
+    ask: "How did you hear about us?",
+    filled: "Friend told me about it",
+    profile: "Not in profile",
+    profileMissing: true,
+    source: "guess"
   }
-]
+] as const
+
+const FILL_SOURCE_LABELS = {
+  guess: "Guess — review",
+  profile: "From profile",
+  reused: "Reused answer"
+} as const
 
 const HOME_DESCRIPTION =
   "Chrome extension that fills web forms from a saved profile. One click for Google Forms, job applications, surveys, and signups."
@@ -102,7 +99,7 @@ export default function IndexPage() {
         description={HOME_DESCRIPTION}
         jsonLd={HOME_JSON_LD}
         path="/"
-        title="Filler — forms filled in one click"
+        title="Filler — stop retyping the same form answers"
       />
       <main className="landing">
           <header className="landing-top">
@@ -117,24 +114,34 @@ export default function IndexPage() {
               <InstallCta className="landing-btn landing-btn-small" location="nav" />
             </nav>
 
-            <div className="landing-intro">
-              <p className="landing-kicker">Chrome extension</p>
-              <h1>Forms filled in one click.</h1>
-              <p className="landing-deck">
-                For people who fill out a lot of forms — applications, surveys,
-                onboarding, signups — and are tired of typing the same answers
-                again because every form asks slightly differently. Filler keeps
-                your details in the extension and writes them in when you click Fill.
-              </p>
-              <p className="landing-aside">
-                It won&apos;t submit for you. Anything it&apos;s unsure about
-                gets flagged so you can read it first.
-              </p>
-              <div className="landing-intro-actions">
-                <InstallCta className="landing-btn" location="hero" />
-                <a className="landing-text-link" href="#proof">
-                  See an example ↓
-                </a>
+            <div className="landing-hero-grid">
+              <div className="landing-intro">
+                <p className="landing-kicker">Chrome extension · free</p>
+                <h1>Stop retyping the same answers on every form.</h1>
+                <p className="landing-deck">
+                  Save your details once. Click Fill on Google Forms, job
+                  applications, surveys, and signups — even when every form
+                  asks slightly differently.
+                </p>
+                <div className="landing-intro-actions">
+                  <InstallCta
+                    className="landing-btn"
+                    label="Add to Chrome — it's free"
+                    location="hero"
+                    showMeta
+                    variant="primary"
+                  />
+                  <a className="landing-text-link" href="#proof">
+                    See how it works ↓
+                  </a>
+                </div>
+                <p className="landing-aside">
+                  You stay in control — Filler never submits for you, and
+                  anything it&apos;s unsure about gets flagged for you to check.
+                </p>
+              </div>
+              <div className="landing-hero-demo">
+                <FillFlowDemo />
               </div>
             </div>
             </div>
@@ -142,18 +149,19 @@ export default function IndexPage() {
 
           <section className="landing-proof" id="proof">
             <div className="landing-inner">
-              <div className="landing-proof-head">
-                <h2>Every form asks differently.</h2>
-                <p>
-                  The easy stuff comes from your profile. Answers you&apos;ve
-                  saved before get reused. For everything else, Filler takes a
-                  guess — and lets you check before you send.
-                </p>
-              </div>
+              <div className="landing-proof-layout">
+                <div className="landing-proof-head">
+                  <h2>Every form asks differently.</h2>
+                  <p>
+                    The easy stuff comes from your profile. Answers you&apos;ve
+                    saved before get reused. For everything else, Filler takes a
+                    guess — and lets you check before you send.
+                  </p>
+                </div>
 
-              <div className="landing-proof-grid">
-                <FillFlowDemo />
-                <DemoVideo />
+                <div className="landing-proof-media">
+                  <DemoVideo />
+                </div>
               </div>
             </div>
           </section>
@@ -197,12 +205,26 @@ export default function IndexPage() {
           <section className="landing-close">
             <div className="landing-inner landing-close-inner">
               <div>
-                <h2>Worth trying on the next form you don&apos;t want to type through.</h2>
-                <p>Add it to Chrome, or join the beta list.</p>
+                <h2>Try it on the next form you don&apos;t want to type through.</h2>
+                <p>Free on the Chrome Web Store. Setup takes about two minutes.</p>
               </div>
               <div className="landing-close-actions">
-                <InstallCta className="landing-btn landing-btn-invert" location="footer" />
-                <WaitlistForm />
+                <InstallCta
+                  className="landing-btn landing-btn-invert"
+                  label="Add to Chrome — it's free"
+                  location="footer"
+                  variant="primary"
+                />
+                <p className="landing-close-waitlist">
+                  Want early access to new features?{" "}
+                  <a href="#waitlist">Join the beta list</a>
+                </p>
+                <details className="landing-waitlist-details" id="waitlist">
+                  <summary className="landing-waitlist-summary">
+                    Beta waitlist
+                  </summary>
+                  <WaitlistForm />
+                </details>
               </div>
             </div>
           </section>
@@ -231,27 +253,39 @@ function FillFlowDemo() {
       <div className="landing-demo-bar">
         <span>Example form</span>
       </div>
-      <div className="landing-demo-columns">
-        {FILL_EXAMPLE.map((column) => {
-          const variant = column.variant
-
-          return (
+      <div className="landing-demo-grid">
+        <div aria-hidden="true" className="landing-demo-head">
+          <span>Form asks</span>
+          <span>Your profile</span>
+          <span>Filled</span>
+        </div>
+        {FILL_EXAMPLE_ROWS.map((row) => (
+          <div className="landing-demo-row" key={row.ask}>
+            <div className="landing-demo-cell landing-demo-cell-ask">
+              <span className="landing-demo-cell-label">Form asks</span>
+              {row.ask}
+            </div>
             <div
               className={
-                variant
-                  ? `landing-demo-col landing-demo-col-${variant}`
-                  : "landing-demo-col"
-              }
-              key={column.label}>
-              <span className="landing-demo-label">{column.label}</span>
-              <ul>
-                {column.items.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
+                "profileMissing" in row && row.profileMissing
+                  ? "landing-demo-cell landing-demo-cell-profile landing-demo-cell-profile-missing"
+                  : "landing-demo-cell landing-demo-cell-profile"
+              }>
+              <span className="landing-demo-cell-label">Your profile</span>
+              {row.profile}
             </div>
-          )
-        })}
+            <div
+              className={
+                row.source === "guess"
+                  ? "landing-demo-cell landing-demo-cell-filled landing-demo-cell-guess"
+                  : "landing-demo-cell landing-demo-cell-filled"
+              }>
+              <span className="landing-demo-cell-label">Filled</span>
+              {row.filled}
+              <em>{FILL_SOURCE_LABELS[row.source]}</em>
+            </div>
+          </div>
+        ))}
       </div>
       <p className="landing-demo-foot">Filled in one click</p>
     </div>

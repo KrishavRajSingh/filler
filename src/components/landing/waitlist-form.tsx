@@ -5,7 +5,6 @@ export function WaitlistForm() {
     <form
       action="https://formspree.io/f/mzdwzkjl"
       className="landing-waitlist"
-      id="waitlist"
       method="POST"
       onSubmit={() => trackEvent("waitlist_submit")}>
       <input name="_subject" type="hidden" value="New Filler beta signup" />
