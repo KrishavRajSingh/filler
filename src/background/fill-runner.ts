@@ -1,12 +1,17 @@
 import type { UserProfile } from "~lib/fill-schemas"
 import { validateFillInstructions } from "~lib/fill-plan-validation"
+import { absoluteUrl } from "~lib/site"
 import { getActiveTabId } from "~lib/tab-frames"
 import type { RunFillResponse } from "~lib/extension-messages"
 import { applyInstructionsToPage, collectFillRequestFromPage } from "./page-scripting"
 
+const DEV_FILL_API_URL = "http://localhost:1947/api/fill"
+
 const fillApiUrl =
   process.env.PLASMO_PUBLIC_FILL_API_URL ??
-  "http://localhost:1947/api/fill"
+  (process.env.NODE_ENV === "production"
+    ? absoluteUrl("/api/fill")
+    : DEV_FILL_API_URL)
 
 export async function runFillOnActiveTab(
   profile: UserProfile
