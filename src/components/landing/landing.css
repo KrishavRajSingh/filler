@@ -778,3 +778,145 @@
     padding-right: 0 !important;
   }
 }
+
+/* ── Mobile install modal ── */
+
+.landing-mobile-modal-root {
+  inset: 0;
+  position: fixed;
+  z-index: 1000;
+}
+
+.landing-mobile-modal-backdrop {
+  background: rgba(17, 17, 17, 0.52);
+  border: 0;
+  cursor: default;
+  inset: 0;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+}
+
+.landing-mobile-modal {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  box-shadow: 0 24px 64px rgba(17, 17, 17, 0.18);
+  left: 50%;
+  max-height: calc(100vh - 32px);
+  max-width: 440px;
+  overflow: auto;
+  padding: 24px 22px 22px;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: calc(100% - 32px);
+}
+
+.landing-mobile-modal-close {
+  background: transparent;
+  border: 0;
+  color: var(--faint);
+  cursor: pointer;
+  font-size: 24px;
+  line-height: 1;
+  padding: 4px 8px;
+  position: absolute;
+  right: 10px;
+  top: 8px;
+}
+
+.landing-mobile-modal-close:hover {
+  color: var(--ink);
+}
+
+.landing-mobile-modal h2 {
+  font-family: var(--serif);
+  font-size: clamp(22px, 5vw, 26px);
+  font-weight: 600;
+  line-height: 1.15;
+  margin: 0 28px 10px 0;
+}
+
+.landing-mobile-modal-lede {
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.55;
+  margin: 0 0 18px;
+}
+
+.landing-mobile-modal-form {
+  margin: 0 0 12px;
+}
+
+.landing-mobile-modal-label {
+  color: var(--faint);
+  display: block;
+  font-family: var(--mono);
+  font-size: 11px;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.landing-mobile-modal-row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.landing-mobile-modal-input {
+  background: #fff;
+  border: 1px solid var(--line);
+  color: var(--ink);
+  font: inherit;
+  padding: 12px 14px;
+  width: 100%;
+}
+
+.landing-mobile-modal-input:focus {
+  border-color: var(--ink);
+  outline: none;
+}
+
+.landing-mobile-modal-submit,
+.landing-mobile-modal-action {
+  justify-content: center;
+  width: 100%;
+}
+
+.landing-mobile-modal-copy {
+  background: transparent;
+  border: 0;
+  color: var(--muted);
+  cursor: pointer;
+  font: inherit;
+  font-size: 14px;
+  padding: 0;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.landing-mobile-modal-copy:hover {
+  color: var(--ink);
+}
+
+.landing-mobile-modal-note {
+  font-size: 13px;
+  line-height: 1.45;
+  margin: 10px 0 0;
+}
+
+.landing-mobile-modal-note-success {
+  color: #1f6b3a;
+}
+
+.landing-mobile-modal-note-error {
+  color: #9b1c1c;
+}
+
+.landing-mobile-modal-success p {
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.55;
+  margin: 0 0 18px;
+}
+

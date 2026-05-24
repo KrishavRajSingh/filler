@@ -1,5 +1,7 @@
-import type { CSSProperties } from "react"
+import { useState, type CSSProperties } from "react"
 
+import { MobileInstallModal } from "~components/landing/mobile-install-modal"
+import { useIsMobile } from "~components/landing/use-is-mobile"
 import { trackEvent } from "~lib/analytics"
 import { CHROME_STORE_URL } from "~lib/site"
 
@@ -51,6 +53,9 @@ export function InstallCta({
   style?: CSSProperties
   variant?: "default" | "primary"
 }) {
+  const isMobile = useIsMobile()
+  const [modalOpen, setModalOpen] = useState(false)
+
   const buttonClassName = [
     className,
     variant === "primary" ? "landing-btn-primary" : "",
@@ -59,7 +64,21 @@ export function InstallCta({
     .filter(Boolean)
     .join(" ")
 
-  const button = (
+  function openMobileModal() {
+    trackEvent("mobile_install_modal_open", { location })
+    setModalOpen(true)
+  }
+
+  const button = isMobile ? (
+    <button
+      className={buttonClassName}
+      onClick={openMobileModal}
+      style={style}
+      type="button">
+      <ChromeIcon />
+      {label}
+    </button>
+  ) : (
     <a
       className={buttonClassName}
       href={CHROME_STORE_URL}
@@ -72,15 +91,29 @@ export function InstallCta({
     </a>
   )
 
+  const content = (
+    <>
+      {button}
+      {modalOpen ? (
+        <MobileInstallModal
+          location={location}
+          onClose={() => setModalOpen(false)}
+        />
+      ) : null}
+    </>
+  )
+
   if (!showMeta) {
-    return button
+    return content
   }
 
   return (
     <div className="landing-cta-wrap">
-      {button}
+      {content}
       <p className="landing-cta-meta">
-        Free · No account · Works on Google Forms, job apps, and signups
+        {isMobile
+          ? "Chrome extension · desktop only · free"
+          : "Free · No account · Works on Google Forms, job apps, and signups"}
       </p>
     </div>
   )

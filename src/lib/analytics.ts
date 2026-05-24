@@ -9,7 +9,12 @@ declare global {
   }
 }
 
-export type AnalyticsEvent = "add_to_chrome" | "waitlist_submit"
+export type AnalyticsEvent =
+  | "add_to_chrome"
+  | "mobile_install_copy_link"
+  | "mobile_install_email_submit"
+  | "mobile_install_modal_open"
+  | "waitlist_submit"
 
 export function trackEvent(
   name: AnalyticsEvent,
