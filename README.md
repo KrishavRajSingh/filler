@@ -92,10 +92,14 @@ Then:
 The fill API uses Mastra. Configure your local environment with:
 
 ```bash
-FILLER_MODEL=openai/gpt-5.4
+FILLER_MODEL=openrouter/deepseek/deepseek-v4-flash-0731
+OPENROUTER_API_KEY=sk-or-...
 ```
 
-Also configure the provider API key required by the selected Mastra model.
+The default points at DeepSeek V4 Flash 0731 via OpenRouter. Set
+`OPENROUTER_API_KEY` to a key from https://openrouter.ai/keys. Swap
+`FILLER_MODEL` to any other Mastra model id (e.g. `openai/gpt-5.4`) and
+provide that provider's API key instead.
 
 ## Testing
 

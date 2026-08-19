@@ -22,6 +22,6 @@ Rules:
 - Skip passwords, OTPs, payment fields, government IDs, file uploads, and sensitive fields.
 - Return structured data matching the requested schema.
 `,
-  model: process.env.FILLER_MODEL ?? "openai/gpt-5.4",
+  model: process.env.FILLER_MODEL ?? "openrouter/deepseek/deepseek-v4-flash-0731",
   name: "Fill Planner"
 })
