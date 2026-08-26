@@ -920,3 +920,47 @@
   margin: 0 0 18px;
 }
 
+
+/* ── Blog list (index + related) ── */
+
+.landing-blog-list {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+}
+
+.landing-blog-list li + li {
+  margin-top: 16px;
+}
+
+.landing-blog-list a {
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.landing-blog-list a:hover {
+  text-decoration: underline;
+}
+
+.landing-blog-list p {
+  margin: 2px 0 0;
+}
+
+.landing-blog-headline {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.landing-blog-headline:hover {
+  text-decoration: underline;
+}
+
+.landing-blog-headline + p {
+  margin-top: 6px;
+}
+
+.landing-doc-section .landing-doc-updated {
+  margin-top: 8px;
+}
