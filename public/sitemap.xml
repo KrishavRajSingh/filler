@@ -2,17 +2,26 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://filler.live/</loc>
+    <lastmod>2026-05-22</lastmod>
   </url>
   <url>
     <loc>https://filler.live/privacy</loc>
+    <lastmod>2026-05-19</lastmod>
+  </url>
+  <url>
+    <loc>https://filler.live/blog</loc>
+    <lastmod>2026-05-22</lastmod>
   </url>
   <url>
     <loc>https://filler.live/blog/form-automation-software</loc>
+    <lastmod>2026-05-22</lastmod>
   </url>
   <url>
     <loc>https://filler.live/blog/best-autofill-tools</loc>
+    <lastmod>2026-05-22</lastmod>
   </url>
   <url>
     <loc>https://filler.live/blog/how-to-fill-forms-faster</loc>
+    <lastmod>2026-05-22</lastmod>
   </url>
 </urlset>

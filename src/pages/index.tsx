@@ -110,6 +110,7 @@ export default function IndexPage() {
                 <a href="#proof">Example</a>
                 <a href="#process">How it works</a>
                 <a href="#privacy">Privacy</a>
+                <a href="/blog">Blog</a>
               </div>
               <InstallCta className="landing-btn landing-btn-small" location="nav" />
             </nav>
@@ -237,6 +238,9 @@ export default function IndexPage() {
                 background snooping.{" "}
                 <a href="/privacy">Privacy policy</a>
               </p>
+              <span>
+                <a href="/blog">Blog</a>
+              </span>
               <span>© {new Date().getFullYear()} Filler</span>
             </div>
           </footer>

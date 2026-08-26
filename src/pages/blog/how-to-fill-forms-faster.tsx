@@ -1,5 +1,6 @@
 import type { ReactNode } from "react"
 
+import { BlogRelated } from "~components/landing/blog-related"
 import { LandingBrand } from "~components/landing/landing-brand"
 import { PageHead } from "~components/landing/page-head"
 import { absoluteUrl } from "~lib/site"
@@ -258,6 +259,7 @@ export default function HowToFillFormsFasterPage() {
             </details>
           </Section>
 
+          <BlogRelated current="how-to-fill-forms-faster" />
         </article>
       </main>
     </>

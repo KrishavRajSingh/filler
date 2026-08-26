@@ -1,5 +1,6 @@
 import type { ReactNode } from "react"
 
+import { BlogRelated } from "~components/landing/blog-related"
 import { LandingBrand } from "~components/landing/landing-brand"
 import { PageHead } from "~components/landing/page-head"
 import { absoluteUrl } from "~lib/site"
@@ -178,6 +179,7 @@ export default function FormAutomationSoftwarePage() {
             </p>
           </Section>
 
+          <BlogRelated current="form-automation-software" />
         </article>
       </main>
     </>
