@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest"
 
 import { FORM_GUIDES, getFormGuide } from "~lib/form-guides"
 import FormGuidePage, { getStaticPaths, getStaticProps } from "~pages/forms/[slug]"
+import FormsIndexPage from "~pages/forms/index"
 
 describe("form guides", () => {
   it("has unique slugs", () => {
@@ -31,5 +32,16 @@ describe("form guides", () => {
     expect(
       screen.getByText("What do I put for endpoint on the NPI application?")
     ).toBeInTheDocument()
+  })
+
+  it("lists every guide on the forms index", () => {
+    render(<FormsIndexPage />)
+
+    for (const guide of FORM_GUIDES) {
+      expect(screen.getByRole("link", { name: guide.title })).toHaveAttribute(
+        "href",
+        `/forms/${guide.slug}`
+      )
+    }
   })
 })

@@ -241,6 +241,9 @@ export default function IndexPage() {
               <span>
                 <a href="/blog">Blog</a>
               </span>
+              <span>
+                <a href="/forms">Form guides</a>
+              </span>
               <span>© {new Date().getFullYear()} Filler</span>
             </div>
           </footer>
