@@ -964,3 +964,72 @@
 .landing-doc-section .landing-doc-updated {
   margin-top: 8px;
 }
+
+/* ── Form guides ── */
+
+.landing-guide-cta {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.landing-guide-cta .landing-cta-wrap {
+  justify-items: start;
+}
+
+.landing-guide-cta a.landing-btn {
+  color: #fff;
+}
+
+.landing-guide-list {
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.7;
+  margin: 0;
+  max-width: 62ch;
+  padding-left: 20px;
+}
+
+.landing-guide-list li + li {
+  margin-top: 6px;
+}
+
+.landing-guide-fields {
+  margin: 0;
+  max-width: 62ch;
+}
+
+.landing-guide-field + .landing-guide-field {
+  margin-top: 16px;
+}
+
+.landing-guide-field dt {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 15px;
+  font-weight: 600;
+  gap: 8px;
+}
+
+.landing-guide-field dd {
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.7;
+  margin: 4px 0 0;
+}
+
+.landing-guide-badge {
+  border: 1px solid var(--line);
+  color: var(--faint);
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  padding: 1px 6px;
+  text-transform: uppercase;
+}
+
+.landing-guide .landing-doc-section p + p {
+  margin-top: 12px;
+}
