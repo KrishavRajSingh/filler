@@ -60,6 +60,18 @@ export default function BlogIndexPage() {
               <p className="landing-doc-updated">{post.tag}</p>
             </section>
           ))}
+
+          <section className="landing-doc-section">
+            <h2>
+              <a className="landing-blog-headline" href="/forms">
+                Form guides
+              </a>
+            </h2>
+            <p>
+              Field-by-field walkthroughs of specific forms, like the NPI
+              application.
+            </p>
+          </section>
         </article>
       </main>
     </>

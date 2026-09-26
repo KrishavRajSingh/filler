@@ -67,6 +67,12 @@ function buildJsonLd(guide: FormGuide) {
           {
             "@type": "ListItem",
             position: 2,
+            name: "Form guides",
+            item: `${DEFAULT_SITE_URL}/forms`
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
             name: guide.name,
             item: `${DEFAULT_SITE_URL}${path}`
           }
@@ -224,6 +230,9 @@ export default function FormGuidePage({ guide }: { guide: FormGuide }) {
             <p>
               Filler is not affiliated with the organization that issues this
               form. Always check the official form for current requirements.
+            </p>
+            <p>
+              <a href="/forms">More form guides</a>
             </p>
           </Section>
         </article>
