@@ -178,7 +178,7 @@ const NPI_APPLICATION: FormGuide = {
     "Add your primary taxonomy code and license number with issuing state.",
     "Add an endpoint if your EHR gave you one. Otherwise skip it.",
     "Add a contact person, review everything, certify, and submit.",
-    "Watch your email. The NPI arrives by email once assigned, and you can confirm it on the NPI Registry."
+    "Watch your email. NPPES emails the NPI to the contact person you listed once it is assigned, and you can confirm it on the NPI Registry."
   ],
   mistakes: [
     "Name or date of birth that does not match Social Security records.",
@@ -201,7 +201,7 @@ const NPI_APPLICATION: FormGuide = {
     },
     {
       question: "Is there a fee to apply for an NPI?",
-      answer: "No. CMS does not charge for an NPI."
+      answer: "No. CMS does not charge to get an NPI, whether you apply online or on paper."
     },
     {
       question: "Type 1 or Type 2 NPI?",
@@ -227,6 +227,10 @@ const NPI_APPLICATION: FormGuide = {
     {
       label: "CMS: How to apply for an NPI",
       url: "https://www.cms.gov/medicare/regulations-guidance/administrative-simplification/how-apply"
+    },
+    {
+      label: "CMS: there is no charge to get an NPI",
+      url: "https://www.cms.gov/regulations-and-guidance/administrative-simplification/nationalprovidentstand/downloads/7-06july_message.pdf"
     },
     {
       label: "NUCC health care provider taxonomy code set",
