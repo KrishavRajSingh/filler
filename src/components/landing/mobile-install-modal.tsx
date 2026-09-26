@@ -1,10 +1,9 @@
 import { useEffect, useId, useRef, useState } from "react"
 
+import type { InstallCtaLocation } from "~components/landing/install-cta"
 import { trackEvent } from "~lib/analytics"
 
 const FORMSPREE_URL = "https://formspree.io/f/mzdwzkjl"
-
-type InstallCtaLocation = "nav" | "hero" | "footer"
 
 type MobileInstallModalProps = {
   location: InstallCtaLocation
