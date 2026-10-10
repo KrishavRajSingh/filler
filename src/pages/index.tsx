@@ -278,6 +278,14 @@ export default function IndexPage() {
                 />
               </a>
               </div>
+              <p className="landing-footer-listed">
+                Listed on{" "}
+                <a href="https://mossai.org" title="MossAI Tools">MossAI Tools</a>
+                {" · "}
+                <a href="https://whatisaitools.com/" title="What Is Ai Tools">What Is Ai Tools</a>
+                {" · "}
+                <a href="https://www.aitoolzdir.com" target="_blank">AI Toolz Dir</a>
+              </p>
             </div>
           </footer>
       </main>
