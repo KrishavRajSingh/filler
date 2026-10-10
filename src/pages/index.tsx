@@ -245,6 +245,7 @@ export default function IndexPage() {
                 <a href="/forms">Form guides</a>
               </span>
               <span>© {new Date().getFullYear()} Filler</span>
+              <div className="landing-footer-badges">
               <a
                 data-launchpadly-badge="filler"
                 data-launchpadly-badge-variant="light"
@@ -266,6 +267,7 @@ export default function IndexPage() {
                   style={{ height: 54, width: "auto" }}
                 />
               </a>
+              </div>
             </div>
           </footer>
       </main>
