@@ -245,6 +245,27 @@ export default function IndexPage() {
                 <a href="/forms">Form guides</a>
               </span>
               <span>© {new Date().getFullYear()} Filler</span>
+              <a
+                data-launchpadly-badge="filler"
+                data-launchpadly-badge-variant="light"
+                href="https://launchpadly.co/startup/filler?ref=badge"
+                rel="noopener noreferrer"
+                target="_blank">
+                <img
+                  alt="Launchpadly Startup Directory"
+                  height="48"
+                  src="https://launchpadly.co/embed/badges/startup/filler.svg?variant=light"
+                  style={{ display: "block", border: 0 }}
+                  width="220"
+                />
+              </a>
+              <a href="https://starterbest.com" rel="noopener noreferrer" target="_blank">
+                <img
+                  alt="Featured on Starter Best"
+                  src="https://starterbest.com/badages-awards.svg"
+                  style={{ height: 54, width: "auto" }}
+                />
+              </a>
             </div>
           </footer>
       </main>
