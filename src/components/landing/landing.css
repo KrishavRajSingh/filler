@@ -713,6 +713,12 @@
   justify-content: flex-start;
 }
 
+.landing-footer p.landing-footer-listed {
+  flex-basis: 100%;
+  font-size: 13px;
+  max-width: none;
+}
+
 /* ── Doc pages (privacy, etc.) ── */
 
 .landing-doc {
