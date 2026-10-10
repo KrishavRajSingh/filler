@@ -267,6 +267,16 @@ export default function IndexPage() {
                   style={{ height: 54, width: "auto" }}
                 />
               </a>
+              <a
+                href="https://kickproduct.com/products/6ac9f37b964f867e7b9032a3"
+                rel="noopener noreferrer"
+                target="_blank">
+                <img
+                  alt="Listed on Kick Product"
+                  src="https://www.kickproduct.com/listedbadge.png"
+                  width="250"
+                />
+              </a>
               </div>
             </div>
           </footer>
