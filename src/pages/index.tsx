@@ -297,6 +297,22 @@ export default function IndexPage() {
                   width="200"
                 />
               </a>
+              <a href="https://smartkithub.com/product/filler" target="_blank">
+                <img
+                  alt="Smart Kit Hub"
+                  height="54"
+                  loading="lazy"
+                  src="https://smartkithub.com/assets/images/badge.png"
+                />
+              </a>
+              <a href="https://thecoretools.com/tool/filler" target="_blank">
+                <img
+                  alt="The Core Tools"
+                  height="54"
+                  loading="lazy"
+                  src="https://thecoretools.com/assets/images/badge.png"
+                />
+              </a>
               </div>
               <p className="landing-footer-listed">
                 Listed on{" "}
