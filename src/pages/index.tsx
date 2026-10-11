@@ -313,6 +313,22 @@ export default function IndexPage() {
                   src="https://thecoretools.com/assets/images/badge.png"
                 />
               </a>
+              <a href="https://twelve.tools" target="_blank">
+                <img
+                  alt="Featured on Twelve Tools"
+                  height="40"
+                  src="https://twelve.tools/badge1-light.svg"
+                  width="148"
+                />
+              </a>
+              <a href="https://ashlist.com/product/filler" target="_blank">
+                <img
+                  alt="Ash List"
+                  height="54"
+                  loading="lazy"
+                  src="https://ashlist.com/assets/images/badge.png"
+                />
+              </a>
               </div>
               <p className="landing-footer-listed">
                 Listed on{" "}
