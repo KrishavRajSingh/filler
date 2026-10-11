@@ -277,6 +277,18 @@ export default function IndexPage() {
                   width="250"
                 />
               </a>
+              <a
+                data-publishyoursaas-badge="filler-live"
+                href="https://publishyoursaas.com/listing/filler-live"
+                rel="noopener"
+                target="_blank">
+                <img
+                  alt="Filler is listed on publishyoursaas"
+                  height="60"
+                  src="https://publishyoursaas.com/publishyoursaas-badge.svg"
+                  width="240"
+                />
+              </a>
               </div>
               <p className="landing-footer-listed">
                 Listed on{" "}
