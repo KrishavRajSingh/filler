@@ -289,6 +289,14 @@ export default function IndexPage() {
                   width="240"
                 />
               </a>
+              <a href="https://wired.business" target="_blank">
+                <img
+                  alt="Featured on Wired Business"
+                  height="54"
+                  src="https://wired.business/badge0-light.svg"
+                  width="200"
+                />
+              </a>
               </div>
               <p className="landing-footer-listed">
                 Listed on{" "}
@@ -297,6 +305,10 @@ export default function IndexPage() {
                 <a href="https://whatisaitools.com/" title="What Is Ai Tools">What Is Ai Tools</a>
                 {" · "}
                 <a href="https://www.aitoolzdir.com" target="_blank">AI Toolz Dir</a>
+                {" · "}
+                <a href="https://indieai.directory/tools/filler/" rel="noopener" target="_blank">
+                  Filler on IndieAI Directory
+                </a>
               </p>
             </div>
           </footer>
