@@ -74,7 +74,7 @@ const FILL_SOURCE_LABELS = {
 } as const
 
 const HOME_DESCRIPTION =
-  "Chrome extension that fills web forms from a saved profile. One click for Google Forms, job applications, surveys, and signups."
+  "Free Chrome extension that autofills job applications, Google Forms and signups from a profile you save once. Reuses past answers, flags guesses."
 
 const HOME_JSON_LD = {
   "@context": "https://schema.org",
@@ -99,7 +99,7 @@ export default function IndexPage() {
         description={HOME_DESCRIPTION}
         jsonLd={HOME_JSON_LD}
         path="/"
-        title="Filler — stop retyping the same form answers"
+        title="Filler: autofill job applications and Google Forms in one click"
       />
       <main className="landing">
           <header className="landing-top">
