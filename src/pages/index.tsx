@@ -329,6 +329,14 @@ export default function IndexPage() {
                   src="https://ashlist.com/assets/images/badge.png"
                 />
               </a>
+              <a href="https://fastlaunch.io" rel="noopener" target="_blank">
+                <img
+                  alt="Featured on FastLaunch"
+                  height="60"
+                  src="https://fastlaunch.io/images/badges/featured-light.svg"
+                  width="221"
+                />
+              </a>
               </div>
               <p className="landing-footer-listed">
                 Listed on{" "}
