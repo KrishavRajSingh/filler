@@ -1,5 +1,9 @@
 import { beforeEach, describe, expect, it, vi } from "vitest"
-import { runFillOnActiveTab, runFillOnTab } from "./fill-runner"
+import {
+  countLongAnswers,
+  runFillOnActiveTab,
+  runFillOnTab
+} from "./fill-runner"
 
 const mocks = vi.hoisted(() => ({
   applyInstructionsToPage: vi.fn(),
@@ -78,6 +82,7 @@ describe("background fill runner", () => {
     )
     expect(result).toEqual({
       filled: 1,
+      longAnswers: 0,
       message: "Filled 1 fields, skipped 0.",
       ok: true,
       skipped: 0
@@ -97,6 +102,7 @@ describe("background fill runner", () => {
     expect(mocks.applyInstructionsToPage).not.toHaveBeenCalled()
     expect(result).toEqual({
       filled: 0,
+      longAnswers: 0,
       message: "No visible supported fields found.",
       ok: true,
       skipped: 0
@@ -110,5 +116,25 @@ describe("background fill runner", () => {
       message: "No active tab found.",
       ok: false
     })
+  })
+
+  it("counts only filled textareas with a written answer as long answers", () => {
+    const fields = [
+      { id: "why", tagName: "textarea" as const },
+      { id: "short", tagName: "textarea" as const },
+      { id: "name", tagName: "input" as const }
+    ]
+    const longValue = "I want this role because I have shipped hiring tools."
+
+    expect(
+      countLongAnswers(
+        [
+          { action: "setValue", confidence: "medium", fieldId: "why", value: longValue },
+          { action: "setValue", confidence: "high", fieldId: "short", value: "Yes" },
+          { action: "setValue", confidence: "high", fieldId: "name", value: longValue }
+        ],
+        fields
+      )
+    ).toBe(1)
   })
 })

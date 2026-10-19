@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 
+import { trackExtensionEvent } from "~lib/extension-analytics"
 import {
   MESSAGE_RUN_FILL,
   type RunFillResponse
@@ -10,6 +11,7 @@ import {
   hasProfileContent,
   normalizeProfile
 } from "~lib/profile-storage"
+import { absoluteUrl } from "~lib/site"
 
 type FillStatus = "loading-profile" | "ready" | "filling" | "error"
 
@@ -17,6 +19,7 @@ export function PopupApp() {
   const [profile, setProfile] = useState<UserProfile | null>(null)
   const [status, setStatus] = useState<FillStatus>("loading-profile")
   const [message, setMessage] = useState("")
+  const [showPassOffer, setShowPassOffer] = useState(false)
 
   useEffect(() => {
     getStoredProfile()
@@ -41,6 +44,7 @@ export function PopupApp() {
     }
 
     setStatus("filling")
+    setShowPassOffer(false)
 
     try {
       setMessage("Reading visible fields...")
@@ -48,10 +52,22 @@ export function PopupApp() {
 
       setStatus(response.ok ? "ready" : "error")
       setMessage(response.message)
+
+      if (response.ok && response.longAnswers > 0) {
+        setShowPassOffer(true)
+        trackExtensionEvent("pass_offer_shown", {
+          longAnswers: response.longAnswers
+        })
+      }
     } catch {
       setStatus("error")
       setMessage("Could not fill this form. Please try again.")
     }
+  }
+
+  function openJobHuntPass() {
+    trackExtensionEvent("pass_click", { location: "extension" })
+    chrome.tabs.create({ url: absoluteUrl("/pass?from=extension") })
   }
 
   const hasProfile = profile ? hasProfileContent(profile) : false
@@ -114,6 +130,21 @@ export function PopupApp() {
           {message}
         </p>
       ) : null}
+
+      {showPassOffer ? (
+        <div style={passOfferStyle}>
+          <p style={{ fontWeight: 900, margin: "0 0 4px" }}>
+            Tailor this answer to the job post
+          </p>
+          <p style={{ color: "#6b5d50", margin: "0 0 10px" }}>
+            Filler wrote the long answer from your profile only. The Job Hunt
+            Pass reads the job post too. $5 for 30 days, never auto-renews.
+          </p>
+          <button onClick={openJobHuntPass} style={secondaryButtonStyle}>
+            See the Job Hunt Pass
+          </button>
+        </div>
+      ) : null}
     </main>
   )
 }
@@ -153,4 +184,14 @@ const secondaryButtonStyle = {
   background: "#fff",
   border: "1px solid #decfba",
   color: "#2c2118"
+} satisfies React.CSSProperties
+
+const passOfferStyle = {
+  background: "#fff",
+  border: "1px solid #decfba",
+  borderRadius: 12,
+  fontSize: 13,
+  lineHeight: 1.4,
+  margin: "10px 0 0",
+  padding: 12
 } satisfies React.CSSProperties

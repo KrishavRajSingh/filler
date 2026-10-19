@@ -1,4 +1,8 @@
-import type { UserProfile } from "~lib/fill-schemas"
+import type {
+  ExtractedField,
+  FillInstruction,
+  UserProfile
+} from "~lib/fill-schemas"
 import { validateFillInstructions } from "~lib/fill-plan-validation"
 import { absoluteUrl } from "~lib/site"
 import { getActiveTabId } from "~lib/tab-frames"
@@ -32,6 +36,7 @@ export async function runFillOnTab(
   if (fillRequest.fields.length === 0) {
     return {
       filled: 0,
+      longAnswers: 0,
       message: "No visible supported fields found.",
       ok: true,
       skipped: 0
@@ -61,7 +66,25 @@ export async function runFillOnTab(
 
   return {
     ...summary,
+    longAnswers: countLongAnswers(instructions, fillRequest.fields),
     message: `Filled ${summary.filled} fields, skipped ${summary.skipped}.`,
     ok: true
   }
+}
+
+// Long written answers ("why this role?") are where the Job Hunt Pass offer shows.
+export function countLongAnswers(
+  instructions: FillInstruction[],
+  fields: ExtractedField[]
+): number {
+  const textareaIds = new Set(
+    fields.filter((field) => field.tagName === "textarea").map((field) => field.id)
+  )
+
+  return instructions.filter(
+    (instruction) =>
+      instruction.action === "setValue" &&
+      textareaIds.has(instruction.fieldId) &&
+      (instruction.value ?? "").trim().length >= 40
+  ).length
 }

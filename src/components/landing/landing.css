@@ -1048,3 +1048,93 @@
 .landing-guide .landing-doc-section p + p {
   margin-top: 12px;
 }
+
+/* ── Job Hunt Pass ── */
+
+.landing-pass-line {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.55;
+  margin: 18px 0 0;
+}
+
+.landing-pass-line a {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.landing-pass-lead {
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.65;
+  margin: 0;
+  max-width: 62ch;
+}
+
+.landing-pass-compare {
+  display: grid;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+@media (min-width: 900px) {
+  .landing-pass-compare {
+    grid-template-columns: 0.8fr 1fr 1.2fr;
+  }
+}
+
+.landing-pass-card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  padding: 14px;
+}
+
+.landing-pass-card-strong {
+  border-color: var(--ink);
+}
+
+.landing-doc-section .landing-pass-card p {
+  color: var(--ink);
+}
+
+.landing-doc-section p.landing-pass-card-label {
+  color: var(--faint);
+  font-family: var(--mono);
+  font-size: 11px;
+  margin: 0 0 6px;
+  text-transform: uppercase;
+}
+
+.landing-doc-section p.landing-pass-note {
+  color: var(--faint);
+  font-size: 13px;
+  margin-top: 12px;
+}
+
+.landing-pass-buy {
+  margin-top: 18px;
+}
+
+.landing-pass-soon {
+  border-left: 2px solid var(--ink);
+  margin-top: 18px;
+  padding-left: 14px;
+}
+
+.landing-pass-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.landing-pass-input {
+  background: #fff;
+  border: 1px solid var(--line);
+  color: var(--ink);
+  flex: 1 1 200px;
+  font: inherit;
+  max-width: 320px;
+  min-width: 0;
+  padding: 10px 12px;
+}

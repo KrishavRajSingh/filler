@@ -2,6 +2,7 @@ import { InstallCta } from "~components/landing/install-cta"
 import { LandingBrand } from "~components/landing/landing-brand"
 import { PageHead } from "~components/landing/page-head"
 import { WaitlistForm } from "~components/landing/waitlist-form"
+import { trackEvent } from "~lib/analytics"
 import { absoluteUrl, CHROME_STORE_URL } from "~lib/site"
 
 const DEMO_VIDEO_URL = "https://files.catbox.moe/6ggdog.mp4"
@@ -136,6 +137,14 @@ export default function IndexPage() {
                     See how it works ↓
                   </a>
                 </div>
+                <p className="landing-pass-line">
+                  Applying for jobs? Get long answers written for the job post.{" "}
+                  <a
+                    href="/pass?from=hero"
+                    onClick={() => trackEvent("pass_click", { location: "hero" })}>
+                    Job Hunt Pass, $5 for 30 days
+                  </a>
+                </p>
                 <p className="landing-aside">
                   You stay in control — Filler never submits for you, and
                   anything it&apos;s unsure about gets flagged for you to check.

@@ -11,6 +11,7 @@ export type RunFillResponse =
   | {
       ok: true
       filled: number
+      longAnswers: number
       message: string
       skipped: number
     }

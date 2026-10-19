@@ -14,6 +14,9 @@ export type AnalyticsEvent =
   | "mobile_install_copy_link"
   | "mobile_install_email_submit"
   | "mobile_install_modal_open"
+  | "pass_buy_click"
+  | "pass_click"
+  | "pass_email_submit"
   | "waitlist_submit"
 
 export function trackEvent(
