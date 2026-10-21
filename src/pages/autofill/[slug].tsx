@@ -148,8 +148,8 @@ export default function AtsAutofillPage({ guide }: { guide: AtsGuide }) {
               </li>
               <li>Open the {guide.name} application and click Fill in the Filler popup.</li>
               <li>
-                Read every field. Filler flags answers it had to guess. Attach your
-                resume, answer what's left, and submit.
+                Read every field before you submit. Attach your resume and answer
+                what's left.
               </li>
             </ol>
           </Section>

@@ -11,7 +11,7 @@ const PATH = "/job-application-autofill"
 const TITLE = "Job application autofill extension for Chrome: free, no account"
 
 const DESCRIPTION =
-  "Filler is a free Chrome extension that autofills job applications on Greenhouse, Lever, Ashby and other sites from a profile you save once. No account, flags guesses, never submits for you."
+  "Filler is a free Chrome extension that autofills job applications on Greenhouse, Lever, Ashby and other sites from a profile you save once. No account, and it never submits for you."
 
 const FAQS = [
   {
@@ -36,7 +36,7 @@ const FAQS = [
   {
     question: "Does it make up answers?",
     answer:
-      "No. It fills from your profile and answers you've saved. When it has to guess, it flags the field for you to check. It never guesses gender, race, veteran or disability questions, and it never ticks consent boxes."
+      "No. It fills from your profile and answers you've saved. It never guesses gender, race, veteran or disability questions, and it never ticks consent boxes."
   },
   {
     question: "Does it upload my resume?",
@@ -145,9 +145,9 @@ export default function JobApplicationAutofillPage() {
                 shows up on another application.
               </li>
               <li>
-                <strong>Flags guesses.</strong> If an answer isn&apos;t in your
-                profile and Filler has to infer it, the field is marked for you
-                to check.
+                <strong>Leaves gaps empty.</strong> If an answer isn&apos;t in
+                your profile, Filler leaves the field for you instead of making
+                something up.
               </li>
               <li>
                 <strong>Never submits.</strong> It fills and stops. You stay in
