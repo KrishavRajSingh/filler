@@ -243,7 +243,222 @@ const NPI_APPLICATION: FormGuide = {
   ]
 }
 
-export const FORM_GUIDES: FormGuide[] = [NPI_APPLICATION]
+const DEA_REGISTRATION: FormGuide = {
+  slug: "dea-registration-form-224",
+  name: "DEA Form 224",
+  title: "DEA registration (Form 224): how to fill it out, field by field",
+  description:
+    "Step-by-step guide to DEA Form 224, the new registration for practitioners, mid-level practitioners, pharmacies and clinics. Business activity, drug schedules 2 vs 2N, state license, liability questions, MATE training and the $888 fee.",
+  datePublished: "2026-10-22",
+  dateModified: "2026-10-22",
+  intro: [
+    "Before you can prescribe or dispense controlled substances in the US, you need a DEA registration for each state you practice in. New practitioners, mid-level practitioners, hospitals, clinics and retail pharmacies apply with DEA Form 224. Renewals use Form 224a.",
+    "DEA only takes the application online now. This guide covers each section in the order the form asks for it, which fields people get wrong, and what to have ready so you can do it in one sitting."
+  ],
+  onlineForm: {
+    label: "DEA Diversion Control online application",
+    url: "https://apps.deadiversion.usdoj.gov/webforms2/spring/newLogin"
+  },
+  beforeYouStart: [
+    "An active state license, plus the state controlled substance registration if your state requires one. DEA will not register you in a state until you meet that state's requirements.",
+    "Your NPI, date of birth, professional degree, school and year of graduation. Practitioners and mid-level practitioners are asked for all of them.",
+    "Your SSN if you register as an individual, or the business TIN if the registration is for a business.",
+    "The address where you will practice and store controlled substances. You need a separate registration for each principal place of practice, and one per state.",
+    "Proof for yourself that you finished at least 8 hours of training on opioid and other substance use disorders (MATE Act). You tick a box; DEA doesn't ask for the certificates, but keep them.",
+    "A card for the $888 fee. It covers 3 years and isn't refundable."
+  ],
+  sections: [
+    {
+      title: "Applicant identification",
+      fields: [
+        {
+          label: "Individual or business registration",
+          required: true,
+          tip: "Individual for a single practitioner (uses your SSN). Business for a hospital, clinic, pharmacy or other facility (uses the TIN)."
+        },
+        {
+          label: "Name",
+          required: true,
+          tip: "Last name, then first and middle name, as they appear on your state license. For a business, the legal business or facility name."
+        },
+        {
+          label: "SSN or TIN",
+          required: true,
+          tip: "Required under the Debt Collection Improvement Act. SSN for individuals, TIN for businesses."
+        },
+        {
+          label: "Professional degree, school, graduation year, NPI, date of birth",
+          required: true,
+          tip: "Only for practitioners and mid-level practitioners. Pick the degree from the list (MD, DO, DDS, NP, PA and so on). Date of birth is MM-DD-YYYY."
+        },
+        {
+          label: "Place of business",
+          required: true,
+          tip: "The practice address that goes on your certificate. DEA allows a home address, but that home then becomes a controlled premises open to inspection."
+        },
+        {
+          label: "Mailing address, phones and email",
+          required: true,
+          tip: "Mailing address can differ from the practice address. Use one email you will keep: DEA sends renewal reminders there 60, 45, 30, 15 and 5 days before expiry."
+        },
+        {
+          label: "Other DEA registration numbers",
+          required: true,
+          tip: "Yes or no. Say yes if you already hold a registration in another state or at another location."
+        }
+      ]
+    },
+    {
+      title: "Business activity",
+      fields: [
+        {
+          label: "Business activity",
+          required: true,
+          tip: "Pick one. Practitioner covers MD, DO, DDS, DMD, DPM and DVM. Mid-level practitioner covers NP, PA, OD, ND, RPH and others your state lets prescribe. Pharmacies, hospitals, clinics and teaching institutions each have their own box."
+        }
+      ]
+    },
+    {
+      title: "Drug schedules",
+      fields: [
+        {
+          label: "Schedules",
+          required: true,
+          tip: "Tick every schedule you will prescribe or handle: 2 (narcotic), 2N (non-narcotic, e.g. stimulants), 3, 3N, 4 and 5. Without 2N you can't prescribe stimulants such as amphetamine. Only tick what your state license allows."
+        },
+        {
+          label: "Official order forms",
+          required: false,
+          tip: "Tick this if you will buy schedule 2 drugs yourself, for example to stock an office. Prescribing alone doesn't need it."
+        }
+      ]
+    },
+    {
+      title: "State license",
+      fields: [
+        {
+          label: "State license number, state and expiration date",
+          required: true,
+          tip: "Your professional license in the state of the place of business. If your state also issues a controlled substance registration, enter both numbers. An expired or pending license stops the application."
+        }
+      ]
+    },
+    {
+      title: "Liability questions",
+      fields: [
+        {
+          label: "Questions 1 to 5",
+          required: true,
+          tip: "All must be answered. They ask about controlled substance convictions, exclusion from Medicare or state health programs, surrendered or revoked DEA registrations, and state license discipline or probation. Question 5 is for corporations and partnerships; mark No if it doesn't apply."
+        },
+        {
+          label: "Explanation of yes answers",
+          required: false,
+          tip: "For each yes: the date, location, nature and outcome of the incident. A yes doesn't mean denial. An unexplained yes, or a no that later turns out false, causes far more trouble."
+        }
+      ]
+    },
+    {
+      title: "Fee, training attestation and certification",
+      fields: [
+        {
+          label: "Fee exemption",
+          required: false,
+          tip: "Only for federal, state or local government officials and institutions. Another official has to certify it. Doesn't cover contractor-run institutions."
+        },
+        {
+          label: "MATE Act training",
+          required: true,
+          tip: "A one-time checkbox that you've done 8 hours of substance use disorder training (or hold a qualifying board certification or degree). Practitioners who are only veterinarians are exempt."
+        },
+        {
+          label: "Payment",
+          required: true,
+          tip: "$888 for 3 years for practitioners, pharmacies, hospitals and clinics. Non-refundable, so check the schedules and state before you pay."
+        },
+        {
+          label: "Certification",
+          required: true,
+          tip: "You certify that everything is true. False information on the form is a federal crime (21 USC 843(d))."
+        }
+      ]
+    }
+  ],
+  steps: [
+    "Get your state license, and the state controlled substance registration if your state has one.",
+    "Open the DEA Diversion online application and start a new Form 224.",
+    "Choose individual or business, then enter your name, SSN or TIN, degree, school, graduation year, NPI and date of birth.",
+    "Enter the place of business, mailing address, phone and the email DEA should use for renewal notices.",
+    "Pick one business activity and tick every drug schedule you will handle, including 2N and 3N if you need them.",
+    "Enter the state license number, state and expiration date.",
+    "Answer all five liability questions and explain any yes.",
+    "Tick the MATE training box, pay the $888 fee, certify and submit. Check your status later on DEA's registration status page."
+  ],
+  mistakes: [
+    "Applying before the state license or state controlled substance registration is active.",
+    "Ticking schedule 2 but not 2N, then being unable to prescribe stimulants.",
+    "Using a home address without knowing it becomes an inspectable controlled premises.",
+    "One registration for practices in two states. Each state needs its own.",
+    "Leaving liability question 5 blank because it seems not to apply. Mark No.",
+    "An email you'll stop checking. Renewal reminders go there, and handling controlled substances on an expired registration is illegal."
+  ],
+  faqs: [
+    {
+      question: "How much does a DEA registration cost?",
+      answer:
+        "$888 for 3 years for practitioners, mid-level practitioners, pharmacies, hospitals and clinics (21 CFR 1301.13). The fee is not refundable. Government officials and institutions can be fee-exempt."
+    },
+    {
+      question: "What is the difference between schedule 2 and 2N?",
+      answer:
+        "Schedule 2 covers narcotics such as oxycodone. 2N is schedule 2 non-narcotic, such as amphetamine and methylphenidate. They are separate boxes, so tick both if you will prescribe both. The same split applies to 3 and 3N."
+    },
+    {
+      question: "Do I need a separate DEA registration for each state?",
+      answer:
+        "Yes. A registration is tied to a state license and a principal place of practice, so practicing in two states needs two registrations."
+    },
+    {
+      question: "Can I apply for a DEA number on paper?",
+      answer:
+        "No. Since 2022 DEA requires new applications and renewals to be submitted online."
+    },
+    {
+      question: "How do I renew my DEA registration?",
+      answer:
+        "With Form 224a on the DEA renewal page. DEA emails reminders 60, 45, 30, 15 and 5 days before expiry. If you renew before it expires you can keep working until DEA decides. After a month past expiry you have to file a new Form 224."
+    },
+    {
+      question: "Can Filler fill DEA Form 224 for me?",
+      answer:
+        "Filler fills the text fields and dropdowns of web forms from facts you save once: name, addresses, NPI, date of birth, license number. Checkboxes like the drug schedules, the liability questions, the training attestation and payment stay with you. It never submits."
+    }
+  ],
+  sources: [
+    {
+      label: "DEA Form 224 (10-20), OMB 1117-0014",
+      url: "https://www.reginfo.gov/public/do/DownloadDocument?objectID=111436701"
+    },
+    {
+      label: "21 CFR 1301.13: registration categories and fees",
+      url: "https://www.ecfr.gov/current/title-21/chapter-II/subchapter-B/part-1301/subject-group-ECFR0f5a129834f0129/section-1301.13"
+    },
+    {
+      label: "DEA Diversion: obtain or renew a registration",
+      url: "https://www.deadiversion.usdoj.gov/drugreg/registration.html"
+    },
+    {
+      label: "DEA Diversion: registration Q&A",
+      url: "https://www.deadiversion.usdoj.gov/faq/registration-faq.html"
+    },
+    {
+      label: "DEA Diversion: MATE Act training Q&A",
+      url: "https://www.deadiversion.usdoj.gov/faq/MATE_Act_faq.html"
+    }
+  ]
+}
+
+export const FORM_GUIDES: FormGuide[] = [NPI_APPLICATION, DEA_REGISTRATION]
 
 export function getFormGuide(slug: string): FormGuide | undefined {
   return FORM_GUIDES.find((guide) => guide.slug === slug)
