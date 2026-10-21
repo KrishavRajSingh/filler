@@ -111,6 +111,7 @@ export default function IndexPage() {
                 <a href="#proof">Example</a>
                 <a href="#process">How it works</a>
                 <a href="#privacy">Privacy</a>
+                <a href="/job-application-autofill">Job sites</a>
                 <a href="/blog">Blog</a>
               </div>
               <InstallCta className="landing-btn landing-btn-small" location="nav" />
@@ -121,8 +122,8 @@ export default function IndexPage() {
                 <p className="landing-kicker">Chrome extension · free</p>
                 <h1>Stop retyping the same answers on every form.</h1>
                 <p className="landing-deck">
-                  Save your details once. Click Fill on Google Forms, job
-                  applications, surveys, and signups — even when every form
+                  Save your details once. Click Fill on Google Forms,{" "}
+                  <a href="/job-application-autofill">job applications</a>, surveys, and signups — even when every form
                   asks slightly differently.
                 </p>
                 <div className="landing-intro-actions">
@@ -252,6 +253,9 @@ export default function IndexPage() {
               </span>
               <span>
                 <a href="/forms">Form guides</a>
+              </span>
+              <span>
+                <a href="/job-application-autofill">Job application autofill</a>
               </span>
               <span>© {new Date().getFullYear()} Filler</span>
               <div className="landing-footer-badges">

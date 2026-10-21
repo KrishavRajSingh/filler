@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://filler.live/</loc>
-    <lastmod>2026-05-22</lastmod>
+    <lastmod>2026-10-21</lastmod>
   </url>
   <url>
     <loc>https://filler.live/privacy</loc>
@@ -29,5 +29,21 @@
   </url>
   <url>
     <loc>https://filler.live/forms/npi-application</loc>
+  </url>
+  <url>
+    <loc>https://filler.live/job-application-autofill</loc>
+    <lastmod>2026-10-21</lastmod>
+  </url>
+  <url>
+    <loc>https://filler.live/autofill/greenhouse</loc>
+    <lastmod>2026-10-21</lastmod>
+  </url>
+  <url>
+    <loc>https://filler.live/autofill/lever</loc>
+    <lastmod>2026-10-21</lastmod>
+  </url>
+  <url>
+    <loc>https://filler.live/autofill/ashby</loc>
+    <lastmod>2026-10-21</lastmod>
   </url>
 </urlset>
