@@ -98,7 +98,7 @@ describe("page scripting functions", () => {
       }
     ])
 
-    expect(response).toEqual({ filled: 2, ok: true, skipped: 0 })
+    expect(response).toEqual({ filled: 2, guessed: 0, ok: true, skipped: 0 })
     expect(document.querySelector<HTMLInputElement>("#name")?.value).toBe("Ada")
     expect(document.querySelector<HTMLSelectElement>("#founders")?.value).toBe("1")
   })
@@ -157,7 +157,7 @@ describe("page scripting functions", () => {
       }
     ])
 
-    expect(response).toEqual({ filled: 1, ok: true, skipped: 0 })
+    expect(response).toEqual({ filled: 1, guessed: 0, ok: true, skipped: 0 })
     expect(document.querySelector<HTMLInputElement>("#founder-count")?.value).toBe("2")
     expect(document.querySelector(".list-item")).toBeNull()
   })
@@ -197,7 +197,7 @@ describe("page scripting functions", () => {
       }
     ])
 
-    expect(response).toEqual({ filled: 1, ok: true, skipped: 0 })
+    expect(response).toEqual({ filled: 1, guessed: 0, ok: true, skipped: 0 })
     expect(yes.checked).toBe(true)
     expect(document.body.dataset.tallySelected).toBe("technical:yes")
   })
@@ -300,7 +300,7 @@ describe("page scripting functions", () => {
       }
     ])
 
-    expect(response).toEqual({ filled: 3, ok: true, skipped: 1 })
+    expect(response).toEqual({ filled: 3, guessed: 0, ok: true, skipped: 1 })
     expect(document.querySelector<HTMLInputElement>("#name")?.value).toBe(
       "Krishav Raj Singh"
     )
@@ -415,7 +415,7 @@ describe("page scripting functions", () => {
       }
     ])
 
-    expect(response).toEqual({ filled: 2, ok: true, skipped: 0 })
+    expect(response).toEqual({ filled: 2, guessed: 0, ok: true, skipped: 0 })
     expect(document.querySelector<HTMLInputElement>('input[name="entry.1"]')?.value).toBe(
       "2025"
     )
@@ -482,7 +482,7 @@ describe("page scripting functions", () => {
     ])
     await new Promise((resolve) => window.setTimeout(resolve, 0))
 
-    expect(response).toEqual({ filled: 2, ok: true, skipped: 0 })
+    expect(response).toEqual({ filled: 2, guessed: 0, ok: true, skipped: 0 })
     expect(
       Array.from(document.querySelectorAll<HTMLElement>('[role="listbox"]')).map(
         (listbox) => listbox.getAttribute("aria-expanded")
@@ -578,7 +578,7 @@ describe("page scripting functions", () => {
       }
     ])
 
-    expect(filled).toEqual({ filled: 1, ok: true, skipped: 0 })
+    expect(filled).toEqual({ filled: 1, guessed: 0, ok: true, skipped: 0 })
     expect(
       document
         .querySelector<HTMLElement>(
@@ -586,5 +586,56 @@ describe("page scripting functions", () => {
         )
         ?.getAttribute("aria-checked")
     ).toBe("true")
+  })
+
+  it("flags medium-confidence answers so the user checks them", async () => {
+    document.body.innerHTML = `
+      <form>
+        <label for="name">Full name</label>
+        <input id="name" />
+        <label for="heard">How did you hear about us?</label>
+        <input id="heard" />
+      </form>
+    `
+
+    const response = await applyInstructionsInPage([
+      { action: "setValue", confidence: "high", fieldId: "field-0", value: "Ada" },
+      { action: "setValue", confidence: "medium", fieldId: "field-1", value: "LinkedIn" }
+    ])
+
+    expect(response).toEqual({ filled: 2, guessed: 1, ok: true, skipped: 0 })
+    expect(document.querySelector("#name")?.hasAttribute("data-filler-guess")).toBe(false)
+    expect(document.querySelector("#heard")?.hasAttribute("data-filler-guess")).toBe(true)
+    expect(document.querySelectorAll(".filler-guess-tag")).toHaveLength(1)
+    expect(document.querySelector(".filler-guess-tag")?.textContent).toContain("Guess")
+  })
+
+  it("clears a guess flag once the user edits the field", async () => {
+    document.body.innerHTML = `<label for="heard">How did you hear about us?</label><input id="heard" />`
+
+    await applyInstructionsInPage([
+      { action: "setValue", confidence: "medium", fieldId: "field-0", value: "LinkedIn" }
+    ])
+
+    const input = document.querySelector<HTMLInputElement>("#heard")!
+    input.dispatchEvent(new KeyboardEvent("keydown", { bubbles: true, key: "a" }))
+
+    expect(input.hasAttribute("data-filler-guess")).toBe(false)
+    expect(document.querySelectorAll(".filler-guess-tag")).toHaveLength(0)
+  })
+
+  it("removes old guess flags when the form is filled again", async () => {
+    document.body.innerHTML = `<label for="heard">How did you hear about us?</label><input id="heard" />`
+
+    await applyInstructionsInPage([
+      { action: "setValue", confidence: "medium", fieldId: "field-0", value: "LinkedIn" }
+    ])
+    const response = await applyInstructionsInPage([
+      { action: "setValue", confidence: "high", fieldId: "field-0", value: "A friend" }
+    ])
+
+    expect(response).toEqual({ filled: 1, guessed: 0, ok: true, skipped: 0 })
+    expect(document.querySelector("#heard")?.hasAttribute("data-filler-guess")).toBe(false)
+    expect(document.querySelectorAll(".filler-guess-tag")).toHaveLength(0)
   })
 })

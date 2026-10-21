@@ -36,6 +36,7 @@ export async function runFillOnTab(
   if (fillRequest.fields.length === 0) {
     return {
       filled: 0,
+      guessed: 0,
       longAnswers: 0,
       message: "No visible supported fields found.",
       ok: true,
@@ -67,9 +68,27 @@ export async function runFillOnTab(
   return {
     ...summary,
     longAnswers: countLongAnswers(instructions, fillRequest.fields),
-    message: `Filled ${summary.filled} fields, skipped ${summary.skipped}.`,
+    message: fillSummaryMessage(summary),
     ok: true
   }
+}
+
+export function fillSummaryMessage({
+  filled,
+  guessed,
+  skipped
+}: {
+  filled: number
+  guessed: number
+  skipped: number
+}): string {
+  const guesses =
+    guessed === 0
+      ? ""
+      : guessed === 1
+        ? ", 1 is a guess to check"
+        : `, ${guessed} are guesses to check`
+  return `Filled ${filled} fields${guesses}, skipped ${skipped}.`
 }
 
 // Long written answers ("why this role?") are where the Job Hunt Pass offer shows.

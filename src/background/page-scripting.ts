@@ -82,10 +82,11 @@ export async function applyInstructionsToPage(
 
       return {
         filled: summary.filled + response.value.filled,
+        guessed: summary.guessed + (response.value.guessed ?? 0),
         skipped: summary.skipped + response.value.skipped
       }
     },
-    { filled: 0, skipped: 0 }
+    { filled: 0, guessed: 0, skipped: 0 }
   )
 }
 

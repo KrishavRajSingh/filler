@@ -10,6 +10,7 @@ type ExtractFieldsResponse = {
 
 type ApplyFillResponse = {
   filled: number
+  guessed: number
   ok: true
   skipped: number
 }
@@ -698,101 +699,224 @@ export async function applyInstructionsInPage(
   const targets = collectTargets()
 
   let filled = 0
+  let guessed = 0
   let skipped = 0
 
+  clearGuessFlags()
+
   for (const instruction of instructions) {
-    if (instruction.confidence === "low" || instruction.action === "skip") {
+    const filledBefore = filled
+    // Every branch below ends in `continue`; `finally` still runs, so a
+    // medium-confidence fill is flagged whichever branch filled it.
+    try {
+      if (instruction.confidence === "low" || instruction.action === "skip") {
+        skipped += 1
+        continue
+      }
+
+      const index = Number(instruction.fieldId.match(/field-(\d+)$/)?.[1] ?? -1)
+      const target = targets[index]
+      if (!target) {
+        skipped += 1
+        continue
+      }
+      const control = target.control
+
+      if (
+        instruction.action === "setValue" &&
+        (control instanceof HTMLInputElement || control instanceof HTMLTextAreaElement)
+      ) {
+        if (control instanceof HTMLInputElement && ["checkbox", "radio"].includes(control.type)) {
+          skipped += 1
+          continue
+        }
+        setControlValue(control, instruction.value ?? "")
+        dispatchFormEvents(control)
+        filled += 1
+        continue
+      }
+
+      if (instruction.action === "selectOption" && control instanceof HTMLSelectElement) {
+        const option = Array.from(control.options).find(
+          (candidate) =>
+            normalize(candidate.label) === normalize(instruction.value) ||
+            normalize(candidate.value) === normalize(instruction.value)
+        )
+        if (!option) {
+          skipped += 1
+          continue
+        }
+        control.value = option.value
+        dispatchFormEvents(control)
+        filled += 1
+        continue
+      }
+
+      if (
+        instruction.action === "selectOption" &&
+        control instanceof HTMLInputElement &&
+        isTallyDropdownControl(control)
+      ) {
+        const didSelect = await selectTallyDropdownOption(control, instruction.value)
+        filled += didSelect ? 1 : 0
+        skipped += didSelect ? 0 : 1
+        continue
+      }
+
+      if (instruction.action === "selectOption" && target.kind === "aria-listbox") {
+        const didSelect = selectAriaOption(control, "option", instruction.value, target.block)
+        filled += didSelect ? 1 : 0
+        skipped += didSelect ? 0 : 1
+        continue
+      }
+
+      if (
+        (instruction.action === "selectOption" ||
+          (instruction.action === "check" && target.kind === "aria-checkbox-group")) &&
+        (target.kind === "aria-radio-group" || target.kind === "aria-checkbox-group")
+      ) {
+        const didSelect = selectAriaOption(
+          target.block ?? target.element,
+          target.kind === "aria-radio-group" ? "radio" : "checkbox",
+          instruction.value
+        )
+        filled += didSelect ? 1 : 0
+        skipped += didSelect ? 0 : 1
+        continue
+      }
+
+      if (instruction.action === "check" && control instanceof HTMLInputElement) {
+        if (!["checkbox", "radio"].includes(control.type)) {
+          skipped += 1
+          continue
+        }
+        if (!control.checked) control.click()
+        dispatchFormEvents(control)
+        filled += control.checked ? 1 : 0
+        skipped += control.checked ? 0 : 1
+        continue
+      }
+
       skipped += 1
-      continue
-    }
-
-    const index = Number(instruction.fieldId.match(/field-(\d+)$/)?.[1] ?? -1)
-    const target = targets[index]
-    if (!target) {
-      skipped += 1
-      continue
-    }
-    const control = target.control
-
-    if (
-      instruction.action === "setValue" &&
-      (control instanceof HTMLInputElement || control instanceof HTMLTextAreaElement)
-    ) {
-      if (control instanceof HTMLInputElement && ["checkbox", "radio"].includes(control.type)) {
-        skipped += 1
-        continue
+    } finally {
+      if (filled > filledBefore && instruction.confidence === "medium") {
+        const index = Number(instruction.fieldId.match(/field-(\d+)$/)?.[1] ?? -1)
+        const target = targets[index]
+        if (target) {
+          markGuess(target.kind === "native" ? target.control : target.block ?? target.element)
+          guessed += 1
+        }
       }
-      setControlValue(control, instruction.value ?? "")
-      dispatchFormEvents(control)
-      filled += 1
-      continue
     }
-
-    if (instruction.action === "selectOption" && control instanceof HTMLSelectElement) {
-      const option = Array.from(control.options).find(
-        (candidate) =>
-          normalize(candidate.label) === normalize(instruction.value) ||
-          normalize(candidate.value) === normalize(instruction.value)
-      )
-      if (!option) {
-        skipped += 1
-        continue
-      }
-      control.value = option.value
-      dispatchFormEvents(control)
-      filled += 1
-      continue
-    }
-
-    if (
-      instruction.action === "selectOption" &&
-      control instanceof HTMLInputElement &&
-      isTallyDropdownControl(control)
-    ) {
-      const didSelect = await selectTallyDropdownOption(control, instruction.value)
-      filled += didSelect ? 1 : 0
-      skipped += didSelect ? 0 : 1
-      continue
-    }
-
-    if (instruction.action === "selectOption" && target.kind === "aria-listbox") {
-      const didSelect = selectAriaOption(control, "option", instruction.value, target.block)
-      filled += didSelect ? 1 : 0
-      skipped += didSelect ? 0 : 1
-      continue
-    }
-
-    if (
-      (instruction.action === "selectOption" ||
-        (instruction.action === "check" && target.kind === "aria-checkbox-group")) &&
-      (target.kind === "aria-radio-group" || target.kind === "aria-checkbox-group")
-    ) {
-      const didSelect = selectAriaOption(
-        target.block ?? target.element,
-        target.kind === "aria-radio-group" ? "radio" : "checkbox",
-        instruction.value
-      )
-      filled += didSelect ? 1 : 0
-      skipped += didSelect ? 0 : 1
-      continue
-    }
-
-    if (instruction.action === "check" && control instanceof HTMLInputElement) {
-      if (!["checkbox", "radio"].includes(control.type)) {
-        skipped += 1
-        continue
-      }
-      if (!control.checked) control.click()
-      dispatchFormEvents(control)
-      filled += control.checked ? 1 : 0
-      skipped += control.checked ? 0 : 1
-      continue
-    }
-
-    skipped += 1
   }
 
-  return { filled, ok: true, skipped }
+  return { filled, guessed, ok: true, skipped }
+
+  function clearGuessFlags() {
+    document.querySelectorAll(".filler-guess-tag").forEach((tag) => tag.remove())
+    document
+      .querySelectorAll<HTMLElement>("[data-filler-guess]")
+      .forEach((element) => unmarkGuess(element))
+  }
+
+  function markGuess(element: HTMLElement) {
+    if (element.hasAttribute("data-filler-guess")) return
+
+    const id = `filler-guess-${Math.random().toString(36).slice(2)}`
+    const box = findGuessBox(element)
+    element.setAttribute("data-filler-guess", id)
+    box.setAttribute("data-filler-guess-box", id)
+    box.setAttribute("data-filler-guess-outline", box.style.outline)
+    box.style.setProperty("outline", "2px solid #f59e0b", "important")
+    box.style.setProperty("outline-offset", "2px", "important")
+
+    const tag = document.createElement("div")
+    tag.className = "filler-guess-tag"
+    tag.id = id
+    tag.textContent = "Guess: check this"
+    tag.setAttribute("aria-hidden", "true")
+    Object.assign(tag.style, {
+      background: "#f59e0b",
+      borderRadius: "4px",
+      color: "#1c1917",
+      font: "600 11px/1.4 system-ui, sans-serif",
+      padding: "2px 6px",
+      pointerEvents: "none",
+      position: "absolute",
+      whiteSpace: "nowrap",
+      zIndex: "2147483647"
+    })
+    document.body.append(tag)
+    positionGuessTag(box, tag)
+
+    // Our own fill only dispatches input/change, so these events mean the user
+    // touched the answer.
+    const isTextEntry =
+      element instanceof HTMLTextAreaElement ||
+      (element instanceof HTMLInputElement && !["checkbox", "radio"].includes(element.type))
+    const userEvents = isTextEntry
+      ? ["keydown", "paste", "cut", "drop"]
+      : ["pointerdown", "keydown"]
+    const onUserEdit = () => {
+      unmarkGuess(element)
+      userEvents.forEach((type) => element.removeEventListener(type, onUserEdit, true))
+    }
+    userEvents.forEach((type) => element.addEventListener(type, onUserEdit, true))
+
+    const guessWindow = window as Window & { __fillerGuessReposition?: boolean }
+    if (!guessWindow.__fillerGuessReposition) {
+      guessWindow.__fillerGuessReposition = true
+      const reposition = () => {
+        document.querySelectorAll<HTMLElement>("[data-filler-guess]").forEach((marked) => {
+          const markedId = marked.getAttribute("data-filler-guess") ?? ""
+          const markedTag = document.getElementById(markedId)
+          const markedBox = document.querySelector<HTMLElement>(
+            `[data-filler-guess-box="${markedId}"]`
+          )
+          if (markedTag) positionGuessTag(markedBox ?? marked, markedTag)
+        })
+      }
+      window.addEventListener("resize", reposition)
+      window.addEventListener("scroll", reposition, true)
+    }
+  }
+
+  function unmarkGuess(element: HTMLElement) {
+    const id = element.getAttribute("data-filler-guess")
+    element.removeAttribute("data-filler-guess")
+    if (!id) return
+    document.getElementById(id)?.remove()
+    const box = document.querySelector<HTMLElement>(`[data-filler-guess-box="${id}"]`)
+    if (!box) return
+    box.style.outline = box.getAttribute("data-filler-guess-outline") ?? ""
+    box.style.removeProperty("outline-offset")
+    box.removeAttribute("data-filler-guess-box")
+    box.removeAttribute("data-filler-guess-outline")
+  }
+
+  // Custom dropdowns (Greenhouse, Ashby) hide a tiny input inside a bordered
+  // box; outline the box the user sees, as long as it holds only this field.
+  function findGuessBox(element: HTMLElement) {
+    let candidate: HTMLElement | null = element
+    for (let depth = 0; candidate && depth < 4; depth += 1) {
+      const style = window.getComputedStyle(candidate)
+      if (parseFloat(style.borderTopWidth) > 0 || parseFloat(style.borderBottomWidth) > 0) {
+        return candidate
+      }
+      const parent: HTMLElement | null = candidate.parentElement
+      if (!parent || parent.querySelectorAll("input, select, textarea").length > 1) break
+      candidate = parent
+    }
+    return element
+  }
+
+  // Sits on the box's top-right edge, clear of the question text on the left.
+  function positionGuessTag(box: HTMLElement, tag: HTMLElement) {
+    const rect = box.getBoundingClientRect()
+    const left = Math.max(rect.left, rect.right - tag.offsetWidth - 8)
+    tag.style.left = `${left + window.scrollX}px`
+    tag.style.top = `${Math.max(0, rect.top + window.scrollY - 10)}px`
+  }
 
   function selectAriaOption(
     container: HTMLElement,

@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from "vitest"
 import {
   countLongAnswers,
+  fillSummaryMessage,
   runFillOnActiveTab,
   runFillOnTab
 } from "./fill-runner"
@@ -59,7 +60,7 @@ describe("background fill runner", () => {
 
     mocks.collectFillRequestFromPage.mockResolvedValue(fillRequest)
     mocks.validateFillInstructions.mockReturnValue(instructions)
-    mocks.applyInstructionsToPage.mockResolvedValue({ filled: 1, skipped: 0 })
+    mocks.applyInstructionsToPage.mockResolvedValue({ filled: 1, guessed: 0, skipped: 0 })
     vi.mocked(fetch).mockResolvedValue({
       json: async () => ({ fields: instructions }),
       ok: true
@@ -82,6 +83,7 @@ describe("background fill runner", () => {
     )
     expect(result).toEqual({
       filled: 1,
+      guessed: 0,
       longAnswers: 0,
       message: "Filled 1 fields, skipped 0.",
       ok: true,
@@ -102,6 +104,7 @@ describe("background fill runner", () => {
     expect(mocks.applyInstructionsToPage).not.toHaveBeenCalled()
     expect(result).toEqual({
       filled: 0,
+      guessed: 0,
       longAnswers: 0,
       message: "No visible supported fields found.",
       ok: true,
@@ -136,5 +139,14 @@ describe("background fill runner", () => {
         fields
       )
     ).toBe(1)
+  })
+
+  it("tells the user how many filled answers are guesses", () => {
+    expect(fillSummaryMessage({ filled: 5, guessed: 2, skipped: 1 })).toBe(
+      "Filled 5 fields, 2 are guesses to check, skipped 1."
+    )
+    expect(fillSummaryMessage({ filled: 3, guessed: 1, skipped: 0 })).toBe(
+      "Filled 3 fields, 1 is a guess to check, skipped 0."
+    )
   })
 })
