@@ -458,7 +458,7 @@ export async function collectFieldsInPage(
           ? true
           : undefined,
       role: control.getAttribute("role") ?? undefined,
-      tagName: control.tagName.toLowerCase() as "div" | "input" | "select" | "textarea"
+      tagName: control.tagName.toLowerCase()
     })
   }
 

@@ -25,7 +25,9 @@ export const extractedFieldSchema = z.object({
   id: z.string().min(1),
   frameId: z.number().optional(),
   frameUrl: z.string().optional(),
-  tagName: z.enum(["div", "input", "textarea", "select"]),
+  // Custom widgets (Greenhouse's phone-country picker is a <ul>) report other tags;
+  // rejecting them failed the whole request.
+  tagName: z.string().min(1),
   controlKind: z
     .enum(["aria-checkbox-group", "aria-listbox", "aria-radio-group", "native"])
     .optional(),

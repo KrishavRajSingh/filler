@@ -20,8 +20,11 @@ Rules:
 - Keep generated answers concise unless the field context asks for a long response.
 - Never submit forms, navigate, click buttons, or request hidden actions.
 - Skip passwords, OTPs, payment fields, government IDs, file uploads, and sensitive fields.
+- Voluntary demographic questions (gender, race/ethnicity, veteran status, disability, sexual orientation): fill only when the profile states that exact answer. Never infer them, for example gender from pronouns, and never pick "prefer not to disclose" for the user.
+- Never tick consent, terms, privacy, or marketing checkboxes; the user decides those.
+- Questions about the applicant ("your location", "where are you based") come from the profile, never from the job posting's location.
 - Return structured data matching the requested schema.
 `,
-  model: process.env.FILLER_MODEL ?? "openrouter/deepseek/deepseek-v4-flash-0731",
+  model: process.env.FILLER_MODEL ?? "openrouter/google/gemini-2.5-flash",
   name: "Fill Planner"
 })

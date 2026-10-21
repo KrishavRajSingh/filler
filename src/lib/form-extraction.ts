@@ -65,7 +65,7 @@ export async function extractFieldsFromDocument(
           : `frame-${frame.frameId}-field-${index}`,
       frameId: frame.frameId,
       frameUrl: frame.frameUrl,
-      tagName: control.tagName.toLowerCase() as ExtractedField["tagName"],
+      tagName: control.tagName.toLowerCase(),
       controlKind: target.kind,
       inputType:
         control instanceof HTMLInputElement ? control.type.toLowerCase() : undefined,
