@@ -458,7 +458,256 @@ const DEA_REGISTRATION: FormGuide = {
   ]
 }
 
-export const FORM_GUIDES: FormGuide[] = [NPI_APPLICATION, DEA_REGISTRATION]
+const MEDICARE_ENROLLMENT_855I: FormGuide = {
+  slug: "medicare-enrollment-cms-855i",
+  name: "CMS-855I Medicare enrollment",
+  title: "CMS-855I Medicare enrollment: how to fill it out, section by section",
+  description:
+    "Step-by-step guide to the CMS-855I Medicare enrollment application for physicians and non-physician practitioners. PECOS vs paper, specialty, practice locations, reassignment (4F), the CMS-588 EFT form and the 30-day billing window.",
+  datePublished: "2026-10-23",
+  dateModified: "2026-10-23",
+  intro: [
+    "To bill Medicare as a physician, nurse practitioner, physician assistant, therapist, psychologist or other eligible professional, you enroll with the CMS-855I. The same form handles revalidation, reactivation, changes, and reassigning your benefits to a group. The old CMS-855R reassignment form is gone; that now happens in section 4F of the 855I.",
+    "You can file it online in PECOS or on paper. PECOS asks the same questions as the paper form, so this guide follows the paper sections and points out where people get stuck."
+  ],
+  onlineForm: {
+    label: "PECOS (pecos.cms.hhs.gov)",
+    url: "https://pecos.cms.hhs.gov/"
+  },
+  paperForm: {
+    label: "CMS-855I paper form (PDF)",
+    url: "https://www.cms.gov/medicare/cms-forms/cms-forms/downloads/cms855i.pdf",
+    note: "The paper form must be typed, not handwritten. Mail it with original signatures and the supporting documents to the Medicare Administrative Contractor (MAC) for your state."
+  },
+  beforeYouStart: [
+    "A Type 1 NPI. You need it before you enroll, and your name, SSN and date of birth must match NPPES and Social Security records exactly.",
+    "An Identity & Access (I&A) account. PECOS uses the same I&A login as NPPES.",
+    "Your state license number, effective date and issuing state, plus board certification and DEA registration if you have them.",
+    "Your medical or professional school and year of graduation.",
+    "Every practice location where you see Medicare patients, as a USPS street address (no P.O. boxes), and the date you saw or will see your first Medicare patient there.",
+    "Bank details for Form CMS-588 (EFT) with a voided check or bank letter, unless you reassign all your payments to a group.",
+    "If you join a group: the group's legal business name, TIN, NPI and PTAN for the reassignment in section 4F."
+  ],
+  sections: [
+    {
+      title: "Section 1: Basic information",
+      fields: [
+        {
+          label: "Reason for submitting",
+          required: true,
+          tip: "Pick one: new enrollee, moving from order-and-certify only to full enrollment, enrolling with another MAC, revalidation, reactivation, change of information, or voluntary termination. A new grad joining a group is a new enrollee."
+        },
+        {
+          label: "What information is changing",
+          required: false,
+          tip: "Only for changes. Tick every area that changes. Sections 1, 2A, 3 and 15 are always required on top of the section that changes."
+        }
+      ]
+    },
+    {
+      title: "Section 2: Personal identifying information",
+      fields: [
+        {
+          label: "Name, SSN, date of birth",
+          required: true,
+          tip: "Must match your Social Security record and NPPES exactly. Check the middle initial and suffix."
+        },
+        {
+          label: "PTAN and NPI",
+          required: true,
+          tip: "NPI is required. The PTAN is your Medicare billing number; leave it blank if this is your first enrollment."
+        },
+        {
+          label: "School and year of graduation",
+          required: true,
+          tip: "Your medical school, or your training institution if you are not an MD."
+        },
+        {
+          label: "License, certification and DEA",
+          required: true,
+          tip: "License number, effective date and state for your primary specialty, and whether it's a compact license. For a national certification, write \"all\" as the state. Tick Not Applicable where you don't have one."
+        },
+        {
+          label: "Accepting new patients",
+          required: false,
+          tip: "Optional. Your answer shows in Medicare's provider directory."
+        },
+        {
+          label: "Correspondence and medical record addresses",
+          required: true,
+          tip: "Where the MAC writes to you. It can't be a billing agency's or management company's address. Tick the box to reuse it for medical record requests."
+        },
+        {
+          label: "Specialty",
+          required: true,
+          tip: "Physicians mark one primary (P) and any secondary (S) specialties in 2G. Non-physicians pick exactly one type in 2H (NP, PA, CRNA, clinical social worker, PT and so on). A second primary specialty needs its own 855I."
+        }
+      ]
+    },
+    {
+      title: "Section 3: Final adverse legal actions",
+      fields: [
+        {
+          label: "Adverse legal action history",
+          required: true,
+          tip: "Felonies in the past 10 years, some misdemeanors, license revocations or suspensions, OIG exclusions, debarments and Medicaid terminations. Report them even if expunged or under appeal. If none apply, answer No and move on."
+        }
+      ]
+    },
+    {
+      title: "Section 4: Business information",
+      fields: [
+        {
+          label: "Private practice or reassignment",
+          required: true,
+          tip: "Pick one box. If you only work for a group and reassign all benefits to it, you fill in 4F and skip most of the form."
+        },
+        {
+          label: "Business structure (4A)",
+          required: false,
+          tip: "Only for your own practice. Sole owners of a PC, PA or LLC give its legal business name, TIN and Type 2 NPI, matching what they used for that NPI. Sole proprietors choose to be paid under their SSN or EIN."
+        },
+        {
+          label: "Practice locations (4B)",
+          required: false,
+          tip: "Every location where you treat Medicare patients in this MAC's area, including telehealth distant sites. Locations in another MAC's area need a separate 855I sent to that MAC. If you only do house calls, you can list your home address and explain in 4E."
+        },
+        {
+          label: "Special payments address (4C)",
+          required: false,
+          tip: "Payments go by EFT, so this is only where remittance notices are mailed. Tick a box to reuse the practice or correspondence address."
+        },
+        {
+          label: "Medical records storage (4D)",
+          required: false,
+          tip: "Only if records are kept somewhere other than the practice location. For electronic records, name the system or vendor."
+        },
+        {
+          label: "Reassignment of benefits (4F)",
+          required: false,
+          tip: "Lets a group bill and get paid for your services. Enter the group's legal business name, TIN, PTAN and NPI. You sign 15B and the group's authorized official signs 15C. Both of you must be enrolled, or enrolling at the same time."
+        }
+      ]
+    },
+    {
+      title: "Sections 6 to 13: Staff, billing agency, documents, contact",
+      fields: [
+        {
+          label: "Managing employee (6)",
+          required: false,
+          tip: "Anyone who runs the day-to-day operations of your private practice. Tick \"I am the managing employee\" if that's you. Skip it if you reassign everything."
+        },
+        {
+          label: "Billing agency (8)",
+          required: false,
+          tip: "The company that submits your claims, if you use one. Its address can't be your correspondence address."
+        },
+        {
+          label: "Supporting documents (12)",
+          required: true,
+          tip: "The CMS-588 EFT form with a voided check or bank letter, IRS CP-575 if you enroll a business, CMS-460 if you want to be a participating provider, and papers for any adverse action."
+        },
+        {
+          label: "Contact person (13)",
+          required: false,
+          tip: "Optional. The person the MAC calls about this application, often a credentialing specialist. They can't discuss anything else in your Medicare record."
+        }
+      ]
+    },
+    {
+      title: "Section 15: Certification and signature",
+      fields: [
+        {
+          label: "Signature",
+          required: true,
+          tip: "Only you can sign, and you can't delegate it. A reassignment also needs the group official's signature in 15C."
+        }
+      ]
+    }
+  ],
+  steps: [
+    "Get your NPI and check that your name, SSN and date of birth match NPPES and Social Security.",
+    "Sign in to PECOS with your I&A account and start a new enrollment, or download the CMS-855I to file on paper.",
+    "Choose the reason for submitting, then fill in your identity, license, school and specialty.",
+    "Answer the adverse legal action questions in section 3.",
+    "Choose private practice, reassignment or both, and add each practice location or the group in 4F.",
+    "Add a managing employee and billing agency if they apply, and a contact person if you want one.",
+    "Attach the CMS-588 EFT form and other supporting documents, then sign.",
+    "Answer any request from your MAC within 30 days. Once approved you get a PTAN and can bill from your effective date."
+  ],
+  mistakes: [
+    "A name, SSN or date of birth that doesn't match NPPES or Social Security.",
+    "A P.O. box as the practice location. It must be a street address where you treat patients.",
+    "Applying after you've started seeing Medicare patients. Billing starts at the filing date, and you can only bill back 30 days before it.",
+    "Listing practice locations outside your MAC's area on the same application.",
+    "Forgetting the CMS-588 EFT form, or the group's signature in 15C on a reassignment.",
+    "Missing revalidation. It comes every 5 years, and a missed date can deactivate your billing privileges."
+  ],
+  faqs: [
+    {
+      question: "Is there an application fee for the CMS-855I?",
+      answer:
+        "No. The Medicare application fee in 42 CFR 424.514 applies to institutional providers. Physicians and non-physician practitioners enrolling as individuals don't pay it."
+    },
+    {
+      question: "When can I start billing Medicare?",
+      answer:
+        "Your effective date is the later of the date you filed an application that was then approved, or the date you started seeing patients at the new location. You can bill for services up to 30 days before that date (42 CFR 424.520(d) and 424.521)."
+    },
+    {
+      question: "Do I still need the CMS-855R to join a group?",
+      answer:
+        "No. CMS discontinued the CMS-855R. Reassignments now go in section 4F of the CMS-855I, signed by you and the group's authorized official."
+    },
+    {
+      question: "How often do I revalidate?",
+      answer:
+        "Every 5 years. CMS posts due dates on the Medicare Revalidation List up to 7 months ahead, and your MAC sends a notice about 3 to 4 months before. Miss it and your payments can be held or your billing privileges deactivated."
+    },
+    {
+      question: "How fast do I have to report changes?",
+      answer:
+        "Within 30 days for adverse legal actions and practice location changes, and within 90 days for anything else (42 CFR 424.516(d))."
+    },
+    {
+      question: "Can Filler fill the CMS-855I for me?",
+      answer:
+        "Filler fills the text fields and dropdowns of web forms like PECOS from facts you save once: name, NPI, license, school, addresses. Yes/no questions, checkboxes, uploads and the signature stay with you, and it never submits. It doesn't fill the paper PDF."
+    }
+  ],
+  sources: [
+    {
+      label: "CMS-855I Medicare enrollment application (05/23), OMB 0938-1355",
+      url: "https://www.cms.gov/medicare/cms-forms/cms-forms/downloads/cms855i.pdf"
+    },
+    {
+      label: "42 CFR 424.514: application fee (institutional providers)",
+      url: "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-B/part-424/subpart-P/section-424.514"
+    },
+    {
+      label: "42 CFR 424.516: reporting changes",
+      url: "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-B/part-424/subpart-P/section-424.516"
+    },
+    {
+      label: "42 CFR 424.521: retrospective billing",
+      url: "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-B/part-424/subpart-P/section-424.521"
+    },
+    {
+      label: "CMS: Medicare revalidations",
+      url: "https://www.cms.gov/medicare/enrollment-renewal/providers-suppliers/revalidations"
+    },
+    {
+      label: "PECOS",
+      url: "https://pecos.cms.hhs.gov/"
+    }
+  ]
+}
+
+export const FORM_GUIDES: FormGuide[] = [
+  NPI_APPLICATION,
+  DEA_REGISTRATION,
+  MEDICARE_ENROLLMENT_855I
+]
 
 export function getFormGuide(slug: string): FormGuide | undefined {
   return FORM_GUIDES.find((guide) => guide.slug === slug)
