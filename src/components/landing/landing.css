@@ -1138,3 +1138,44 @@
   min-width: 0;
   padding: 10px 12px;
 }
+
+/* ── Comparison pages ── */
+
+.landing-compare-scroll {
+  margin-top: 16px;
+  overflow-x: auto;
+}
+
+.landing-compare-table {
+  border-collapse: collapse;
+  font-size: 14px;
+  line-height: 1.5;
+  width: 100%;
+}
+
+.landing-compare-table th,
+.landing-compare-table td {
+  border-bottom: 1px solid var(--line);
+  padding: 10px 12px 10px 0;
+  text-align: left;
+  vertical-align: top;
+}
+
+.landing-compare-table td {
+  color: var(--muted);
+}
+
+.landing-compare-table thead th {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.landing-compare-table tbody th {
+  font-weight: 600;
+}
+
+.landing-compare-table a {
+  color: var(--ink);
+}

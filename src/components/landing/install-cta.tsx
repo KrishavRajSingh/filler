@@ -5,7 +5,13 @@ import { useIsMobile } from "~components/landing/use-is-mobile"
 import { trackEvent } from "~lib/analytics"
 import { CHROME_STORE_URL } from "~lib/site"
 
-export type InstallCtaLocation = "nav" | "hero" | "footer" | "form-guide" | "ats-guide"
+export type InstallCtaLocation =
+  | "nav"
+  | "hero"
+  | "footer"
+  | "form-guide"
+  | "ats-guide"
+  | "vs"
 
 function ChromeIcon() {
   return (

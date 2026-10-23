@@ -1,0 +1,33 @@
+# Filler
+
+> Filler (https://filler.live) is a free Chrome extension that fills web forms from a profile you save once. It reads each question, not just the field name, so it fills job applications, Google Forms, signups and registrations. No account: the profile stays in your browser. You check every field and press Submit yourself; Filler never submits and never touches file uploads.
+
+## Pricing
+
+- Filler: free, no account, no daily limit.
+- Job Hunt Pass (coming soon): AI drafts for custom application questions ("Why this role?") from the job post and your profile. $5 for 30 days, never auto-renews. https://filler.live/pass
+
+## Install
+
+- Chrome Web Store: https://chromewebstore.google.com/detail/filler/dlopehidojlicdenpoadbnkgjiaoimkm
+
+## Guides
+
+- [Job application autofill](https://filler.live/job-application-autofill)
+- [Greenhouse autofill](https://filler.live/autofill/greenhouse)
+- [Lever autofill](https://filler.live/autofill/lever)
+- [Ashby autofill](https://filler.live/autofill/ashby)
+- [Form guides (NPI, DEA Form 224, CMS-855I)](https://filler.live/forms)
+
+## Comparisons
+
+- [Filler vs Simplify Copilot](https://filler.live/vs/simplify)
+- [Filler vs Jobright](https://filler.live/vs/jobright)
+- [Filler vs Magical](https://filler.live/vs/magical)
+- [Filler vs LazyApply](https://filler.live/vs/lazyapply)
+- [Simplify Copilot alternatives](https://filler.live/alternatives/simplify-copilot)
+- [Best job application autofill tools](https://filler.live/best/job-application-autofill)
+
+## Privacy
+
+https://filler.live/privacy
