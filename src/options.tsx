@@ -1,12 +1,69 @@
 import { useEffect, useRef, useState } from "react"
 
 import { ProfileEditor } from "~components/profile-editor"
+import { trackExtensionEvent } from "~lib/extension-analytics"
 import type { UserProfile } from "~lib/fill-schemas"
 import {
   createStarterProfile,
   getStoredProfile,
   saveStoredProfile
 } from "~lib/profile-storage"
+
+const FOUND_VIA = [
+  ["youtube", "YouTube"],
+  ["google", "Google"],
+  ["reddit", "Reddit"],
+  ["store", "Chrome Web Store"],
+  ["ai", "ChatGPT or another AI"],
+  ["friend", "A friend"],
+  ["other", "Somewhere else"]
+] as const
+
+// Asked once after install: one tap, only the answer is sent.
+function FoundVia() {
+  const [answered, setAnswered] = useState<boolean | null>(null)
+
+  useEffect(() => {
+    chrome.storage.local
+      .get("foundVia")
+      .then(({ foundVia }) => setAnswered(!!foundVia))
+      .catch(() => setAnswered(true))
+  }, [])
+
+  if (answered !== false) return null
+
+  return (
+    <div style={{ margin: "8px 0 20px" }}>
+      <p style={{ color: "#6b5d50", fontWeight: 800, margin: "0 0 8px" }}>
+        Quick one: where did you find Filler?
+      </p>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+        {FOUND_VIA.map(([id, label]) => (
+          <button
+            key={id}
+            onClick={() => {
+              trackExtensionEvent("found_via", { source: id })
+              chrome.storage.local.set({ foundVia: id }).catch(() => undefined)
+              setAnswered(true)
+            }}
+            style={{
+              background: "#fffaf2",
+              border: "1px solid #d9c7b0",
+              borderRadius: 999,
+              color: "#2c2118",
+              cursor: "pointer",
+              fontSize: 13,
+              fontWeight: 700,
+              padding: "6px 12px"
+            }}
+            type="button">
+            {label}
+          </button>
+        ))}
+      </div>
+    </div>
+  )
+}
 
 export default function OptionsPage() {
   const [profile, setProfile] = useState<UserProfile | null>(null)
@@ -77,6 +134,7 @@ export default function OptionsPage() {
           your profile and visible form fields are sent to the AI API to generate
           answers.
         </p>
+        <FoundVia />
         {status ? (
           <p
             role="status"
