@@ -919,6 +919,11 @@ const CAQH_PROVIEW: FormGuide = {
         "Up to two hours for a first profile, longer with many locations or a long training and work history. After you attest, CAQH sends a confirmation email about 48 hours after your documents are received and approved."
     },
     {
+      question: "Should I give my employer my CAQH login?",
+      answer:
+        "You don't have to. Many group practices ask so their credentialing staff can update and re-attest for you, but the profile holds your SSN, work history and documents. Ask whether the practice can use CAQH's Practice Manager, which lets its staff work on your profile from their own account. Otherwise keep the login, re-attest yourself when the reminder comes, and if you do share it, change the password when you leave."
+    },
+    {
       question: "How do I reach CAQH support?",
       answer:
         "Call 1-888-599-1771, Monday to Friday, 8 a.m. to 8 p.m. ET, or use chat after you log in. If a message looks suspicious, contact support before acting on it."
@@ -949,11 +954,208 @@ const CAQH_PROVIEW: FormGuide = {
   ]
 }
 
+const TEXAS_MEDICAID_ENROLLMENT: FormGuide = {
+  slug: "texas-medicaid-provider-enrollment",
+  name: "Texas Medicaid provider enrollment",
+  title: "Texas Medicaid provider enrollment in PEMS: a step-by-step guide",
+  description:
+    "How to enroll as a Texas Medicaid provider through TMHP's PEMS: application types, NPI and taxonomy, the provider agreement, fingerprinting, site visits, the 30-day deficiency clock and revalidating every 5 years.",
+  datePublished: "2026-10-26",
+  dateModified: "2026-10-26",
+  intro: [
+    "To bill Texas Medicaid, or to join a Medicaid managed care plan in Texas, you first enroll with HHSC through PEMS, the Provider Enrollment and Management System run by TMHP. You can't contract with a Texas Medicaid health plan until this enrollment is approved.",
+    "Once TMHP has everything it needs, the process typically takes up to 60 days. Applications get held up by deficiencies: a missing attachment, a license or Medicare record that doesn't match, or fingerprint proof that comes in late. This guide follows the order PEMS asks for things and points out where applications stall."
+  ],
+  onlineForm: {
+    label: "PEMS (secure.tmhp.com/pems)",
+    url: "https://secure.tmhp.com/pems/"
+  },
+  beforeYouStart: [
+    "Your NPI from NPPES and the primary taxonomy code you attested there. TMHP shows only the code, not its description, so check yours first.",
+    "Your Texas license or certification. PEMS won't accept it if it expires within 30 days.",
+    "Your Medicare enrollment, if your provider type requires it. Name, NPI, SSN and practice addresses should match what Medicare has (for groups: name, TIN and addresses).",
+    "The nine-digit federal tax ID and a W-9 whose legal name matches your other documents.",
+    "For a group or facility: every owner with 5% or more, officers, directors and managing employees, each with an SSN or TIN and date of birth.",
+    "For a corporation: the Texas Franchise Tax Account Status page and the Certificate of Formation or Filing (or an IRS 501(c)(3) letter instead of the franchise page).",
+    "Scans of your license and any certificates as attachments."
+  ],
+  sections: [
+    {
+      title: "Start the request",
+      fields: [
+        {
+          label: "TMHP account and login",
+          required: true,
+          tip: "Enroll Today on tmhp.com opens PEMS. Since July 2026 TMHP logins use IAMOnline with multi-factor authentication. The person who creates the request becomes its admin and gets the emails."
+        },
+        {
+          label: "Request type",
+          required: true,
+          tip: "New Enrollment if the NPI has never been enrolled in Texas Medicaid. Existing Enrollment adds a location or program to an enrolled NPI. Reenrollment is for a disenrolled, terminated or excluded NPI, which also covers 24 months without claims. Revalidation renews your enrollment. Maintenance updates your details."
+        },
+        {
+          label: "NPI type, programs and Enrolling As",
+          required: true,
+          tip: "Pick in this order: NPI type (Individual or Organization), then programs (Acute Care, CHIP, CSHCN, LTC, MTP and others), then Enrolling As: Facility Group, Performing Provider, or Individual Ordering, Referring or Prescribing (ORP)."
+        }
+      ]
+    },
+    {
+      title: "Provider information",
+      fields: [
+        {
+          label: "NPI and primary taxonomy",
+          required: true,
+          tip: "Individuals, performing providers and sole proprietors use an Individual NPI. Groups and facilities, even one with a single employee, use an Organization NPI. The taxonomy list comes from the codes HHSC approved for your provider type."
+        },
+        {
+          label: "Legal name and tax ID",
+          required: true,
+          tip: "Enter the nine-digit federal tax ID. A corporation's name must match its Certificate of Formation and W-9 exactly. An individual can enroll under their own SSN or as an employee under the employer's tax ID."
+        },
+        {
+          label: "Practice locations",
+          required: true,
+          tip: "Every physical address where you see patients. A site visit, if your risk level needs one, happens at these addresses, and Medicare's records are compared against them."
+        },
+        {
+          label: "License and certifications",
+          required: true,
+          tip: "TMHP checks licenses itself with the Texas Medical Board, Board of Nursing, dental and optometry boards and a few others. If it can't verify yours, upload a copy or a letter from your board."
+        }
+      ]
+    },
+    {
+      title: "Ownership and principals",
+      fields: [
+        {
+          label: "Owner/Creditor/Principal entries",
+          required: true,
+          tip: "One entry for each 5% or more owner, officer, director, partner, managing employee and creditor, plus the on-site manager or medical director of each location. You can skip this if you're a performing provider joining a group that's already enrolled, or an individual or sole proprietor enrolling under your own SSN."
+        },
+        {
+          label: "Disclosure of Ownership and Control Interest",
+          required: true,
+          tip: "Required for almost everyone except performing providers joining an enrolled group. If you also bill Medicare, give both programs the same owners and managing staff."
+        }
+      ]
+    },
+    {
+      title: "Fees, agreement and attachments",
+      fields: [
+        {
+          label: "Application fee",
+          required: false,
+          tip: "Only institutional providers pay it, and PEMS tells you at the end whether you owe it. It covers new enrollments, new locations, revalidation and reenrollment, and the amount changes every calendar year. An application that owes the fee isn't processed until it's paid."
+        },
+        {
+          label: "HHSC Medicaid Provider Agreement",
+          required: true,
+          tip: "E-signed by the enrolling provider, or for an entity by a principal who can bind it. Signing certifies that the whole application, including every owner entry, is complete and correct."
+        },
+        {
+          label: "Attachments",
+          required: true,
+          tip: "License copies if TMHP can't verify them, corporation documents, and for nurse-midwives and licensed midwives a Physician's Letter of Agreement for each physician."
+        }
+      ]
+    },
+    {
+      title: "Screening after you submit",
+      fields: [
+        {
+          label: "Fingerprinting (high-risk providers)",
+          required: false,
+          tip: "High-risk providers and anyone owning 5% or more need fingerprints. Wait for the letter with your six-digit service code before booking with IdentoGO (uenroll.identogo.com, 877-289-6114). Prints taken before you have the code mean deficiencies and paying again. It costs $10 a person, and the thermal receipt has to be uploaded to PEMS within 30 days."
+        },
+        {
+          label: "Site visit",
+          required: false,
+          tip: "Depends on your risk level. If your Medicare record matches, TMHP may use Medicare's site visit. If not, a coordinator calls or emails to book one, or the visit is unannounced. Have a staff list, licenses, your DBA certificate and your complaint policy ready."
+        }
+      ]
+    }
+  ],
+  steps: [
+    "Check your NPI and taxonomy in NPPES, and your Medicare enrollment if your provider type needs one.",
+    "Log in through TMHP and open PEMS from Enroll Today.",
+    "Choose the request type, then NPI type, programs and Enrolling As.",
+    "Fill in provider details, locations, license, and owner and principal entries.",
+    "Attach the documents, pay the fee if PEMS says you owe it, and e-sign the provider agreement.",
+    "Answer every deficiency within its deadline, and book fingerprints only after the service code letter arrives.",
+    "Once approved, enroll with each Texas Medicaid managed care plan you want to join. Revalidate up to 180 days before your due date, usually every 5 years."
+  ],
+  mistakes: [
+    "Leaving a draft too long. Drafts expire after 180 calendar days and can't be submitted.",
+    "Missing a deficiency deadline. You get 30 days for fingerprint proof and 30 business days for other missing items before the application is closed.",
+    "Getting fingerprinted before the service code letter arrives.",
+    "A name, SSN, TIN or address that doesn't match Medicare's record, which can add a site visit.",
+    "Applying with a license that expires within 30 days.",
+    "Filing a New Enrollment for an NPI that was disenrolled. Use Reenrollment.",
+    "Revalidating late. Revalidation has to reach Closed-Enrolled within 45 days after the due date or you're disenrolled."
+  ],
+  faqs: [
+    {
+      question: "How long does Texas Medicaid enrollment take?",
+      answer:
+        "TMHP says the whole process typically takes up to 60 days once it has all the information it needs. Exceptions, high-risk screening and provider types that need extra state approval take longer."
+    },
+    {
+      question: "Do I have to be in Medicare first?",
+      answer:
+        "Certain provider types must enroll in Medicare before Texas Medicaid. HHSC can waive this for practices that will never see Medicare patients, such as pediatrics or OB/GYN."
+    },
+    {
+      question: "How often do I revalidate?",
+      answer:
+        "Most providers have a five-year enrollment period; some have one or two years. Revalidation opens 180 days before the due date in PEMS, and your due date is on your welcome letter and in PEMS."
+    },
+    {
+      question: "Is there an application fee?",
+      answer:
+        "Only for institutional providers, under the ACA. The amount changes each calendar year and PEMS tells you if you owe it. Individual practitioners don't pay it."
+    },
+    {
+      question: "Who do I call for help?",
+      answer:
+        "The TMHP Contact Center at 1-800-925-9126, option 3, or provider.relations@tmhp.com. TMHP's YouTube channel has short PEMS videos on attachments, deficiencies, locations and signing."
+    },
+    {
+      question: "Can Filler fill PEMS for me?",
+      answer:
+        "Filler fills text fields and dropdowns on web forms from facts you save once: legal name, NPI, tax ID, addresses, license numbers, owners and dates. Much of PEMS repeats what you already typed for NPPES, PECOS and CAQH. Yes/no answers, uploads, the fee and the e-signature stay with you, and Filler never submits anything."
+    }
+  ],
+  sources: [
+    {
+      label: "Texas Medicaid Provider Procedures Manual, Section 1: Provider Enrollment (October 2026)",
+      url: "https://www.tmhp.com/sites/default/files/file-library/resources/provider-manuals/tmppm/pdf-chapters/2026/2026-10-october/1_01_provider_enrollment.pdf"
+    },
+    {
+      label: "TMHP: PEMS instructional site, start an application",
+      url: "https://www.tmhp.com/topics/provider-enrollment/pems/start-application"
+    },
+    {
+      label: "TMHP: How to apply",
+      url: "https://www.tmhp.com/topics/provider-enrollment/how-apply-enrollment"
+    },
+    {
+      label: "TMHP: Provider fingerprinting requirement FAQ",
+      url: "https://www.tmhp.com/sites/default/files/file-library/topics/provider-enrollment/texas-medicaid-provider-fingerprinting-requirement-FAQ.pdf"
+    },
+    {
+      label: "TMHP: ACA screening requirements (revised 12/15/2025)",
+      url: "https://www.tmhp.com/sites/default/files/file-library/topics/provider-enrollment/ACA_Screening_Requirements.pdf"
+    }
+  ]
+}
+
 export const FORM_GUIDES: FormGuide[] = [
   NPI_APPLICATION,
   DEA_REGISTRATION,
   MEDICARE_ENROLLMENT_855I,
-  CAQH_PROVIEW
+  CAQH_PROVIEW,
+  TEXAS_MEDICAID_ENROLLMENT
 ]
 
 export function getFormGuide(slug: string): FormGuide | undefined {
