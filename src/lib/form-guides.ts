@@ -703,10 +703,257 @@ const MEDICARE_ENROLLMENT_855I: FormGuide = {
   ]
 }
 
+const CAQH_PROVIEW: FormGuide = {
+  slug: "caqh-proview",
+  name: "CAQH ProView profile",
+  title: "CAQH ProView: how to fill out your profile, section by section",
+  description:
+    "Step-by-step guide to the CAQH ProView provider profile (now DataSpring, powered by CAQH). Registration, the 12 profile sections, which health plans to authorize, supporting documents and re-attesting every 120 days.",
+  datePublished: "2026-10-25",
+  dateModified: "2026-10-25",
+  intro: [
+    "Many US health plans pull your credentialing data from CAQH ProView instead of sending you their own application. You fill in one profile, authorize the plans that may read it, attest that it's correct, and keep it current. It's free for providers.",
+    "In June 2026 CAQH renamed itself DataSpring, powered by CAQH. Your login, profile and links didn't change, and the portal is still at proview.caqh.org. The first profile can take up to two hours, mostly because of practice locations, training and work history. This guide walks through each section and the places people get stuck."
+  ],
+  onlineForm: {
+    label: "CAQH ProView (proview.caqh.org)",
+    url: "https://proview.caqh.org/"
+  },
+  beforeYouStart: [
+    "Your Type 1 NPI and your Social Security number.",
+    "Every state license you hold or have held, plus DEA and state CDS registrations, Medicare and Medicaid numbers, and ECFMG or USMLE details if they apply.",
+    "Schools, internship, residency and fellowship, with dates. A rotating or transitional year needs one entry per rotation.",
+    "Each practice location: the practice name exactly as it appears on your claims (sometimes the W-9 name), street address, group NPI (Type 2), group Medicare and Medicaid numbers, tax ID, phone and office hours.",
+    "Your malpractice policy: carrier, policy number, effective and expiration dates, coverage amount and the face sheet.",
+    "Your work history with dates, and an explanation for any gap longer than 3 months.",
+    "Scans of your license, DEA and CDS certificates and malpractice face sheet as PDF, TIF or JPEG."
+  ],
+  sections: [
+    {
+      title: "Registration",
+      fields: [
+        {
+          label: "CAQH Provider ID",
+          required: true,
+          tip: "If a health plan or hospital added you, you get a Welcome Kit email with your ID. If not, click Register at proview.caqh.org and enter your name, provider type, primary practice state, date of birth, email and at least one ID number. CAQH emails you the ID and a link to finish."
+        },
+        {
+          label: "Username, password and security questions",
+          required: true,
+          tip: "You pick three security questions. Keep the CAQH Provider ID somewhere safe; health plans ask for it."
+        }
+      ]
+    },
+    {
+      title: "Personal information and professional IDs",
+      fields: [
+        {
+          label: "Provider type, practice setting and practice states",
+          required: true,
+          tip: "Answer these first. They decide which questions you see later, including any state-specific credentialing questions, which appear in the same flow."
+        },
+        {
+          label: "Mailing address",
+          required: false,
+          tip: "Use your practice's physical address. Health plans use it for their directories, so put a P.O. box only in the billing contact."
+        },
+        {
+          label: "Email",
+          required: true,
+          tip: "Email is the required contact method. Re-attestation reminders go there."
+        },
+        {
+          label: "SSN and NPI",
+          required: true,
+          tip: "Enter your Type 1 (individual) NPI here. The group's Type 2 NPI goes under the practice location."
+        },
+        {
+          label: "Licenses and registrations",
+          required: true,
+          tip: "List every state medical license you hold or have held in the US or Canada, not only the current one. Add DEA, CDS, Medicare, Medicaid, ECFMG and USMLE where they apply, and upload the certificates."
+        }
+      ]
+    },
+    {
+      title: "Education, training and specialties",
+      fields: [
+        {
+          label: "Education",
+          required: false,
+          tip: "Professional school and undergraduate school, with dates."
+        },
+        {
+          label: "Internship, residency, fellowship",
+          required: false,
+          tip: "Include programs you didn't finish. For a rotating or transitional year, enter each rotation separately with its specialty and dates."
+        },
+        {
+          label: "Specialties and board certification",
+          required: false,
+          tip: "Primary, secondary and additional specialties come from the NUCC list. If yours is missing, pick the closest one and add yours under Areas of Other Interest. Board exam questions appear based on your answers."
+        },
+        {
+          label: "Certifications",
+          required: false,
+          tip: "CPR, BLS, ACLS, ATLS, PALS, NRP and similar."
+        }
+      ]
+    },
+    {
+      title: "Practice locations and hospital affiliations",
+      fields: [
+        {
+          label: "Practice name and address",
+          required: false,
+          tip: "Use the name on your claims, so it matches what the health plan already has. This is usually not your own name. Use Copy to start a second location from the first."
+        },
+        {
+          label: "Group NPI, tax ID, group Medicare and Medicaid",
+          required: false,
+          tip: "The group's numbers, not yours. ProView checks that the NPI, DEA and TIN you enter belong to the name on them and suggests a fix when they don't."
+        },
+        {
+          label: "Hours, patients, coverage and contacts",
+          required: false,
+          tip: "Office hours, which patients you accept, covering colleagues, mid-level practitioners, office manager, billing contact and payment address."
+        },
+        {
+          label: "Limitations, accessibility, services",
+          required: false,
+          tip: "Age or gender limits on your patients, ADA and public transport access, CLIA certificate and interpretation services."
+        },
+        {
+          label: "Hospital affiliations",
+          required: false,
+          tip: "Whether you have hospital privileges, then your primary hospital and any others."
+        }
+      ]
+    },
+    {
+      title: "Insurance, work history and references",
+      fields: [
+        {
+          label: "Credentialing contact",
+          required: false,
+          tip: "Who the plans should contact, per practice location or hospital. Often your office's credentialing person."
+        },
+        {
+          label: "Professional liability insurance",
+          required: false,
+          tip: "Carrier, policy number, original and current effective dates, expiration date, type and amount of coverage. If you're not insured, choose Not Insured; your health plan may ask for a letter of credit instead."
+        },
+        {
+          label: "Malpractice insurance quotes",
+          required: false,
+          tip: "Answering Yes releases a copy of your whole profile to an insurance broker for quotes. Say no unless you want that."
+        },
+        {
+          label: "Employment information",
+          required: false,
+          tip: "Current and previous employers with dates, and military service. If you haven't started a job yet, enter the expected start date. Explain any gap in full-time work longer than 3 months; some organizations want your full history since your degree."
+        },
+        {
+          label: "Professional references",
+          required: false,
+          tip: "Names and contact details of peers who can vouch for you."
+        }
+      ]
+    },
+    {
+      title: "Disclosure, authorize and attest",
+      fields: [
+        {
+          label: "Disclosure questions",
+          required: true,
+          tip: "Standard and state-specific questions, plus disclosure of ownership."
+        },
+        {
+          label: "Authorize",
+          required: true,
+          tip: "Global lets every organization that says you're affiliated, or joining, read your profile. You can instead name each one. CAQH doesn't sign you up with new plans: contact the plan, and it appears here once it adds you to its roster."
+        },
+        {
+          label: "Review and attest",
+          required: true,
+          tip: "Fix every required fix on the Review tab, check the summary, then Attest. The profile is complete once your documents and the signed Authorization, Attestation and Release form are in."
+        }
+      ]
+    }
+  ],
+  steps: [
+    "Register at proview.caqh.org, or use the link in your Welcome Kit email, and note your CAQH Provider ID.",
+    "Pick your provider type, practice setting and practice states first.",
+    "Work through the 12 sections under Manage Information, clicking Save & Continue on every page.",
+    "Upload your license, DEA and CDS certificates and malpractice face sheet under Documents.",
+    "Authorize the health plans that may read your profile.",
+    "Clear the required fixes on the Review tab, then attest.",
+    "Give your CAQH Provider ID to each health plan you're joining. Re-attest every 120 days (180 in Illinois)."
+  ],
+  mistakes: [
+    "Leaving a page without clicking Save & Continue. Go to previous section doesn't save, so that page's answers are lost.",
+    "A practice name that doesn't match the name on your claims.",
+    "Your individual NPI where the group's Type 2 NPI belongs, or the reverse.",
+    "Unexplained gaps of more than 3 months in work history.",
+    "Attesting without authorizing the plan you're joining, so it can't read the profile.",
+    "Missing the 120-day re-attestation. The status turns to Expired Attestation."
+  ],
+  faqs: [
+    {
+      question: "Does CAQH ProView cost anything?",
+      answer:
+        "No. Providers don't pay to use it. DataSpring is owned by companies tied to the health plans that use the data, and that model pays for it."
+    },
+    {
+      question: "Is CAQH now DataSpring?",
+      answer:
+        "Yes. CAQH became DataSpring, powered by CAQH, in June 2026. You don't need to do anything: your login, profile and saved links stay the same."
+    },
+    {
+      question: "How often do I re-attest?",
+      answer:
+        "Every 120 days, or every 180 days if you practice in Illinois. CAQH sends a reminder. Update anything that changed, upload new documents, then Review and Attest again."
+    },
+    {
+      question: "How long does it take?",
+      answer:
+        "Up to two hours for a first profile, longer with many locations or a long training and work history. After you attest, CAQH sends a confirmation email about 48 hours after your documents are received and approved."
+    },
+    {
+      question: "How do I reach CAQH support?",
+      answer:
+        "Call 1-888-599-1771, Monday to Friday, 8 a.m. to 8 p.m. ET, or use chat after you log in. If a message looks suspicious, contact support before acting on it."
+    },
+    {
+      question: "Can Filler fill my CAQH profile?",
+      answer:
+        "Filler fills the text fields and dropdowns of web forms from facts you save once: name, NPI, license numbers, schools, addresses, employers and dates. Yes/no answers, checkboxes, uploads and the attestation stay with you, and it never submits. Much of the profile repeats what you typed for NPPES and PECOS."
+    }
+  ],
+  sources: [
+    {
+      label: "CAQH ProView Provider User Guide v1.1",
+      url: "https://apps.keystonefirstpa.com/pdf/provider/credentialing/caqh/caqh-provider-user-guide.pdf"
+    },
+    {
+      label: "DataSpring Clinician Q&A (June 2026)",
+      url: "https://www.dataspring.com/hubfs/DataSpring%20Clinicians%20FAQs.pdf"
+    },
+    {
+      label: "BCBS Illinois: CAQH ProView quick reference (180-day Illinois cycle)",
+      url: "https://www.bcbsil.com/docs/provider/il/network/credentialing/PR-QuickRef.pdf"
+    },
+    {
+      label: "CAQH ProView",
+      url: "https://proview.caqh.org/"
+    }
+  ]
+}
+
 export const FORM_GUIDES: FormGuide[] = [
   NPI_APPLICATION,
   DEA_REGISTRATION,
-  MEDICARE_ENROLLMENT_855I
+  MEDICARE_ENROLLMENT_855I,
+  CAQH_PROVIEW
 ]
 
 export function getFormGuide(slug: string): FormGuide | undefined {
