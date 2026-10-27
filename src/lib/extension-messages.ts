@@ -12,6 +12,7 @@ export type RunFillResponse =
       ok: true
       filled: number
       guessed: number
+      jobPage: boolean
       longAnswers: number
       message: string
       skipped: number

@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest"
 import {
   countLongAnswers,
   fillSummaryMessage,
+  isJobApplicationPage,
   runFillOnActiveTab,
   runFillOnTab
 } from "./fill-runner"
@@ -84,6 +85,7 @@ describe("background fill runner", () => {
     expect(result).toEqual({
       filled: 1,
       guessed: 0,
+      jobPage: false,
       longAnswers: 0,
       message: "Filled 1 fields, skipped 0.",
       ok: true,
@@ -105,6 +107,7 @@ describe("background fill runner", () => {
     expect(result).toEqual({
       filled: 0,
       guessed: 0,
+      jobPage: false,
       longAnswers: 0,
       message: "No visible supported fields found.",
       ok: true,
@@ -139,6 +142,26 @@ describe("background fill runner", () => {
         fields
       )
     ).toBe(1)
+  })
+
+  it("treats ATS hosts and resume or cover letter fields as job applications", () => {
+    expect(isJobApplicationPage("https://jobs.lever.co/acme/123/apply", [])).toBe(true)
+    expect(
+      isJobApplicationPage("https://acme.com/careers", [
+        { frameUrl: "https://job-boards.greenhouse.io/embed/job_app", id: "a", tagName: "input" }
+      ])
+    ).toBe(true)
+    expect(
+      isJobApplicationPage("https://acme.com/apply", [
+        { id: "cl", labelText: "Cover letter", tagName: "textarea" }
+      ])
+    ).toBe(true)
+    expect(
+      isJobApplicationPage("https://forms.example.com/rsvp", [
+        { id: "name", labelText: "Full name", tagName: "input" }
+      ])
+    ).toBe(false)
+    expect(isJobApplicationPage("https://notgreenhouse.io.example.com", [])).toBe(false)
   })
 
   it("tells the user how many filled answers are guesses", () => {

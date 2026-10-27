@@ -53,10 +53,11 @@ export function PopupApp() {
       setStatus(response.ok ? "ready" : "error")
       setMessage(response.message)
 
-      if (response.ok && response.longAnswers > 0) {
+      if (response.ok && (response.jobPage || response.longAnswers > 0)) {
         setShowPassOffer(true)
         trackExtensionEvent("pass_offer_shown", {
-          longAnswers: response.longAnswers
+          longAnswers: response.longAnswers,
+          trigger: response.longAnswers > 0 ? "long_answer" : "job_page"
         })
       }
     } catch {
@@ -134,11 +135,11 @@ export function PopupApp() {
       {showPassOffer ? (
         <div style={passOfferStyle}>
           <p style={{ fontWeight: 900, margin: "0 0 4px" }}>
-            Tailor this answer to the job post
+            Tailor your answers to the job post
           </p>
           <p style={{ color: "#6b5d50", margin: "0 0 10px" }}>
-            Filler wrote the long answer from your profile only. The Job Hunt
-            Pass reads the job post too. $5 for 30 days, never auto-renews.
+            Filler writes answers from your profile only. The Job Hunt Pass
+            reads the job post too. $5 for 30 days, never auto-renews.
           </p>
           <button onClick={openJobHuntPass} style={secondaryButtonStyle}>
             See the Job Hunt Pass

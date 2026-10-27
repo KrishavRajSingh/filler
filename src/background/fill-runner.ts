@@ -37,6 +37,7 @@ export async function runFillOnTab(
     return {
       filled: 0,
       guessed: 0,
+      jobPage: false,
       longAnswers: 0,
       message: "No visible supported fields found.",
       ok: true,
@@ -67,6 +68,7 @@ export async function runFillOnTab(
 
   return {
     ...summary,
+    jobPage: isJobApplicationPage(fillRequest.page.url, fillRequest.fields),
     longAnswers: countLongAnswers(instructions, fillRequest.fields),
     message: fillSummaryMessage(summary),
     ok: true
@@ -106,4 +108,36 @@ export function countLongAnswers(
       textareaIds.has(instruction.fieldId) &&
       (instruction.value ?? "").trim().length >= 40
   ).length
+}
+
+const atsHostPattern =
+  /(^|\.)(greenhouse\.io|lever\.co|ashbyhq\.com|myworkdayjobs\.com|smartrecruiters\.com|workable\.com|jobvite\.com|icims\.com)$/i
+const applicationFieldPattern = /\b(resume|résumé|cv|cover letter)\b/i
+
+// Job applications also show the Job Hunt Pass offer, even without a long answer.
+// File inputs are never extracted, so resume fields are found by their text.
+export function isJobApplicationPage(
+  pageUrl: string,
+  fields: ExtractedField[]
+): boolean {
+  const hosts = [pageUrl, ...fields.map((field) => field.frameUrl ?? "")]
+    .map(hostnameOf)
+    .filter(Boolean)
+  if (hosts.some((host) => atsHostPattern.test(host))) return true
+
+  return fields.some((field) =>
+    applicationFieldPattern.test(
+      [field.labelText, field.ariaLabel, field.placeholder, field.nearbyText]
+        .filter(Boolean)
+        .join(" ")
+    )
+  )
+}
+
+function hostnameOf(url: string): string {
+  try {
+    return new URL(url).hostname
+  } catch {
+    return ""
+  }
 }
