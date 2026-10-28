@@ -12,6 +12,12 @@ vi.mock("./fill-runner", () => ({
   runFillOnActiveTab: vi.fn()
 }))
 
+vi.mock("./uninstall-url", () => ({
+  countFill: vi.fn(),
+  INSTALLED_AT_KEY: "installedAt",
+  updateUninstallUrl: vi.fn()
+}))
+
 describe("background install handling", () => {
   const addListener = vi.fn()
   const addMessageListener = vi.fn()
@@ -31,7 +37,15 @@ describe("background install handling", () => {
         onMessage: {
           addListener: addMessageListener
         },
+        onStartup: {
+          addListener: vi.fn()
+        },
         openOptionsPage
+      },
+      storage: {
+        local: {
+          set: vi.fn(() => Promise.resolve())
+        }
       }
     })
   })

@@ -1179,3 +1179,15 @@
 .landing-compare-table a {
   color: var(--ink);
 }
+
+/* ── Uninstall page ── */
+
+.landing-bye-reasons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.landing-bye-reason {
+  border-color: var(--line);
+}

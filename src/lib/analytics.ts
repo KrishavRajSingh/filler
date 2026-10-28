@@ -17,6 +17,9 @@ export type AnalyticsEvent =
   | "pass_buy_click"
   | "pass_click"
   | "pass_email_submit"
+  | "uninstall_note"
+  | "uninstall_reason"
+  | "uninstalled"
   | "waitlist_submit"
 
 export function trackEvent(
