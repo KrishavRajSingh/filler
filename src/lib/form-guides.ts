@@ -1150,12 +1150,202 @@ const TEXAS_MEDICAID_ENROLLMENT: FormGuide = {
   ]
 }
 
+const FLORIDA_MEDICAID_ENROLLMENT: FormGuide = {
+  slug: "florida-medicaid-provider-enrollment",
+  name: "Florida Medicaid provider enrollment",
+  title: "Florida Medicaid provider enrollment: the Online Enrollment Wizard, step by step",
+  description:
+    "How to enroll as a Florida Medicaid provider with AHCA's Online Enrollment Wizard: full vs limited enrollment, the ATN, supporting documents, fingerprints through the Clearinghouse, site visits, the 21-day deficiency window and renewing every 3 or 5 years.",
+  datePublished: "2026-10-29",
+  dateModified: "2026-10-29",
+  intro: [
+    "Every provider who treats Florida Medicaid patients has to enroll with the Agency for Health Care Administration (AHCA), including providers who only join a Medicaid managed care plan's network. You apply online through the Online Enrollment Wizard on the Florida Medicaid Web Portal (portal.flmmis.com).",
+    "The application isn't complete when you click submit in the Wizard. It's complete when every required document, including the signed provider agreement and your background screening, has been received and matched to the online application. Most delays come from that matching step, so this guide lists what to have ready before you open the Wizard."
+  ],
+  onlineForm: {
+    label: "Online Enrollment Wizard (portal.flmmis.com, New Medicaid Providers)",
+    url: "https://portal.flmmis.com/FLPublic/Provider_ProviderServices/Provider_Enrollment/Provider_Enrollment_NewMedicaidProviders/tabId/158/Default.aspx"
+  },
+  beforeYouStart: [
+    "Your NPI. The Wizard checks it against NPPES, so the name and taxonomy there should already be right.",
+    "Your Florida license. The name on the application has to match the name on the license.",
+    "Proof of your tax ID: an IRS Letter 147C, Form SS-4 or W-9. Sole proprietors enroll under their SSN; corporations use their FEIN.",
+    "A fingerprint-based background check that counts for Medicaid, for you and every person listed on the application.",
+    "Your Medicare number if you're enrolled in Medicare, and your DEA certificate if you prescribe, order or administer drugs that need one.",
+    "A bank letter or voided check for direct deposit.",
+    "For a group or business: every owner with 5% or more, direct or indirect, and the managing employees, such as the administrator or medical director.",
+    "An open, working practice location. Florida won't enroll a practice that isn't operating yet."
+  ],
+  sections: [
+    {
+      title: "Enrollment and application type",
+      fields: [
+        {
+          label: "Enrollment type",
+          required: true,
+          tip: "Fully enrolled providers can see patients in both fee-for-service and managed care. Limited enrolled providers only work inside a Medicaid managed care plan's network. If you only order, refer or prescribe, you can enroll as an ordering or referring provider (ROPA)."
+        },
+        {
+          label: "Application type",
+          required: true,
+          tip: "Sole proprietor, sole proprietor joining a group, group (more than one member), or facility or other business. Forming, joining or leaving a group also needs the Group Membership Authorization (AHCA Form 5000-1061)."
+        },
+        {
+          label: "Provider type, specialty and taxonomy",
+          required: true,
+          tip: "Pick a provider type and at least one specialty with its taxonomy code. Picking a specialty counts as your attestation that you finished the training for it."
+        }
+      ]
+    },
+    {
+      title: "Identifiers",
+      fields: [
+        {
+          label: "Tax ID and entity type",
+          required: true,
+          tip: "An SSN makes you an Individual entity type and an FEIN makes you an Organizational one. You can't change the entity type after enrollment, so pick the tax ID you'll keep."
+        },
+        {
+          label: "NPI",
+          required: true,
+          tip: "An individual gets one Medicaid ID with all service addresses under it. An organization signing the Institutional Provider Agreement needs a separate NPI for each service location."
+        },
+        {
+          label: "License, DEA and Medicare number",
+          required: true,
+          tip: "Report the Florida license for your scope of practice. The DEA certificate is needed only if you handle drugs that require DEA registration, and the Medicare number only if you're Medicare-enrolled."
+        }
+      ]
+    },
+    {
+      title: "Contact and locations",
+      fields: [
+        {
+          label: "Email, phone and addresses",
+          required: true,
+          tip: "The application asks for an email, a phone number, and mailing, payment and service addresses. Report any change in writing within 30 days. Behavior analysis (provider type 39) rendering providers need their own email and phone in the Service Location panel, not the group's."
+        },
+        {
+          label: "Service location",
+          required: true,
+          tip: "In-state providers need an office in Florida or within 50 miles of the border, and they have to see patients there unless their service policy allows care in the community or at a school."
+        }
+      ]
+    },
+    {
+      title: "Ownership, agreement and documents",
+      fields: [
+        {
+          label: "Ownership and affiliations",
+          required: true,
+          tip: "List every affiliate and everyone with a 5% or greater direct or indirect interest. If an owner is itself a company, list that company's owners too, unless it's publicly traded."
+        },
+        {
+          label: "Florida Medicaid Provider Agreement",
+          required: true,
+          tip: "Sign the agreement that fits you: non-institutional, institutional, DME or crossover-only. A sole proprietor has to sign it personally. For a business, everyone with 5% or more signs, or one senior official or designated agent signs for all of them, with the document that names that agent attached."
+        },
+        {
+          label: "Supporting documents and the ATN",
+          required: true,
+          tip: "The Wizard gives you an Application Tracking Number (ATN). Put it on every document you upload. Use the portal's Interactive Enrollment Checklist to see which documents your provider type needs; all of them have to be uploaded before the application can be submitted."
+        }
+      ]
+    },
+    {
+      title: "Screening",
+      fields: [
+        {
+          label: "Fingerprints",
+          required: true,
+          tip: "Everyone listed on the application submits fingerprints through the Care Provider Background Screening Clearinghouse. Some non-profits and public entities can file an exemption form (AHCA Forms 5000-1261 and 5000-1262)."
+        },
+        {
+          label: "Site visit",
+          required: false,
+          tip: "Moderate- and high-risk provider types get a site visit before enrollment and at every renewal, and you have to be there for it. The location needs ADA parking and access, a sign readable from 20 feet, and posted hours and phone number. If you only treat patients in their homes, schools or nursing homes and list your home address, no visit is required."
+        },
+        {
+          label: "Surety bond",
+          required: false,
+          tip: "Some moderate- and high-risk providers have to post a surety bond (AHCA Form 5000-1064), for example when applying within six months after a moratorium ends."
+        }
+      ]
+    }
+  ],
+  steps: [
+    "Check your NPI, taxonomy and license name so they match each other.",
+    "Run the Interactive Enrollment Checklist on the Florida Medicaid Web Portal for your provider type.",
+    "Open the Online Enrollment Wizard from New Medicaid Providers and choose your enrollment type, application type, provider type and specialty.",
+    "Fill in identifiers, contact details, locations and owners, then write down the ATN.",
+    "Upload every supporting document with the ATN on it, including the signed provider agreement and your background screening.",
+    "Fix any deficiency within 21 days of the notice, and be at your location if a site visit is scheduled.",
+    "After approval, renew every 5 years (non-institutional) or every 3 years (institutional, DME, crossover-only, ordering/referring and out-of-state providers)."
+  ],
+  mistakes: [
+    "A name on the application that doesn't match the license.",
+    "Applying before the practice is open. In-state providers have to be fully operational at the service location first.",
+    "Uploading documents without the ATN, so they can't be matched to the application.",
+    "Missing the 21-day deficiency deadline. A denied application has to start over as a new application.",
+    "Enrolling under the wrong tax ID. The entity type can't be changed later.",
+    "Letting the renewal date pass. Without renewal you can't be paid by fee-for-service or by a managed care plan.",
+    "Not reporting a change of address, contact or ownership within 30 days. Ownership changes have to be reported before they happen."
+  ],
+  faqs: [
+    {
+      question: "Do I need to enroll if I only see patients through a Medicaid HMO?",
+      answer:
+        "Yes. Providers who only take part in a Florida Medicaid managed care plan's network enroll as limited enrolled providers. Full enrollment is for providers who also bill fee-for-service."
+    },
+    {
+      question: "How often do I renew Florida Medicaid enrollment?",
+      answer:
+        "Non-institutional providers renew every five years. Institutional, DME, Medicare crossover-only, ordering or referring, and out-of-state providers renew every three years. Renew before the expiration date on your provider agreement."
+    },
+    {
+      question: "How long do I have to fix a deficiency?",
+      answer:
+        "21 days from the date of the notice. After that the application is denied and you have to submit a new one."
+    },
+    {
+      question: "Who needs fingerprints?",
+      answer:
+        "Everyone disclosed on the application, through the Care Provider Background Screening Clearinghouse. Some volunteer-run non-profits, local governments and school districts can file an exemption form instead."
+    },
+    {
+      question: "Who do I call for help?",
+      answer:
+        "The Provider Enrollment Contact Center at 1-800-289-7799, option 4. It handles enrollment questions, address changes, changes of ownership and reenrollment."
+    },
+    {
+      question: "Can Filler fill the Enrollment Wizard for me?",
+      answer:
+        "Filler fills text fields and dropdowns on web forms from facts you save once: legal name, NPI, tax ID, license number, addresses, phone, email and owners. Most of that is what you already typed for NPPES, PECOS and CAQH. Uploads, attestations and signatures stay with you, and Filler never submits anything."
+    }
+  ],
+  sources: [
+    {
+      label: "Florida Medicaid Provider Enrollment Policy, February 2026 (Rule 59G-1.060, F.A.C., effective 4/8/2026)",
+      url: "https://www.flrules.org/gateway/readRefFile.asp?refId=19181&filename=Florida%20Medicaid%20Provider%20Enrollment%20Policy%20February%202026.pdf"
+    },
+    {
+      label: "Rule 59G-1.060, Provider Enrollment Policy",
+      url: "https://www.flrules.org/gateway/ruleNo.asp?id=59G-1.060"
+    },
+    {
+      label: "Florida Medicaid Web Portal: New Medicaid Providers",
+      url: "https://portal.flmmis.com/FLPublic/Provider_ProviderServices/Provider_Enrollment/Provider_Enrollment_NewMedicaidProviders/tabId/158/Default.aspx"
+    }
+  ]
+}
+
 export const FORM_GUIDES: FormGuide[] = [
   NPI_APPLICATION,
   DEA_REGISTRATION,
   MEDICARE_ENROLLMENT_855I,
   CAQH_PROVIEW,
-  TEXAS_MEDICAID_ENROLLMENT
+  TEXAS_MEDICAID_ENROLLMENT,
+  FLORIDA_MEDICAID_ENROLLMENT
 ]
 
 export function getFormGuide(slug: string): FormGuide | undefined {
