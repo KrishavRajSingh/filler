@@ -11,6 +11,7 @@ import {
 
 const FOUND_VIA = [
   ["youtube", "YouTube"],
+  ["instagram", "Instagram"],
   ["google", "Google"],
   ["reddit", "Reddit"],
   ["store", "Chrome Web Store"],
