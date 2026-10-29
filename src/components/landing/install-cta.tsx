@@ -50,6 +50,7 @@ export function InstallCta({
   location,
   showMeta = false,
   style,
+  trackData,
   variant = "default"
 }: {
   className?: string
@@ -57,6 +58,8 @@ export function InstallCta({
   location: InstallCtaLocation
   showMeta?: boolean
   style?: CSSProperties
+  /** Extra event properties, e.g. which guide page and which box. */
+  trackData?: Record<string, string>
   variant?: "default" | "primary"
 }) {
   const isMobile = useIsMobile()
@@ -71,7 +74,7 @@ export function InstallCta({
     .join(" ")
 
   function openMobileModal() {
-    trackEvent("mobile_install_modal_open", { location })
+    trackEvent("mobile_install_modal_open", { ...trackData, location })
     setModalOpen(true)
   }
 
@@ -88,7 +91,7 @@ export function InstallCta({
     <a
       className={buttonClassName}
       href={CHROME_STORE_URL}
-      onClick={() => trackEvent("add_to_chrome", { location })}
+      onClick={() => trackEvent("add_to_chrome", { ...trackData, location })}
       rel="noopener noreferrer"
       style={style}
       target="_blank">

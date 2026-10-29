@@ -1,9 +1,10 @@
 import type { GetStaticPaths, GetStaticProps } from "next"
-import type { ReactNode } from "react"
+import { useEffect, useRef, type ReactNode } from "react"
 
 import { InstallCta } from "~components/landing/install-cta"
 import { LandingBrand } from "~components/landing/landing-brand"
 import { PageHead } from "~components/landing/page-head"
+import { trackEvent } from "~lib/analytics"
 import { FORM_GUIDES, getFormGuide, type FormGuide } from "~lib/form-guides"
 import { absoluteUrl, DEFAULT_SITE_URL } from "~lib/site"
 
@@ -132,19 +133,14 @@ export default function FormGuidePage({ guide }: { guide: FormGuide }) {
             ))}
           </div>
 
-          <aside className="landing-doc-section landing-guide-cta">
-            <h2>Fill the {guide.name} in one click</h2>
+          <CredentialingCta position="top" slug={guide.slug}>
+            <h2>Credentialing again?</h2>
             <p>
-              Save your details once. Filler reads each question on the online
-              form and fills it from your profile. You review every field
-              before moving on, and it never submits for you.
+              Save your NPI, license, DEA, tax ID and practice addresses once.
+              Filler fills them into PECOS, CAQH, Medicaid and payer forms. You
+              check every field, and it never submits for you.
             </p>
-            <InstallCta
-              className="landing-btn"
-              location="form-guide"
-              showMeta
-            />
-          </aside>
+          </CredentialingCta>
 
           <Section title="Where to apply">
             <p>
@@ -189,6 +185,14 @@ export default function FormGuidePage({ guide }: { guide: FormGuide }) {
               </dl>
             </Section>
           ))}
+
+          <CredentialingCta position="after-fields" slug={guide.slug}>
+            <h2>Typed these fields for another form already?</h2>
+            <p>
+              Filler keeps them and fills the {guide.name} in one click. Free,
+              no account.
+            </p>
+          </CredentialingCta>
 
           <Section title="Step by step">
             <ol className="landing-guide-list">
@@ -238,6 +242,51 @@ export default function FormGuidePage({ guide }: { guide: FormGuide }) {
         </article>
       </main>
     </>
+  )
+}
+
+function CredentialingCta({
+  children,
+  position,
+  slug
+}: {
+  children: ReactNode
+  position: string
+  slug: string
+}) {
+  const ref = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    const node = ref.current
+    if (!node || typeof IntersectionObserver === "undefined") {
+      return
+    }
+
+    // Once per page view, when at least half the box is on screen.
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          trackEvent("form_cta_shown", { position, slug })
+          observer.disconnect()
+        }
+      },
+      { threshold: 0.5 }
+    )
+    observer.observe(node)
+
+    return () => observer.disconnect()
+  }, [position, slug])
+
+  return (
+    <aside className="landing-doc-section landing-guide-cta" ref={ref}>
+      {children}
+      <InstallCta
+        className="landing-btn"
+        location="form-guide"
+        showMeta
+        trackData={{ position, slug }}
+      />
+    </aside>
   )
 }
 

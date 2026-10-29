@@ -1339,13 +1339,211 @@ const FLORIDA_MEDICAID_ENROLLMENT: FormGuide = {
   ]
 }
 
+const NEW_YORK_MEDICAID_ENROLLMENT: FormGuide = {
+  slug: "new-york-medicaid-provider-enrollment",
+  name: "New York Medicaid provider enrollment",
+  title: "New York Medicaid provider enrollment: the eMedNY Provider Services Portal, step by step",
+  description:
+    "How to enroll as a New York Medicaid provider in the Provider Services Portal (PSP): the NY.gov business account, FFS vs OPRA, the Application ID, the ETIN form, the $750 fee and its waivers, the 10-day staging limit and the 45-business-day window for returns.",
+  datePublished: "2026-10-30",
+  dateModified: "2026-10-30",
+  intro: [
+    "New York Medicaid enrollment now happens only online. New enrollments, reinstatements, changes of ownership and maintenance all go through the NYS Medicaid Provider Services Portal (PSP), and paper applications stopped being accepted after August 31, 2026. eMedNY, the state's Medicaid system, publishes the guides and forms.",
+    "The PSP walks you through a list of steps under one Application ID: basic information, tax details, specialties and licenses, locations, owners, a yes/no checklist and supporting documents. A draft only stays in the portal for 10 calendar days, so gather everything below before you start."
+  ],
+  onlineForm: {
+    label: "NYS Medicaid Provider Services Portal (eMedNY PSP page)",
+    url: "https://www.emedny.org/PSP/"
+  },
+  beforeYouStart: [
+    "Your NPI from NPPES. New York won't start an application without one.",
+    "A NY.gov business account or a Health Commerce System (HCS) account. A personal NY.gov account gets an \"Access to the PSM denied\" error. Account setup includes identity proofing and multi-factor authentication.",
+    "The requirements for your provider type: on eMedNY, open Provider Enrollment, then Provider Index, pick your type and read Requirements & Additional Forms.",
+    "Your SSN or EIN/FEIN, plus a tax document to upload.",
+    "Your license or certification number, and a copy of it to upload.",
+    "A voided check or a notarized bank letter if you want electronic payments.",
+    "The ETIN Certification Statement (form 490602), filled in completely, signed and notarized. It's required for fee-for-service applications.",
+    "Owners and controlling interests for a group or business, with any adverse actions against them.",
+    "The $750 application fee (2026) if your provider type owes it, or proof you're exempt."
+  ],
+  sections: [
+    {
+      title: "Starting the application",
+      fields: [
+        {
+          label: "Enrollment type",
+          required: true,
+          tip: "From the Provider menu choose New Enrollment, then Individual or an organization. When you click Generate Application, the portal gives you a 14-digit Application ID. Write it down; you need it to find the application again under Track Application."
+        },
+        {
+          label: "Applicant type",
+          required: true,
+          tip: "Fee For Service (Billing) if you'll bill Medicaid yourself. Ordering/Prescribing/Referring/Attending (OPRA) if you only order, prescribe, refer or attend. Anyone who does that for fee-for-service patients has to be enrolled, even if they never bill."
+        },
+        {
+          label: "NPI and SSN or EIN",
+          required: true,
+          tip: "If that NPI and SSN/EIN pair is already in eMedNY, the portal won't create an Application ID. Changes to an existing enrollment are made in eMedNY instead."
+        }
+      ]
+    },
+    {
+      title: "Tax, specialty and license",
+      fields: [
+        {
+          label: "Federal tax details",
+          required: true,
+          tip: "Ownership type, profit status, EIN/FEIN, start date and the corporate address (click Validate Address). Save these fields before you upload the tax document, or the upload won't attach."
+        },
+        {
+          label: "Primary specialty",
+          required: true,
+          tip: "You must pick one. If you have no specialty, choose \"No Specialty - No Subspecialty\" and mark it as primary."
+        },
+        {
+          label: "License or certification",
+          required: true,
+          tip: "If the portal says the number \"is not valid\" but you know it's right, check the digits, then save anyway and upload a copy of the license under supporting documents."
+        },
+        {
+          label: "Education, training and work history",
+          required: false,
+          tip: "Individual applications have a step for schools, training and past jobs. Have the dates and names handy. They're usually the same ones you entered in CAQH."
+        }
+      ]
+    },
+    {
+      title: "Payment and locations",
+      fields: [
+        {
+          label: "Payment details",
+          required: false,
+          tip: "Optional for individual FFS providers. For EFT, upload a voided check or a notarized bank letter and accept the EFT Agreement inside this step. Don't upload the old EFT Authorization form from eMedNY; that gets the application returned."
+        },
+        {
+          label: "Primary location, pay-to and correspondence addresses",
+          required: true,
+          tip: "Each address has a Validate Address button. If your service address is your home (a home office or home visits), upload a document that explains why."
+        },
+        {
+          label: "Location contacts, license and specialty",
+          required: true,
+          tip: "Each location gets its own contacts, license and provider type/specialty. The primary email you enter is where returns and notices go."
+        }
+      ]
+    },
+    {
+      title: "Associations, owners and checklist",
+      fields: [
+        {
+          label: "Billing provider, ETIN and MCO plans",
+          required: false,
+          tip: "Link the group that bills for you, the ETIN (Electronic Transmitter Identification Number) you'll send claims under, and any Medicaid managed care plans you work with."
+        },
+        {
+          label: "Controlling interest and ownership",
+          required: true,
+          tip: "Add or import each owner by NPI or provider ID, set how owners are related, answer the adverse action questions and list other Medicaid or Medicare entities they own."
+        },
+        {
+          label: "Enrollment checklist",
+          required: true,
+          tip: "Every question needs Yes or No. A Yes usually needs a comment and sometimes a document, which you upload in the next step."
+        }
+      ]
+    }
+  ],
+  steps: [
+    "Get or check your NPI in NPPES.",
+    "Create a NY.gov business account (or use HCS) and set up multi-factor authentication.",
+    "Read your provider type's requirements in the eMedNY Provider Index.",
+    "In the PSP, choose New Enrollment, generate the application and write down the 14-digit Application ID.",
+    "Fill in basic information, tax details, specialties, licenses, payment details, locations, associations, owners and the checklist.",
+    "Upload supporting documents, including the notarized ETIN form 490602 and your license.",
+    "Accept the terms and submit within 10 calendar days of starting. If a delegate prepared it, the provider has to log in and click Submit.",
+    "Answer any return for more information within 45 business days. Approval comes as a letter with your Medicaid provider ID (MMIS number) and effective date."
+  ],
+  mistakes: [
+    "Logging in with a personal NY.gov account instead of a business account.",
+    "Leaving a draft \"In Process\" for more than 10 calendar days. The portal purges it and emails you.",
+    "Having the credentialer click Submit. The provider has to submit from their own account, or the application comes back.",
+    "Uploading the old eMedNY EFT Authorization form instead of accepting the EFT Agreement in the Payment Details step.",
+    "An ETIN form that isn't complete, signed and notarized.",
+    "Missing the 45-business-day deadline on a return.",
+    "Starting a revalidation before New York tells you to. Wait for the individual notice by email and mail."
+  ],
+  faqs: [
+    {
+      question: "Can I still mail a paper New York Medicaid application?",
+      answer:
+        "No. Paper applications for every provider and every transaction stopped being accepted after August 31, 2026. Since September 1, 2026, everything goes through the Provider Services Portal."
+    },
+    {
+      question: "Is there an application fee?",
+      answer:
+        "For certain provider types, yes: $750 in 2026, under 42 CFR 455.460. The portal tells you if you owe it. It's waived if you're enrolled in Medicare or another state's Medicaid or CHIP, or already paid the fee to Medicare. You can also ask for a hardship waiver, which New York sends to CMS."
+    },
+    {
+      question: "Can my credentialing company submit the application for me?",
+      answer:
+        "A delegate can prepare it, and one NY.gov business account can hold applications for many providers. The provider still has to log into their own NY.gov business account, read the terms and click Submit."
+    },
+    {
+      question: "When do I revalidate?",
+      answer:
+        "New York is revalidating all providers by June 2028, in the PSP. Don't start until you're notified individually by email and U.S. mail. Emails come from ProviderEnrollment@acentra.com."
+    },
+    {
+      question: "Who do I call for help?",
+      answer:
+        "The eMedNY Call Center at 800-343-9000 for enrollment questions and returns. For NY.gov password or multi-factor problems, ITS at 1-844-891-1786."
+    },
+    {
+      question: "Can Filler fill the Provider Services Portal for me?",
+      answer:
+        "Filler fills text fields and dropdowns on web forms from facts you save once: legal name, NPI, tax ID, license number, addresses, phone, email, education and work history. Most of that is what you already typed for NPPES, PECOS and CAQH. Uploads, attestations and the final submit stay with you, and Filler never submits anything."
+    }
+  ],
+  sources: [
+    {
+      label: "eMedNY: Introduction to Provider Enrollment",
+      url: "https://www.emedny.org/info/ProviderEnrollment/enrollguide.aspx"
+    },
+    {
+      label: "eMedNY: Provider Enrollment Application Fee",
+      url: "https://www.emedny.org/info/ProviderEnrollment/ffs.aspx"
+    },
+    {
+      label: "eMedNY: NYS Medicaid Provider Services Portal",
+      url: "https://www.emedny.org/PSP/"
+    },
+    {
+      label: "eMedNY: Provider Services Portal FAQs",
+      url: "https://www.emedny.org/PSP/FAQs/"
+    },
+    {
+      label: "Provider Services Portal User Guide (PDF)",
+      url: "https://www.emedny.org/PSP/PSM_UserGuide.pdf"
+    },
+    {
+      label: "eMedNY: Revalidation Information",
+      url: "https://www.emedny.org/info/ProviderEnrollment/revalidation/index.aspx"
+    },
+    {
+      label: "eMedNY: Enrolled Practitioners Search (including OPRA)",
+      url: "https://www.emedny.org/info/opra.aspx"
+    }
+  ]
+}
+
 export const FORM_GUIDES: FormGuide[] = [
   NPI_APPLICATION,
   DEA_REGISTRATION,
   MEDICARE_ENROLLMENT_855I,
   CAQH_PROVIEW,
   TEXAS_MEDICAID_ENROLLMENT,
-  FLORIDA_MEDICAID_ENROLLMENT
+  FLORIDA_MEDICAID_ENROLLMENT,
+  NEW_YORK_MEDICAID_ENROLLMENT
 ]
 
 export function getFormGuide(slug: string): FormGuide | undefined {

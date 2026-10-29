@@ -11,6 +11,7 @@ declare global {
 
 export type AnalyticsEvent =
   | "add_to_chrome"
+  | "form_cta_shown"
   | "mobile_install_copy_link"
   | "mobile_install_email_submit"
   | "mobile_install_modal_open"

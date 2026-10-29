@@ -28,9 +28,24 @@ describe("form guides", () => {
     expect(
       screen.getByRole("heading", { level: 1, name: guide.title })
     ).toBeInTheDocument()
-    expect(screen.getByRole("link", { name: /add to chrome/i })).toBeInTheDocument()
+    expect(screen.getAllByRole("link", { name: /add to chrome/i })).toHaveLength(2)
+    expect(
+      screen.getByRole("heading", { level: 2, name: "Credentialing again?" })
+    ).toBeInTheDocument()
     expect(
       screen.getByText("What do I put for endpoint on the NPI application?")
+    ).toBeInTheDocument()
+  })
+
+  it("renders the New York Medicaid guide", () => {
+    const guide = getFormGuide("new-york-medicaid-provider-enrollment")!
+    render(<FormGuidePage guide={guide} />)
+
+    expect(
+      screen.getByRole("heading", { level: 1, name: guide.title })
+    ).toBeInTheDocument()
+    expect(
+      screen.getByText("Can I still mail a paper New York Medicaid application?")
     ).toBeInTheDocument()
   })
 
