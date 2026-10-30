@@ -41,6 +41,7 @@ export default async function handler(
 
   const from =
     process.env.RESEND_FROM_EMAIL ?? "Filler <onboarding@resend.dev>"
+  const replyTo = process.env.RESEND_REPLY_TO ?? "krishavrajsingh@gmail.com"
   const { email } = parsed.data
 
   const response = await fetch("https://api.resend.com/emails", {
@@ -52,6 +53,7 @@ export default async function handler(
     body: JSON.stringify({
       from,
       to: [email],
+      reply_to: replyTo,
       subject: "Install Filler on your computer",
       html: buildInstallLinkEmailHtml(email),
       text: buildInstallLinkEmailText(email)
