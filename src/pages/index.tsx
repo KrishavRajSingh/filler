@@ -53,16 +53,16 @@ export default function IndexPage() {
                 <a href="/job-application-autofill">Job sites</a>
                 <a href="/blog">Blog</a>
               </div>
-              <InstallCta className="sheet-cta sheet-cta-small" location="nav" />
             </nav>
 
-            <h1>You uploaded your resume. Now type it all again?</h1>
-
             <div className="sheet-offer">
-              <p>
-                Save your details once. One click fills what Filler knows. You
-                check it and submit.
-              </p>
+              <div className="sheet-offer-copy">
+                <h1>You uploaded your resume. Now type it all again?</h1>
+                <p>
+                  Save your details once. One click fills what Filler knows. You
+                  check it and submit.
+                </p>
+              </div>
               <div className="sheet-offer-action">
                 <InstallCta
                   className="sheet-cta"

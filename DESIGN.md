@@ -16,7 +16,7 @@ colors:
 typography:
   display:
     fontFamily: "Archivo, system-ui, sans-serif"
-    fontSize: "clamp(44px, min(6.9vw, 11vh), 96px)"
+    fontSize: "clamp(32px, 3.4vw, 46px)"
     fontWeight: 800
     lineHeight: 1
     letterSpacing: "-0.015em"
@@ -99,7 +99,7 @@ Green fields own whole page regions; colour is never a small accent on white.
 
 ## Layout
 
-Full-width bands in a 1240px column, left-aligned. Rows align to the timing track at the page edge. Short laptop screens get a denser hero so the guess row stays in the first viewport.
+Full-width bands in a 1240px column, left-aligned. Rows align to the timing track at the page edge. The demo owns the first screen: on a laptop the whole form, through the submit button, is visible without scrolling.
 
 ## Elevation & Depth
 
