@@ -12,6 +12,7 @@ export type InstallCtaLocation =
   | "form-guide"
   | "ats-guide"
   | "vs"
+  | "time_sheet"
 
 function ChromeIcon() {
   return (

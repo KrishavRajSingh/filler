@@ -1,78 +1,58 @@
+import { useEffect, useRef } from "react"
+
+import { Bubble, FillRace } from "~components/landing/fill-race"
 import { InstallCta } from "~components/landing/install-cta"
 import { LandingBrand } from "~components/landing/landing-brand"
 import { PageHead } from "~components/landing/page-head"
+import { TimeSheet } from "~components/landing/time-sheet"
 import { WaitlistForm } from "~components/landing/waitlist-form"
 import { trackEvent } from "~lib/analytics"
 import { absoluteUrl, CHROME_STORE_URL } from "~lib/site"
 
-const DEMO_VIDEO_URL = "https://files.catbox.moe/6ggdog.mp4"
+const DEMO_VIDEO_URL = "/demo/filler-fill.mp4"
+const DEMO_POSTER_URL = "/demo/filler-fill-poster.jpg"
+
+const MARKS = [
+  {
+    mark: "filled",
+    title: "Filled in",
+    text: "It comes from your profile or an answer you saved, even when the form words the question differently.",
+    ask: "What year did you finish college?",
+    answer: "2024",
+    source: "Your profile says: Graduation year, 2024"
+  },
+  {
+    mark: "guess",
+    title: "A guess to check",
+    text: "The profile only hints at it, so Filler answers, outlines the field and tells you to look.",
+    ask: "How did you hear about us?",
+    answer: "LinkedIn",
+    source: "Not a saved answer, so check it"
+  },
+  {
+    mark: "blank",
+    title: "Left for you",
+    text: "File uploads, checkboxes, passwords and payment fields stay empty, and so does anything your profile says nothing about.",
+    ask: "Resume",
+    answer: "",
+    source: "Filler doesn't touch this"
+  }
+] as const
 
 const STEPS = [
   {
-    number: "1",
-    title: "Put your info in once",
-    text: "Name, work, school, links — plus any long answers you’re tired of retyping."
+    title: "Save your details once",
+    text: "Work, school, links and the answers you're tired of rewriting."
   },
   {
-    number: "2",
-    title: "Open the form",
-    text: "Google Form, company survey, signup page. Whatever’s in front of you."
+    title: "Open any application",
+    text: "Filler reads the questions on the page. There's nothing to set up per site."
   },
   {
-    number: "3",
-    title: "Click Fill",
-    text: "Filler writes what it can. You read the rest, edit if you want, and submit yourself."
+    title: "Click Fill, then read it",
+    text: "Change what you like and submit it yourself."
   }
 ] as const
-
-const POINTS = [
-  {
-    title: "Reads the question",
-    text: (
-      <>
-        Chrome autofill cares about <code>name=&quot;email&quot;</code>. Filler
-        reads what the form actually asks — &quot;When did you finish
-        college?&quot; gets your graduation year, not your school name.
-      </>
-    )
-  },
-  {
-    title: "Reuses what you wrote",
-    text: "Got a good \"about me\" paragraph? Save it. Filler drops it in when a similar question shows up on a different form."
-  },
-  {
-    title: "Guesses when it has to",
-    text: "For questions you never saved an answer to, Filler takes a shot based on your profile and flags it for you to check."
-  }
-] as const
-
-const FILL_EXAMPLE_ROWS = [
-  {
-    ask: "When did you finish college?",
-    filled: "2025",
-    profile: "Graduation year: 2025",
-    source: "profile"
-  },
-  {
-    ask: "Tell us about yourself",
-    filled: "I build small tools and like teams that ship fast.",
-    profile: "I build small tools and like teams that ship fast.",
-    source: "reused"
-  },
-  {
-    ask: "How did you hear about us?",
-    filled: "Friend told me about it",
-    profile: "Not in profile",
-    profileMissing: true,
-    source: "guess"
-  }
-] as const
-
-const FILL_SOURCE_LABELS = {
-  guess: "Guess — review",
-  profile: "From profile",
-  reused: "Reused answer"
-} as const
 
 const HOME_DESCRIPTION =
   "Free Chrome extension that autofills job applications, Google Forms and signups from a profile you save once. Reuses past answers, flags guesses."
@@ -102,149 +82,163 @@ export default function IndexPage() {
         path="/"
         title="Filler: autofill job applications and Google Forms in one click"
       />
-      <main className="landing">
-          <header className="landing-top">
-            <div className="landing-inner">
-            <nav aria-label="Main navigation" className="landing-nav">
+      <main className="sheet">
+        <span aria-hidden="true" className="sheet-track" />
+
+        <header className="sheet-hero">
+          <div className="sheet-inner">
+            <nav aria-label="Main navigation" className="sheet-nav">
               <LandingBrand />
-              <div className="landing-nav-links">
-                <a href="#proof">Example</a>
-                <a href="#process">How it works</a>
+              <div className="sheet-nav-links">
+                <a href="#marks">How it answers</a>
+                <a href="#proof">Recording</a>
                 <a href="#privacy">Privacy</a>
                 <a href="/job-application-autofill">Job sites</a>
                 <a href="/blog">Blog</a>
               </div>
-              <InstallCta className="landing-btn landing-btn-small" location="nav" />
+              <InstallCta className="sheet-cta sheet-cta-small" location="nav" />
             </nav>
 
-            <div className="landing-hero-grid">
-              <div className="landing-intro">
-                <p className="landing-kicker">Chrome extension · free</p>
-                <h1>Stop retyping the same answers on every form.</h1>
-                <p className="landing-deck">
-                  Save your details once. Click Fill on Google Forms,{" "}
-                  <a href="/job-application-autofill">job applications</a>, surveys, and signups — even when every form
-                  asks slightly differently.
-                </p>
-                <div className="landing-intro-actions">
-                  <InstallCta
-                    className="landing-btn"
-                    label="Add to Chrome — it's free"
-                    location="hero"
-                    showMeta
-                    variant="primary"
-                  />
-                  <a className="landing-text-link" href="#proof">
-                    See how it works ↓
-                  </a>
-                </div>
-                <p className="landing-pass-line">
-                  Applying for jobs? Get long answers written for the job post.{" "}
-                  <a
-                    href="/pass?from=hero"
-                    onClick={() => trackEvent("pass_click", { location: "hero" })}>
-                    Job Hunt Pass, $5 for 30 days
-                  </a>
-                </p>
-                <p className="landing-aside">
-                  You stay in control — Filler never submits for you, and
-                  anything it&apos;s unsure about gets flagged for you to check.
-                </p>
-              </div>
-              <div className="landing-hero-demo">
-                <FillFlowDemo />
+            <h1>You uploaded your resume. Now type it all again?</h1>
+
+            <div className="sheet-offer">
+              <p>
+                Filler is a free Chrome extension that fills{" "}
+                <a href="/job-application-autofill">job applications</a> from a
+                profile you save once. It reads each question, flags its
+                guesses and never submits for you.
+              </p>
+              <div className="sheet-offer-action">
+                <InstallCta
+                  className="sheet-cta"
+                  label="Add to Chrome, it's free"
+                  location="hero"
+                />
+                <span>No account needed</span>
               </div>
             </div>
+
+            <div className="sheet-paper">
+              <FillRace />
             </div>
-          </header>
+          </div>
+        </header>
 
-          <section className="landing-proof" id="proof">
-            <div className="landing-inner">
-              <div className="landing-proof-layout">
-                <div className="landing-proof-head">
-                  <h2>Every form asks differently.</h2>
-                  <p>
-                    The easy stuff comes from your profile. Answers you&apos;ve
-                    saved before get reused. For everything else, Filler takes a
-                    guess — and lets you check before you send.
-                  </p>
-                </div>
-
-                <div className="landing-proof-media">
-                  <DemoVideo />
-                </div>
-              </div>
+        <section className="sheet-marks" id="marks">
+          <div className="sheet-inner">
+            <h2>Every answer gets one of three marks.</h2>
+            <div className="sheet-mark-list">
+              {MARKS.map((item) => (
+                <article className="sheet-mark" key={item.title}>
+                  <Bubble mark={item.mark} />
+                  <div className="sheet-mark-copy">
+                    <h3>{item.title}</h3>
+                    <p>{item.text}</p>
+                  </div>
+                  <div className="sheet-mark-example">
+                    <span className="sheet-field-label">{item.ask}</span>
+                    <span className={`sheet-input is-example has-${item.mark}`}>
+                      <span className="sheet-input-value">{item.answer}</span>
+                    </span>
+                    <span className="sheet-mark-source">{item.source}</span>
+                  </div>
+                </article>
+              ))}
             </div>
-          </section>
+          </div>
+        </section>
 
-          <section className="landing-process" id="process">
-            <div className="landing-inner">
-              <ol className="landing-steps">
+        <section className="sheet-time" id="time">
+          <div className="sheet-inner">
+            <h2>What does your week cost you?</h2>
+            <TimeSheet />
+            <div className="sheet-time-action">
+              <InstallCta
+                className="sheet-cta"
+                label="Add to Chrome, it's free"
+                location="time_sheet"
+              />
+              <p>
+                Applying a lot? Get long answers written for the job post.{" "}
+                <a
+                  href="/pass?from=time_sheet"
+                  onClick={() =>
+                    trackEvent("pass_click", { location: "time_sheet" })
+                  }>
+                  Job Hunt Pass, $5 for 30 days
+                </a>
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section className="sheet-proof" id="proof">
+          <div className="sheet-inner">
+            <h2>The real extension, at real speed.</h2>
+            <DemoVideo />
+            <p>
+              A test application and a made-up applicant, with no sound and no
+              speed-up. The orange outline is what you see on a guess.
+            </p>
+          </div>
+        </section>
+
+        <section className="sheet-how" id="process">
+          <div className="sheet-inner sheet-how-grid">
+            <div>
+              <h2>Three steps, and the last one is yours.</h2>
+              <ol className="sheet-steps">
                 {STEPS.map((step) => (
-                  <li className="landing-step" key={step.number}>
-                    <span className="landing-step-num">{step.number}</span>
-                    <div>
-                      <h3>{step.title}</h3>
-                      <p>{step.text}</p>
-                    </div>
+                  <li key={step.title}>
+                    <h3>{step.title}</h3>
+                    <p>{step.text}</p>
                   </li>
                 ))}
               </ol>
-
-              <div className="landing-points">
-                {POINTS.map((point) => (
-                  <article className="landing-point" key={point.title}>
-                    <h3>{point.title}</h3>
-                    <p>{point.text}</p>
-                  </article>
-                ))}
-              </div>
-
-              <div className="landing-handles" id="handles">
-                <div>
-                  <h4>Sites</h4>
-                  <p>Google Forms, Ashby, Tally, most web forms</p>
-                </div>
-                <div>
-                  <h4>Controls</h4>
-                  <p>Text fields, dropdowns, radios, textareas</p>
-                </div>
-              </div>
             </div>
-          </section>
-
-          <section className="landing-close">
-            <div className="landing-inner landing-close-inner">
-              <div>
-                <h2>Try it on the next form you don&apos;t want to type through.</h2>
-                <p>Free on the Chrome Web Store. Setup takes about two minutes.</p>
-              </div>
-              <div className="landing-close-actions">
-                <InstallCta
-                  className="landing-btn landing-btn-invert"
-                  label="Add to Chrome — it's free"
-                  location="footer"
-                  variant="primary"
-                />
-                <p className="landing-close-waitlist">
-                  Want early access to new features?{" "}
-                  <a href="#waitlist">Join the beta list</a>
-                </p>
-                <details className="landing-waitlist-details" id="waitlist">
-                  <summary className="landing-waitlist-summary">
-                    Beta waitlist
-                  </summary>
-                  <WaitlistForm />
-                </details>
-              </div>
+            <div className="sheet-where" id="handles">
+              <h3>Where it works</h3>
+              <p>
+                On live{" "}
+                <a href="/job-application-autofill">
+                  Greenhouse, Lever and Ashby
+                </a>{" "}
+                applications it filled 4 to 9 fields in 5 to 6 seconds, which is
+                rarely all of them. On a long Ashby form it filled 5, 2 of them
+                guesses, in 4.7 s. The resume, custom dropdowns and voluntary
+                surveys stay for you. Also Google Forms, Tally, signups and{" "}
+                <a href="/forms">provider credentialing forms</a>. Workday
+                isn&apos;t tested yet.
+              </p>
+              <h3>What it fills</h3>
+              <p>Text fields, dropdowns, radios and long answers.</p>
             </div>
-          </section>
+          </div>
+        </section>
 
+        <section className="sheet-close">
+          <div className="sheet-inner sheet-close-inner">
+            <h2>Try it on your next application.</h2>
+            <div className="sheet-close-action">
+              <InstallCta
+                className="sheet-cta"
+                label="Add to Chrome, it's free"
+                location="footer"
+              />
+              <details className="sheet-beta" id="waitlist">
+                <summary>Join the beta list for new features</summary>
+                <WaitlistForm />
+              </details>
+            </div>
+          </div>
+        </section>
+
+        <div className="landing">
           <footer className="landing-footer" id="privacy">
             <div className="landing-inner landing-footer-inner">
               <p>
                 Your profile stays on your device until you click Fill. We only
-                send it to our server to figure out the answers — no ads, no
+                send it to our server and an AI model to figure out the answers — no ads, no
                 background snooping.{" "}
                 <a href="/privacy">Privacy policy</a>
               </p>
@@ -365,73 +359,56 @@ export default function IndexPage() {
               </p>
             </div>
           </footer>
+        </div>
       </main>
     </>
   )
 }
 
-function FillFlowDemo() {
-  return (
-    <div
-      aria-label="Example of Filler matching form questions to profile answers"
-      className="landing-demo">
-      <div className="landing-demo-bar">
-        <span>Example form</span>
-      </div>
-      <div className="landing-demo-grid">
-        <div aria-hidden="true" className="landing-demo-head">
-          <span>Form asks</span>
-          <span>Your profile</span>
-          <span>Filled</span>
-        </div>
-        {FILL_EXAMPLE_ROWS.map((row) => (
-          <div className="landing-demo-row" key={row.ask}>
-            <div className="landing-demo-cell landing-demo-cell-ask">
-              <span className="landing-demo-cell-label">Form asks</span>
-              {row.ask}
-            </div>
-            <div
-              className={
-                "profileMissing" in row && row.profileMissing
-                  ? "landing-demo-cell landing-demo-cell-profile landing-demo-cell-profile-missing"
-                  : "landing-demo-cell landing-demo-cell-profile"
-              }>
-              <span className="landing-demo-cell-label">Your profile</span>
-              {row.profile}
-            </div>
-            <div
-              className={
-                row.source === "guess"
-                  ? "landing-demo-cell landing-demo-cell-filled landing-demo-cell-guess"
-                  : "landing-demo-cell landing-demo-cell-filled"
-              }>
-              <span className="landing-demo-cell-label">Filled</span>
-              {row.filled}
-              <em>{FILL_SOURCE_LABELS[row.source]}</em>
-            </div>
-          </div>
-        ))}
-      </div>
-      <p className="landing-demo-foot">Filled in one click</p>
-    </div>
-  )
-}
-
 function DemoVideo() {
+  const videoRef = useRef<HTMLVideoElement>(null)
+
+  useEffect(() => {
+    const video = videoRef.current
+    if (
+      !video ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
+      return
+    }
+    let tracked = false
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          void video.play().catch(() => undefined)
+          if (!tracked) {
+            tracked = true
+            trackEvent("demo_video_view")
+          }
+        } else {
+          video.pause()
+        }
+      },
+      { threshold: 0.4 }
+    )
+    observer.observe(video)
+    return () => observer.disconnect()
+  }, [])
+
   return (
-    <div aria-label="Filler demo video" className="landing-video">
-      <div className="landing-demo-bar">
-        <span>Screen recording</span>
-      </div>
-      <video
-        autoPlay
-        controls
-        loop
-        muted
-        playsInline
-        preload="metadata"
-        src={DEMO_VIDEO_URL}
-      />
-    </div>
+    <video
+      aria-label="Screen recording: an empty job application fills in after Filler runs, with one field outlined as a guess to check"
+      className="sheet-video"
+      controls
+      height={652}
+      loop
+      muted
+      playsInline
+      poster={DEMO_POSTER_URL}
+      preload="metadata"
+      ref={videoRef}
+      src={DEMO_VIDEO_URL}
+      width={1280}
+    />
   )
 }

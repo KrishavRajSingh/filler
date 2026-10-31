@@ -11,6 +11,8 @@ declare global {
 
 export type AnalyticsEvent =
   | "add_to_chrome"
+  | "demo_replay"
+  | "demo_video_view"
   | "form_cta_shown"
   | "mobile_install_copy_link"
   | "mobile_install_email_submit"
@@ -18,6 +20,7 @@ export type AnalyticsEvent =
   | "pass_buy_click"
   | "pass_click"
   | "pass_email_submit"
+  | "time_sheet_change"
   | "uninstall_note"
   | "uninstall_reason"
   | "uninstalled"

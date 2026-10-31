@@ -47,3 +47,8 @@ keys.json
 
 # typescript
 *.tsbuildinfo
+
+# impeccable review captures
+.impeccable/review/
+.impeccable/build/
+.impeccable/questions/

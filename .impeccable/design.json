@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-31",
+  "title": "Filler answer sheet",
+  "extensions": {
+    "shadows": [
+      {"name": "paper", "value": "0 18px 40px rgba(10, 60, 40, 0.35)"},
+      {"name": "pencil-button", "value": "0 6px 16px rgba(16, 17, 20, 0.28)"}
+    ],
+    "motion": [
+      {"name": "land", "value": "320ms cubic-bezier(0.16, 1, 0.3, 1)"},
+      {"name": "bubble-fill", "value": "260ms cubic-bezier(0.16, 1, 0.3, 1)"}
+    ],
+    "breakpoints": [
+      {"name": "stack", "value": "900px"},
+      {"name": "short-laptop", "value": "max-height 820px"}
+    ]
+  }
+}

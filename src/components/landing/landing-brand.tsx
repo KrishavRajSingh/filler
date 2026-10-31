@@ -1,9 +1,9 @@
-import logo from "../../../assets/logo.png"
-
 export function LandingBrand() {
   return (
-    <a className="landing-brand" href="/">
-      <img alt="Filler" className="landing-brand-logo" src={logo.src} />
+    <a aria-label="Filler" className="landing-brand brand-mark" href="/">
+      <span aria-hidden="true">
+        f<span className="brand-mark-i">ı</span>ller
+      </span>
     </a>
   )
 }
