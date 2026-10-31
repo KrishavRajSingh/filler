@@ -499,8 +499,7 @@
   }
 }
 
-.sheet-row.has-guess .sheet-input,
-.sheet-input.is-example.has-guess {
+.sheet-row.has-guess .sheet-input {
   border-color: var(--eraser-deep);
   box-shadow: 0 0 0 2px var(--eraser);
 }
@@ -576,58 +575,6 @@
   color: var(--graphite-soft);
   font-size: 13px;
   padding: 8px 24px;
-}
-
-/* Three marks */
-
-.sheet-marks {
-  background: var(--mint);
-  padding: 88px 0 80px;
-}
-
-.sheet-mark-list {
-  margin-top: 36px;
-}
-
-.sheet-mark {
-  align-items: center;
-  border-top: 2px solid var(--green);
-  display: grid;
-  gap: 28px;
-  grid-template-columns: 72px minmax(0, 1fr) minmax(0, 1fr);
-  padding: 28px 0;
-}
-
-.sheet-mark:last-child {
-  border-bottom: 2px solid var(--green);
-}
-
-.sheet-mark > .sheet-bubble {
-  height: 34px;
-  width: 54px;
-}
-
-.sheet-mark h3 {
-  font-size: 26px;
-  font-stretch: 75%;
-  font-weight: 800;
-  margin-bottom: 6px;
-}
-
-.sheet-mark-copy p {
-  max-width: 46ch;
-}
-
-.sheet-mark-example {
-  max-width: 440px;
-}
-
-.sheet-mark-source {
-  color: var(--green-deep);
-  display: block;
-  font-size: 14px;
-  font-weight: 500;
-  margin-top: 6px;
 }
 
 /* Time sheet */
@@ -765,66 +712,6 @@
 .sheet-proof p {
   color: #d5d8dc;
   max-width: 70ch;
-}
-
-/* Steps */
-
-.sheet-how {
-  background: var(--paper);
-  padding: 88px 0;
-}
-
-.sheet-how-grid {
-  display: grid;
-  gap: 64px;
-  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
-}
-
-.sheet-steps {
-  counter-reset: step;
-  list-style: none;
-  margin: 32px 0 0;
-  padding: 0;
-}
-
-.sheet-steps li {
-  counter-increment: step;
-  padding: 16px 0 16px 64px;
-  position: relative;
-}
-
-.sheet-steps li + li {
-  border-top: 1px solid var(--mint-line);
-}
-
-.sheet-steps li::before {
-  align-items: center;
-  border: 2px solid var(--green);
-  border-radius: 50%;
-  color: var(--green-deep);
-  content: counter(step);
-  display: flex;
-  font-weight: 700;
-  height: 30px;
-  justify-content: center;
-  left: 0;
-  position: absolute;
-  top: 16px;
-  width: 44px;
-}
-
-.sheet-where {
-  align-self: end;
-  border-top: 2px solid var(--green);
-  padding-top: 20px;
-}
-
-.sheet-where h3 + p {
-  margin: 6px 0 20px;
-}
-
-.sheet-where p:last-child {
-  margin-bottom: 0;
 }
 
 /* Close */
@@ -1046,25 +933,12 @@
     padding: 8px 14px;
   }
 
-  .sheet-marks,
   .sheet-time,
-  .sheet-proof,
-  .sheet-how {
+  .sheet-proof {
     padding: 56px 0;
   }
 
-  .sheet-mark {
-    gap: 12px 14px;
-    grid-template-columns: 54px minmax(0, 1fr);
-  }
-
-  .sheet-mark-example {
-    grid-column: 1 / -1;
-    max-width: none;
-  }
-
-  .sheet-timesheet,
-  .sheet-how-grid {
+  .sheet-timesheet {
     gap: 32px;
     grid-template-columns: minmax(0, 1fr);
   }

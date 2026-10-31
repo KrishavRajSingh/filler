@@ -73,7 +73,7 @@ Green fields own whole page regions; colour is never a small accent on white.
 
 ### Primary
 - **Form green** (#0e7c57): hero and closing bands. White text only.
-- **Mint** (#d9f1e2): the marks section and the clock strip.
+- **Mint** (#d9f1e2): the clock strip.
 
 ### Secondary
 - **Pencil** (#ffc629): the install action, and the wordmark's bubble on green.
@@ -128,6 +128,7 @@ Native radios restyled as numbered bubbles. The result always shows its arithmet
 ### Do:
 - **Do** use measured numbers and say what was measured.
 - **Do** show what Filler leaves for you.
+- **Do** let the demo explain the product: one or two short lines per section, no explanatory blocks.
 - **Do** use a made-up applicant in every demo.
 
 ### Don't:

@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react"
 
-import { Bubble, FillRace } from "~components/landing/fill-race"
+import { FillRace } from "~components/landing/fill-race"
 import { InstallCta } from "~components/landing/install-cta"
 import { LandingBrand } from "~components/landing/landing-brand"
 import { PageHead } from "~components/landing/page-head"
@@ -11,48 +11,6 @@ import { absoluteUrl, CHROME_STORE_URL } from "~lib/site"
 
 const DEMO_VIDEO_URL = "/demo/filler-fill.mp4"
 const DEMO_POSTER_URL = "/demo/filler-fill-poster.jpg"
-
-const MARKS = [
-  {
-    mark: "filled",
-    title: "Filled in",
-    text: "It comes from your profile or an answer you saved, even when the form words the question differently.",
-    ask: "What year did you finish college?",
-    answer: "2024",
-    source: "Your profile says: Graduation year, 2024"
-  },
-  {
-    mark: "guess",
-    title: "A guess to check",
-    text: "The profile only hints at it, so Filler answers, outlines the field and tells you to look.",
-    ask: "How did you hear about us?",
-    answer: "LinkedIn",
-    source: "Not a saved answer, so check it"
-  },
-  {
-    mark: "blank",
-    title: "Left for you",
-    text: "File uploads, checkboxes, passwords and payment fields stay empty, and so does anything your profile says nothing about.",
-    ask: "Resume",
-    answer: "",
-    source: "Filler doesn't touch this"
-  }
-] as const
-
-const STEPS = [
-  {
-    title: "Save your details once",
-    text: "Work, school, links and the answers you're tired of rewriting."
-  },
-  {
-    title: "Open any application",
-    text: "Filler reads the questions on the page. There's nothing to set up per site."
-  },
-  {
-    title: "Click Fill, then read it",
-    text: "Change what you like and submit it yourself."
-  }
-] as const
 
 const HOME_DESCRIPTION =
   "Free Chrome extension that autofills job applications, Google Forms and signups from a profile you save once. Reuses past answers, flags guesses."
@@ -90,7 +48,6 @@ export default function IndexPage() {
             <nav aria-label="Main navigation" className="sheet-nav">
               <LandingBrand />
               <div className="sheet-nav-links">
-                <a href="#marks">How it answers</a>
                 <a href="#proof">Recording</a>
                 <a href="#privacy">Privacy</a>
                 <a href="/job-application-autofill">Job sites</a>
@@ -103,10 +60,8 @@ export default function IndexPage() {
 
             <div className="sheet-offer">
               <p>
-                Filler is a free Chrome extension that fills{" "}
-                <a href="/job-application-autofill">job applications</a> from a
-                profile you save once. It reads each question, flags its
-                guesses and never submits for you.
+                Save your details once. One click fills what Filler knows. You
+                check it and submit.
               </p>
               <div className="sheet-offer-action">
                 <InstallCta
@@ -123,30 +78,6 @@ export default function IndexPage() {
             </div>
           </div>
         </header>
-
-        <section className="sheet-marks" id="marks">
-          <div className="sheet-inner">
-            <h2>Every answer gets one of three marks.</h2>
-            <div className="sheet-mark-list">
-              {MARKS.map((item) => (
-                <article className="sheet-mark" key={item.title}>
-                  <Bubble mark={item.mark} />
-                  <div className="sheet-mark-copy">
-                    <h3>{item.title}</h3>
-                    <p>{item.text}</p>
-                  </div>
-                  <div className="sheet-mark-example">
-                    <span className="sheet-field-label">{item.ask}</span>
-                    <span className={`sheet-input is-example has-${item.mark}`}>
-                      <span className="sheet-input-value">{item.answer}</span>
-                    </span>
-                    <span className="sheet-mark-source">{item.source}</span>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
 
         <section className="sheet-time" id="time">
           <div className="sheet-inner">
@@ -176,43 +107,12 @@ export default function IndexPage() {
           <div className="sheet-inner">
             <h2>The real extension, at real speed.</h2>
             <DemoVideo />
-            <p>
-              A test application and a made-up applicant, with no sound and no
-              speed-up. The orange outline is what you see on a guess.
+            <p id="handles">
+              On live{" "}
+              <a href="/job-application-autofill">Greenhouse, Lever and Ashby</a>{" "}
+              forms it fills 4 to 9 fields, rarely all. Resumes stay for you.
+              Workday isn&apos;t tested yet.
             </p>
-          </div>
-        </section>
-
-        <section className="sheet-how" id="process">
-          <div className="sheet-inner sheet-how-grid">
-            <div>
-              <h2>Three steps, and the last one is yours.</h2>
-              <ol className="sheet-steps">
-                {STEPS.map((step) => (
-                  <li key={step.title}>
-                    <h3>{step.title}</h3>
-                    <p>{step.text}</p>
-                  </li>
-                ))}
-              </ol>
-            </div>
-            <div className="sheet-where" id="handles">
-              <h3>Where it works</h3>
-              <p>
-                On live{" "}
-                <a href="/job-application-autofill">
-                  Greenhouse, Lever and Ashby
-                </a>{" "}
-                applications it filled 4 to 9 fields in 5 to 6 seconds, which is
-                rarely all of them. On a long Ashby form it filled 5, 2 of them
-                guesses, in 4.7 s. The resume, custom dropdowns and voluntary
-                surveys stay for you. Also Google Forms, Tally, signups and{" "}
-                <a href="/forms">provider credentialing forms</a>. Workday
-                isn&apos;t tested yet.
-              </p>
-              <h3>What it fills</h3>
-              <p>Text fields, dropdowns, radios and long answers.</p>
-            </div>
           </div>
         </section>
 

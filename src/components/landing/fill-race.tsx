@@ -260,11 +260,9 @@ export function FillRace() {
       </div>
 
       <p className="sheet-race-note">
-        Re-creation of a recorded run on a test form with a made-up applicant,
-        same answers and timing. A second run took 5.3 s and left the guess
-        empty. Real applications leave more for you:{" "}
-        <a href="#handles">see where it works</a>. By hand assumes 40 words a
-        minute.
+        Replay of a recorded run on a test form; by hand at 40 words a minute.
+        Real applications leave more for you:{" "}
+        <a href="#handles">see where it works</a>.
       </p>
     </div>
   )

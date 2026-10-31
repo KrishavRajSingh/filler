@@ -100,9 +100,7 @@ export function TimeSheet() {
           {longAnswers > 0
             ? ` + ${longAnswers} × 2.5 min for a 100-word answer`
             : ""}
-          ), at 40 words a minute. This is arithmetic from your answers, not a
-          study. You still read everything, and Filler&apos;s long answers are
-          first drafts.
+          ), at 40 words a minute.
         </p>
       </div>
     </div>
