@@ -37,6 +37,33 @@ export function trackEvent(
   window.umami?.track(name, data)
 }
 
+// Sends once Umami's script has loaded (polls up to timeoutMs). For events fired on page
+// load, where window.umami may not exist yet and trackEvent would drop them silently.
+export function trackEventWhenReady(
+  name: AnalyticsEvent,
+  data?: Record<string, string>,
+  timeoutMs = 5000
+): () => void {
+  if (typeof window === "undefined") {
+    return () => {}
+  }
+
+  let timer: ReturnType<typeof setTimeout> | undefined
+  const started = Date.now()
+  const attempt = () => {
+    if (window.umami) {
+      window.umami.track(name, data)
+      return
+    }
+    if (Date.now() - started < timeoutMs) {
+      timer = setTimeout(attempt, 250)
+    }
+  }
+  attempt()
+
+  return () => clearTimeout(timer)
+}
+
 export function getUmamiConfig(): {
   scriptUrl: string
   websiteId: string

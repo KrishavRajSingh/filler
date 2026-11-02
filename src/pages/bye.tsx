@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 
 import { LandingBrand } from "~components/landing/landing-brand"
 import { PageHead } from "~components/landing/page-head"
-import { trackEvent } from "~lib/analytics"
+import { trackEvent, trackEventWhenReady } from "~lib/analytics"
 import { CHROME_STORE_URL } from "~lib/site"
 
 const REASONS = [
@@ -37,7 +37,8 @@ export default function ByePage() {
 
   useEffect(() => {
     if (!router.isReady) return
-    trackEvent("uninstalled", ref)
+    // Umami's script can still be loading here; wait for it so the event isn't lost
+    return trackEventWhenReady("uninstalled", ref)
     // ref is rebuilt each render from router.query; fire once when it's ready
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.isReady])
