@@ -5,7 +5,7 @@ const UMAMI_WEBSITE_ID =
   process.env.PLASMO_PUBLIC_UMAMI_WEBSITE_ID ??
   "e07db633-ceea-4cf5-b14f-0470d07a92d6"
 
-export type ExtensionEvent = "found_via" | "pass_click" | "pass_offer_shown"
+export type ExtensionEvent = "found_via" | "pass_click" | "pass_offer_shown" | "fill_done"
 
 export function trackExtensionEvent(
   name: ExtensionEvent,

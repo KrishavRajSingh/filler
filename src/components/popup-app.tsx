@@ -52,6 +52,12 @@ export function PopupApp() {
 
       setStatus(response.ok ? "ready" : "error")
       setMessage(response.message)
+      // 11-12: the pass offer was never shown in 30 days; this counts fills so we know if users fill job forms at all
+      trackExtensionEvent("fill_done", {
+        ok: response.ok ? 1 : 0,
+        jobPage: response.ok && response.jobPage ? 1 : 0,
+        longAnswers: response.ok ? response.longAnswers : 0
+      })
 
       if (response.ok && (response.jobPage || response.longAnswers > 0)) {
         setShowPassOffer(true)
