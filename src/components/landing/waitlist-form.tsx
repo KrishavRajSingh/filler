@@ -6,7 +6,18 @@ export function WaitlistForm() {
       action="https://formspree.io/f/mzdwzkjl"
       className="landing-waitlist"
       method="POST"
-      onSubmit={() => trackEvent("waitlist_submit")}>
+      onSubmit={(event) => {
+        trackEvent("waitlist_submit")
+        const email = new FormData(event.currentTarget).get("email")
+        // keepalive lets the auto-reply request finish while the form
+        // navigates to Formspree.
+        fetch("/api/waitlist-reply", {
+          body: JSON.stringify({ email, kind: "beta" }),
+          headers: { "Content-Type": "application/json" },
+          keepalive: true,
+          method: "POST"
+        }).catch(() => {})
+      }}>
       <input name="_subject" type="hidden" value="New Filler beta signup" />
       <input name="source" type="hidden" value="landing-page-close" />
       <label className="landing-waitlist-label" htmlFor="waitlist-email">

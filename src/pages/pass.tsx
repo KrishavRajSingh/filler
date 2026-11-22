@@ -27,9 +27,11 @@ export default function PassPage() {
     event.preventDefault()
     setEmailStatus("sending")
 
+    const formData = new FormData(event.currentTarget)
+
     try {
       const response = await fetch(WAITLIST_URL, {
-        body: new FormData(event.currentTarget),
+        body: formData,
         headers: { Accept: "application/json" },
         method: "POST"
       })
@@ -40,6 +42,13 @@ export default function PassPage() {
 
       trackEvent("pass_email_submit", { from })
       setEmailStatus("sent")
+
+      // Auto-reply; the signup is already saved, so a failed mail stays silent.
+      fetch("/api/waitlist-reply", {
+        body: JSON.stringify({ email: formData.get("email"), kind: "pass" }),
+        headers: { "Content-Type": "application/json" },
+        method: "POST"
+      }).catch(() => {})
     } catch {
       setEmailStatus("error")
     }
