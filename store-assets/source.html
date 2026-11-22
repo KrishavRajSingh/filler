@@ -1,0 +1,243 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #0e7c57;
+    --green-deep: #0a5c41;
+    --paper: #f8fbf7;
+    --graphite: #24262b;
+    --pencil: #ffc629;
+    --mint: #d9f1e2;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #777; font-family: "Archivo", system-ui, sans-serif; color: var(--paper); }
+  .slide {
+    position: relative; width: 1280px; height: 800px; overflow: hidden;
+    background: var(--green); margin-bottom: 20px;
+  }
+  /* OMR timing marks: the left edge of an answer sheet */
+  .track {
+    position: absolute; left: 0; top: 0; bottom: 0; width: 56px;
+    background-image: linear-gradient(var(--graphite), var(--graphite));
+    background-size: 22px 12px; background-repeat: repeat-y;
+    background-position: 20px 22px;
+    -webkit-mask: linear-gradient(#000 0 0);
+  }
+  .track { background: none; }
+  .track i { display: block; width: 22px; height: 12px; background: #101114; margin: 0 0 22px 18px; }
+  .track i:first-child { margin-top: 24px; }
+
+  .copy { position: absolute; left: 96px; top: 92px; width: 400px; }
+  h1 {
+    font-stretch: 75%; font-weight: 800; font-size: 64px; line-height: 0.98;
+    letter-spacing: -0.015em; color: var(--paper); text-wrap: balance;
+  }
+  .copy p {
+    margin-top: 28px; font-size: 22px; line-height: 1.42; font-weight: 420;
+    color: #d6ece0; max-width: 400px; text-wrap: pretty;
+  }
+  .copy p q { quotes: "“" "”"; color: var(--paper); font-weight: 560; }
+
+  .mark {
+    position: absolute; left: 96px; bottom: 54px;
+    font-stretch: 75%; font-weight: 800; font-size: 40px; letter-spacing: -0.015em;
+    color: var(--paper); line-height: 1;
+  }
+  .mark .i { position: relative; display: inline-block; margin-left: 0.05em; }
+  .mark .i::before {
+    content: ""; position: absolute; left: 50%; top: 0.04em; transform: translateX(-50%);
+    width: 0.27em; height: 0.18em; border-radius: 50%; background: var(--pencil);
+  }
+  .mark small {
+    font-stretch: 100%; font-weight: 450; font-size: 17px; letter-spacing: 0;
+    color: #bfe0cf; margin-left: 14px; vertical-align: 6px;
+  }
+
+  /* Real captures sit on a sheet of paper */
+  .shot {
+    position: absolute; overflow: hidden; background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 1px 0 rgba(0,0,0,.08), 0 18px 40px -12px rgba(4,40,27,.55);
+  }
+  .shot .layer { position: absolute; left: 0; top: 0; transform-origin: 0 0; }
+  .shot .layer img { display: block; }
+  .shot .layer svg { position: absolute; left: 0; top: 0; overflow: visible; }
+  .ring { fill: none; stroke: var(--pencil); stroke-linecap: round; stroke-linejoin: round; }
+
+  .tag {
+    position: absolute; background: var(--pencil); color: var(--graphite);
+    font-weight: 650; font-size: 19px; line-height: 1; padding: 11px 16px 12px;
+    border-radius: 999px; white-space: nowrap;
+    box-shadow: 0 10px 24px -10px rgba(4,40,27,.6);
+  }
+  .cap {
+    position: absolute; font-size: 17px; font-weight: 560; color: #cfe8db;
+  }
+
+  /* Promo tile */
+  .tile { position: relative; width: 440px; height: 280px; overflow: hidden; background: var(--green); margin-bottom: 20px; }
+  .tile .track i { width: 14px; height: 8px; margin: 0 0 14px 12px; }
+  .tile .track i:first-child { margin-top: 16px; }
+  .tile .mark { left: 62px; bottom: auto; top: 48px; font-size: 104px; }
+  .tile p {
+    position: absolute; left: 64px; top: 176px; width: 330px;
+    font-size: 23px; line-height: 1.25; font-weight: 520; color: var(--paper); text-wrap: balance;
+  }
+  .icons { display: flex; gap: 20px; align-items: flex-end; background: #fff; padding: 20px; width: max-content; }
+.ico { position: relative; width: calc(var(--s) + 2 * var(--pad)); height: calc(var(--s) + 2 * var(--pad)); }
+  .ico::before { content: ""; position: absolute; inset: var(--pad); background: var(--green); border-radius: calc(var(--s) * 0.23); }
+  .ico b { position: absolute; inset: var(--pad); display: flex; align-items: center; justify-content: center;
+    padding-top: calc(var(--s) * 0.06);
+    font-stretch: 75%; font-weight: 800; font-size: calc(var(--s) * 0.86); line-height: 1; letter-spacing: 0.01em; color: var(--paper); }
+  .ico b span { position: relative; margin-left: 0.04em; }
+  .ico b span::before { content: ""; position: absolute; left: 50%; top: 0.07em; transform: translateX(-50%);
+    width: 0.27em; height: 0.18em; border-radius: 50%; background: var(--pencil); }
+</style>
+</head>
+<body>
+
+<!-- 1: what it does -->
+<section class="slide" id="s1">
+  <div class="track"></div>
+  <div class="copy">
+    <h1>Fills job applications from your profile.</h1>
+    <p>Save your details once. One click fills the form in a few seconds. You check it and press submit.</p>
+  </div>
+  <div class="mark">f<span class="i">ı</span>ller<small>free for Chrome</small></div>
+  <div class="shot" data-src="shots/after.png" data-crop="0 0 1520 1110" style="left:536px;top:48px;width:700px"></div>
+  <div class="shot" data-src="shots/popup.png" data-crop="0 0 760 470" style="left:508px;top:536px;width:330px"></div>
+  <div class="tag" style="left:870px;top:640px">Filled 7 fields in 3.8 s</div>
+</section>
+
+<!-- 2: guesses flagged -->
+<section class="slide" id="s2">
+  <div class="track"></div>
+  <div class="copy">
+    <h1>Guesses are marked, so you know what to check.</h1>
+    <p>When your profile doesn't say, Filler writes a draft and tags it. Here: the graduation year and <q>Why do you want to work here?</q></p>
+  </div>
+  <div class="mark">f<span class="i">ı</span>ller<small>free for Chrome</small></div>
+  <div class="shot" data-src="shots/after.png" data-crop="30 395 1460 725"
+       data-rings="614 605 120 24;1321 769 120 24" style="left:536px;top:180px;width:700px"></div>
+</section>
+
+<!-- 3: saved answers reused -->
+<section class="slide" id="s3">
+  <div class="track"></div>
+  <div class="copy">
+    <h1>Write an answer once. It fits the next form too.</h1>
+    <p>You saved <q>Project I'm proud of</q>. The form asks <q>Tell us about a project you're proud of.</q> Same answer, new wording.</p>
+  </div>
+  <div class="mark">f<span class="i">ı</span>ller<small>free for Chrome</small></div>
+  <div class="cap" style="left:536px;top:112px">In your Filler profile</div>
+  <div class="shot" data-src="shots/options-career.png" data-crop="650 1905 1420 425" style="left:536px;top:142px;width:700px"></div>
+  <div class="cap" style="left:536px;top:402px">On the application</div>
+  <div class="shot" data-src="shots/after.png" data-crop="40 1090 1440 390" style="left:536px;top:432px;width:700px"></div>
+</section>
+
+<!-- 4: blanks + never submits -->
+<section class="slide" id="s4">
+  <div class="track"></div>
+  <div class="copy">
+    <h1>Leaves what it can't know. Never presses submit.</h1>
+    <p>Referral codes, your resume file and the confirm box stay empty for you. Sending the form is always your click.</p>
+  </div>
+  <div class="mark">f<span class="i">ı</span>ller<small>free for Chrome</small></div>
+  <div class="shot" data-src="shots/after.png" data-crop="30 395 1460 1465"
+       data-rings="1113 650 318 40;202 1570 100 30;102 1674 22 22;249 1783 178 44" style="left:536px;top:48px;width:700px"></div>
+  <div class="tag" style="left:760px;top:686px">You press submit</div>
+</section>
+
+<!-- 5: profile -->
+<section class="slide" id="s5">
+  <div class="track"></div>
+  <div class="copy">
+    <h1>Save your details once.</h1>
+    <p>Name, school, work and the answers you reuse. Your profile stays in this browser, and you can edit it any time.</p>
+  </div>
+  <div class="mark">f<span class="i">ı</span>ller<small>free for Chrome</small></div>
+  <div class="shot" data-src="shots/options.png" data-crop="60 530 1600 1000" style="left:536px;top:150px;width:700px"></div>
+</section>
+
+<!-- small promo tile 440x280 -->
+<section class="tile" id="tile">
+  <div class="track"></div>
+  <div class="mark">f<span class="i">ı</span>ller</div>
+  <p>Fills job applications from your profile.</p>
+</section>
+
+<!-- icon -->
+<div class="icons">
+  <div class="ico" id="icon128" style="--s:96px;--pad:16px"><b>f<span>ı</span></b></div>
+  <div class="ico" id="icon512" style="--s:512px;--pad:0px"><b>f<span>ı</span></b></div>
+  <div class="ico" style="--s:48px;--pad:0px"><b>f<span>ı</span></b></div>
+  <div class="ico" style="--s:16px;--pad:0px"><b>f<span>ı</span></b></div>
+</div>
+
+<script>
+  // Store icon: 96x96 art inside 128 with transparent padding. Extension icon: full bleed.
+  function iconSvg(pad) {
+    const s = 128 - pad * 2, c = 64, r = s * 0.23
+    const rx = s * 0.33, ry = s * 0.225
+    let strokes = ""
+    // pencil scribble, like a bubble filled by hand
+    const n = 7
+    for (let k = 0; k < n; k++) {
+      const x = c - rx + (2 * rx) * (k + 0.5) / n
+      strokes += `M${x - 6} ${c + ry + 4} L${x + 6} ${c - ry - 4} `
+    }
+    // "f" from the wordmark (Archivo, 75% width, 800) + the wordmark's pencil-filled bubble
+    const fx = pad + s * 0.40, fy = pad + s * 0.86
+    return `
+      <rect x="${pad}" y="${pad}" width="${s}" height="${s}" rx="${r}" fill="#0e7c57"/>
+      <text x="${fx}" y="${fy}" text-anchor="middle" fill="#f8fbf7"
+        style="font-family:Archivo;font-variation-settings:'wdth' 75;font-stretch:75%;font-weight:800;font-size:${s * 0.98}px">f</text>
+      <ellipse cx="${pad + s * 0.72}" cy="${pad + s * 0.27}" rx="${s * 0.155}" ry="${s * 0.11}" fill="#ffc629"/>`
+  }
+  
+  
+  
+
+  document.querySelectorAll(".track").forEach(t => {
+    const h = t.parentElement.offsetHeight
+    const step = t.parentElement.classList.contains("tile") ? 22 : 34
+    t.innerHTML = "<i></i>".repeat(Math.floor(h / step))
+  })
+
+  document.querySelectorAll(".shot").forEach(el => {
+    const [x, y, w, h] = el.dataset.crop.split(" ").map(Number)
+    const W = parseFloat(el.style.width), s = W / w
+    el.style.height = h * s + "px"
+    const layer = document.createElement("div")
+    layer.className = "layer"
+    layer.style.transform = `scale(${s}) translate(${-x}px, ${-y}px)`
+    const img = new Image(); img.src = el.dataset.src
+    layer.appendChild(img)
+    img.onload = () => {
+      if (!el.dataset.rings) return
+      const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg")
+      svg.setAttribute("width", img.naturalWidth); svg.setAttribute("height", img.naturalHeight)
+      el.dataset.rings.split(";").forEach((r, i) => {
+        const [cx, cy, rx, ry] = r.trim().split(" ").map(Number)
+        // a hand-drawn ring: slightly more than one turn, a little off-round
+        let d = ""
+        for (let t = 0; t <= 1.12; t += 0.01) {
+          const a = t * Math.PI * 2 - 2.2 + i
+          const wob = 1 + 0.04 * Math.sin(t * 9 + i)
+          const px = cx + (rx + 10) * wob * Math.cos(a), py = cy + (ry + 10) * wob * Math.sin(a)
+          d += (t === 0 ? "M" : "L") + px.toFixed(1) + " " + py.toFixed(1) + " "
+        }
+        const p = document.createElementNS("http://www.w3.org/2000/svg", "path")
+        p.setAttribute("d", d); p.setAttribute("class", "ring"); p.setAttribute("stroke-width", 5 / s)
+        svg.appendChild(p)
+      })
+      layer.appendChild(svg)
+    }
+    el.appendChild(layer)
+  })
+</script>
+</body>
+</html>
