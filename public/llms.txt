@@ -17,7 +17,21 @@
 - [Greenhouse autofill](https://filler.live/autofill/greenhouse)
 - [Lever autofill](https://filler.live/autofill/lever)
 - [Ashby autofill](https://filler.live/autofill/ashby)
-- [Form guides (NPI, DEA Form 224, CMS-855I)](https://filler.live/forms)
+- [Form guides](https://filler.live/forms): step-by-step guides for long provider forms
+- [NPI application](https://filler.live/forms/npi-application)
+- [DEA registration, Form 224](https://filler.live/forms/dea-registration-form-224)
+- [Medicare enrollment, CMS-855I](https://filler.live/forms/medicare-enrollment-cms-855i)
+- [CAQH ProView profile, section by section](https://filler.live/forms/caqh-proview)
+- [Florida Medicaid provider enrollment](https://filler.live/forms/florida-medicaid-provider-enrollment)
+- [New York Medicaid provider enrollment (eMedNY)](https://filler.live/forms/new-york-medicaid-provider-enrollment)
+- [Texas Medicaid provider enrollment (PEMS)](https://filler.live/forms/texas-medicaid-provider-enrollment)
+
+## Blog
+
+- [Blog](https://filler.live/blog)
+- [Best autofill tools for different form types in 2026](https://filler.live/blog/best-autofill-tools)
+- [Form automation software: what it is and why it matters](https://filler.live/blog/form-automation-software)
+- [How to fill forms faster](https://filler.live/blog/how-to-fill-forms-faster)
 
 ## Comparisons
 
